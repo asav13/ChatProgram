@@ -1,4 +1,14 @@
-angular.module("chatApp", []);
+angular.module("chatApp", ["ngRoute"]).config(function($routeProvider){
+	$routeProvider
+	.when("/login", {
+		templateUrl: "src/login/login.html",
+		controller: "LoginController"
+	})
+	.otherwise({
+		templateUrl: "index.html",
+		controller: "HomeController"
+	})
+});
 
 angular.module('chatApp').controller('HomeController',function($scope){
 	$scope.username = '';
@@ -12,3 +22,5 @@ angular.module('chatApp').controller('HomeController',function($scope){
 		});
 	};
 });
+
+

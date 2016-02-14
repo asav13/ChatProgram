@@ -1,21 +1,18 @@
 <html ng-app="chatApp">
 <head>
+	<title>Le chat !</title>
+
+
+</head>
+<body>
+	<h1>Hello from index</h1>
+	<div ng-view></div>
 	<script src="node_modules/angular/angular.js"></script>
 	<script src="node_modules/angular-route/angular-route.js"></script>
 	<script src="node_modules/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 	<script src="src/app.js"></script>
-	<script src="src/home/HomeController.js"></script>
-</head>
-<body ng-controller="HomeController">
-
-	<form name="loginForm">
-		<input type="text" ng-model="username" required/>
-
-		The username : {{username}} is {{available?'available':'not available'}}
-
-		<button ng-click="login()" ng-show="loginForm.$valid">Login</button>
-	</form>
+	<script src="src/login/LoginController.js"></script>
 
 </body>
 </html>
