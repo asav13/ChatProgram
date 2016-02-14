@@ -8,7 +8,7 @@ In order for everything to work properly one must first run:
 ```
 inside /client and /server to install neccessary dependencies.
 
-To start the chat program do the following:
+To start the chat program do the following:<br>
 -Inside the /server folder run:
 ```
 	node chatServer.js
