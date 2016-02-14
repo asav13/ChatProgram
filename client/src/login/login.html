@@ -1,0 +1,21 @@
+<html ng-app="chatApp">
+<head>
+
+</head>
+<body ng-controller="logincontroller">
+
+	<div ng-view>
+
+	</div>
+	<p> HELLO THIS IS LOGIN.HTML</p>
+
+	<form name="loginForm">
+		<input type="text" ng-model=" username" required/>
+
+		The username : {{username}} is {{available?'available':'not available'}}
+
+		<button ng-click="login()" ng-show="loginForm.$valid">Login</button>
+	</form>
+
+</body>
+</html>
