@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat');
 
 gulp.task('minify', function () {
-	gulp.src(['src/*.js'])
+	gulp.src(['src/**/*.js'])
 	.pipe(uglify())
 	.pipe(rename({
 		suffix: '.min'
@@ -13,14 +13,14 @@ gulp.task('minify', function () {
 });
 
 gulp.task('concat', function() {
-	gulp.src('src/*.js')
+	gulp.src('src/**/*.js')
 	.pipe(concat('app.js'))
 	.pipe(gulp.dest('build'))
 });
 
 //First minify then concat
 gulp.task('minAndConcat', function () {
-	return gulp.src(['src/*.js'])
+	return gulp.src(['src/**/*.js'])
 		.pipe(uglify())
 		.pipe(concat('app.min.js'))
 		.pipe(gulp.dest('build'))
