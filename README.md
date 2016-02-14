@@ -1,6 +1,6 @@
 # ChatProgram
 
-You need node.js to run the server, and Python2 to run the client.
+You need node.js to run the server, and Python to run the client.
 
 In order for everything to work properly one must first run:
 ```
