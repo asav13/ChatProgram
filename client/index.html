@@ -1,26 +1,14 @@
 <html ng-app="chatApp">
 <head>
-	<script src="../node_modules/angular/angular.js"></script>
-	<script src="../node_modules/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="../node_modules/socket.io-client/dist/socket.io.js"></script>
-	<script>
-		angular.module('chatApp',[]);
-
-		angular.module('chatApp').controller('homecontroller',function($scope){
-			$scope.username = '';
-
-			$scope.login = function(){
-				var socket = io.connect('http://localhost:8080');
-				socket.emit("adduser", $scope.username, function(available){
-					$scope.available = available;
-					$scope.$apply();
-				});
-			};
-		});
-	</script>
+	<script src="node_modules/angular/angular.js"></script>
+	<script src="node_modules/angular-route/angular-route.js"></script>
+	<script src="node_modules/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+	<script src="src/app.js"></script>
+	<script src="src/home/HomeController.js"></script>
 </head>
-<body ng-controller="homecontroller">
-	<div ng-view></div>
+<body ng-controller="HomeController">
+
 	<form name="loginForm">
 		<input type="text" ng-model="username" required/>
 
