@@ -11,7 +11,8 @@ module.exports = function ( grunt ) {
 					"node":	true,	// unless we want "use strict"; inside every function...
 					"globals": {
 						"$": 	true,
-						"Console": 	true,
+						"console": 	true,
+						"io":		true,
 						"$routeProvider": true,
 						"document": true,
 						"module":	true,

@@ -11,7 +11,7 @@ function ChatController($scope, $location, ChatResource){
 			var aRoom = {
 				name: "Iceland30+",
 				topic: "A topic"
-			}
+			};
 			$scope.rooms = [roomlist];
 			$scope.rooms[0].name = "Lobby"; // this is a skitamix.....how do I get the name ?!
 			$scope.rooms[$scope.rooms.length] = aRoom;

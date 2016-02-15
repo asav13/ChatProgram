@@ -1,4 +1,4 @@
-angular.module("chatApp", ["ngRoute"]).config(function($routeProvider){
+angular.module("chatApp", ["ngRoute", "ui.bootstrap"]).config(function($routeProvider){
 	$routeProvider
 	.when("/", {
 		templateUrl: "src/home/home.html",
