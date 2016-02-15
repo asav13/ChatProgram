@@ -33,6 +33,15 @@ function ChatResource($rootScope) {
 			});
 		},
 
+		getUsers: function(callback) {
+			socket.emit("users", function(data){
+				console.log("users " + data);
+				$rootScope.$apply(function (){
+					callback.apply(socket, [data]);
+				});
+			});
+		},
+
 		/* Called when waiting for response */
 		on: function (event, callback) {
 			socket.on(event, function (data) {

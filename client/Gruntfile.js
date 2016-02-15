@@ -17,7 +17,7 @@ module.exports = function ( grunt ) {
 						"module":	true,
 						"angular":	true	// Making sure jshint doesn't complain about angular
 					},
-			 	},
+			},
 		}
 	};
 	grunt.initConfig(taskConfig);
