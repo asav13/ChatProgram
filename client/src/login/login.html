@@ -1,11 +1,9 @@
-<div>Login</div>
+<form name="loginForm">
+	<input type="text" ng-model="username" required/>
+	<p>Info: {{logininfo}}</p>
+	<button ng-click="login()" ng-show="loginForm.$valid">Login</button>
+</form>
 
-<p> HELLO THIS IS LOGIN.HTML</p>
-
-	<form name="loginForm">
-		<input type="text" ng-model=" username" required/>
-
-		The username : {{username}} is {{available?'available':'not available'}}
-
-		<button ng-click="login()" ng-show="loginForm.$valid">Login</button>
-	</form>
+	<ul ng-show="online">Available Chat Rooms (TODO: Howe do we get the name?....no variable called name, using topic for now)
+		<li ng-repeat="room in rooms">{{room.topic}}</li>
+	</ul>
