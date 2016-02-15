@@ -8,7 +8,7 @@ function LoginController($scope, $location, ChatResource){
 	$scope.rooms = [];
 
 	$scope.login = function() {
-		ChatResource.login($scope.username, function (available) {
+		ChatResource.login($scope.username).then(function (available){
 			if(available) {
 				$scope.logininfo = "Welcome " + $scope.username + "!";
 				$scope.online = true;
