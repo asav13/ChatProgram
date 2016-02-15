@@ -11,6 +11,8 @@ angular.module("chatApp", ["ngRoute"]).config(function($routeProvider){
 	.when("/chat", {
 		templateUrl: "src/chat/chat.html",
 		controller: "ChatController"
-	})	
+	})
+	.otherwise({
+		redirectTo: "src/home/home.html" 
+	});
 });
-
