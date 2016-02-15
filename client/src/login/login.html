@@ -1,6 +1,11 @@
 <h1>Welcome to Le Chat!</h1>
 <form name="loginForm">
-	<input type="text" placeholder="Pick a user name" autofocus="" ng-model="username" required/>
-	<p>{{logininfo}}</p>
+	<input 		type="text" 
+				placeholder="Pick a user name" 
+				autofocus="" 
+				required="required" 
+				pattern="[a-zA-Z1-9]+"
+				ng-model="username" />
+	<div ng-show="loginForm.$invalid">{{logininfo}}</div>
 	<button ng-click="login()" ng-show="loginForm.$valid">Login</button>
 </form>

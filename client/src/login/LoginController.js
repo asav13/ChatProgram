@@ -3,7 +3,7 @@
 angular.module('chatApp').controller('LoginController', 
 function LoginController($scope, $location, ChatResource){
 
-	$scope.logininfo = "Please pick a username.";
+	$scope.logininfo = "A valid username includes only letters and digits.";
 	$scope.online = false;
 	$scope.rooms = [];
 
