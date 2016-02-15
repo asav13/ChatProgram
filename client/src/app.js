@@ -8,5 +8,9 @@ angular.module("chatApp", ["ngRoute"]).config(function($routeProvider){
 		templateUrl: "src/login/login.html",
 		controller: "LoginController"
 	})
+	.when("/chat", {
+		templateUrl: "src/chat/chat.html",
+		controller: "ChatController"
+	})	
 });
 

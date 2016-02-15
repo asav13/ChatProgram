@@ -15,6 +15,7 @@ function ChatResource($rootScope) {
 	return {
 		/* Called by LoginController */
 		login: function (username, callback) {
+			$rootScope.username = username;
 			console.log("DEB: Inside chat resource login " + username);
 			socket.emit("adduser", username, function(data) {
 				$rootScope.$apply(function () {
