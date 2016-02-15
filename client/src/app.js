@@ -13,6 +13,6 @@ angular.module("chatApp", ["ngRoute"]).config(function($routeProvider){
 		controller: "ChatController"
 	})
 	.otherwise({
-		redirectTo: "src/home/home.html" 
+		templateUrl: "src/home/home.html" 
 	});
 });
