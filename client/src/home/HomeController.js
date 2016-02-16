@@ -7,7 +7,6 @@ function HomeController($scope, ChatResource){
 
 	ChatResource.getUsers();
 	ChatResource.on("userlist", function (userlist) {
-		console.log("DEB: Userlist: " + userlist);
 		if(userlist){
 			$scope.users = userlist;
 		} else {

@@ -1,0 +1,12 @@
+<h1>{{joinedRoom.name}}</h1>
+
+<h2>Topic:</h2>
+	<p>{{joinedRoom.topic}}</p>
+<h2>Users:</h2>
+	<ul>
+		<li ng-repeat="u in joinedRoom.users">{{u}}</li>
+	</ul>
+<h2>Ops:</h2>
+	<ul>
+		<li ng-repeat="op in joinedRoom.ops">{{op}}</li>
+	</ul>

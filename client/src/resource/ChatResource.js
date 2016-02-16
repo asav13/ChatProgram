@@ -38,8 +38,25 @@ function ChatResource($rootScope, $q) {
 			});
 		},
 
+		createRoom: function(newRoom, callback) {
+			var deferred = $q.defer();
+			socket.emit("joinroom", newRoom, function(data,err){
+				deferred.resolve(data);
+			});
+			return deferred.promise;
+		},
+
+		setTopic: function(data, callback){
+			console.log("DEB in ChatResource.setTopic");
+			socket.emit("setTopic", data, function(data,err){
+				console.log("DEB: Inside ChatResource.setTopic data is");
+				console.log(data);
+			});
+		}, 
+
 		/* Called when waiting for response */
 		on: function (event, callback) {
+			var deferred = $q.defer();
 			socket.on(event, function (data) {
 				$rootScope.$apply(function () {
 					callback.apply(socket, [data]);

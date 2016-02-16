@@ -6,6 +6,7 @@
 				required="required" 
 				pattern="[a-zA-Z1-9]+"
 				ng-model="username" />
-	<div ng-show="loginForm.$invalid">{{logininfo}}</div>
+	<p>{{logininfo}}</p>
+	<div ng-show="loginForm.$invalid">A valid username includes only letters and digits.</div>
 	<button ng-click="login()" ng-show="loginForm.$valid">Login</button>
 </form>

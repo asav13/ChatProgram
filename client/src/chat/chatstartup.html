@@ -1,0 +1,20 @@
+<h1>Hi {{username}} ! You're ready to start chatting.</h1>
+<p> Pick a room.. </p>
+<select size="10" ng-options="room as room.name for room in rooms" ng-model="selectedRoom"></select>
+
+<div>Topic: {{selectedRoom.topic}}</div>
+
+<button ng-click="join(selectedRoom)">Join</button>
+
+<p>..or create a new one: </p>
+<form name="newRoomForm">
+	<input 		type="text" 
+				placeholder="New chat room name" 
+				autofocus="autofocus" 
+				required="required" 
+				pattern="[a-zA-Z1-9]+"
+				ng-model="newRoomName" />
+
+	<div ng-show="newRoomForm.$invalid">A valid chat room name includes only letters and digits.</div>
+	<button ng-click="createRoom()" ng-show="newRoomForm.$valid">Create</button>
+</form>

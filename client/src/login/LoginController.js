@@ -3,7 +3,7 @@
 angular.module('chatApp').controller('LoginController', 
 function LoginController($scope, $location, ChatResource){
 
-	$scope.logininfo = "A valid username includes only letters and digits.";
+	$scope.logininfo = "";
 	$scope.online = false;
 	$scope.rooms = [];
 
@@ -13,7 +13,7 @@ function LoginController($scope, $location, ChatResource){
 				$scope.logininfo = "Welcome " + $scope.username + "!";
 				$scope.online = true;
 				// And redirect to the chat area
-				$location.path('/chat');
+				$location.path('/chatrooms');
 			} else{ 
 				$scope.logininfo = "Username " + "'" + $scope.username + "' " + "not available.";
 			}
