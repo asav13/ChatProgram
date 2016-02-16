@@ -8,7 +8,6 @@ function ChatController($scope, $rootScope, $location, ChatResource){
 
 	// When we get an "roomlist" event, we update the roomlist
 	ChatResource.on("roomlist", function (roomlist) {
-		console.log(roomlist);
 		if(roomlist){
 			var temp = [];
 			for(var i in roomlist){
@@ -41,12 +40,12 @@ function ChatController($scope, $rootScope, $location, ChatResource){
 
 		ChatResource.createRoom(newRoom).then(function(success, err){
 			if(success){
-				var leRoom = {room: $scope.newRoomName, topic: "updated topic..."};
-				ChatResource.setTopic(leRoom, function(success, err){
-					console.log("DEB: success in chat controller after set topic");
-					console.log(success);
-				});
-
+			//	var leRoom = {room: $scope.newRoomName, topic: "updated topic..."};
+			//	ChatResource.setTopic(leRoom, function(success, err){
+			//		console.log("DEB: success in chat controller after set topic");
+			//		console.log(success);
+			//	});
+			// TODO set topic
 			} else {
 				console.log("ERROR: " + err);
 			}
