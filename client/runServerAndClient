@@ -1,0 +1,5 @@
+#!/bin/sh
+cd ../server
+node ChatServer.js &
+cd ../client
+"C:\Program Files (x86)\python\python.exe" -m SimpleHTTPServer 8000 &

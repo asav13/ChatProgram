@@ -1,9 +1,9 @@
 "use strict";
 
 angular.module('chatApp').controller('ChatController', 
-function ChatController($scope, $rootScope, $location, ChatResource){
+function ChatController($scope, $rootScope, $location, ChatResource, UserService){
 
-	$scope.online = true; // WHY do we need to do this?! I though it should stay between pages..
+	$scope.online = UserService.getOnlineStatus();
 	ChatResource.getRoomList();
 
 	// When we get an "roomlist" event, we update the roomlist
@@ -35,7 +35,7 @@ function ChatController($scope, $rootScope, $location, ChatResource){
 	$scope.createRoom = function() {
 		var newRoom = {
 			room: $scope.newRoomName,
-			topic: "lala"
+			topic: "lala",
 		};
 
 		ChatResource.createRoom(newRoom).then(function(success, err){
@@ -52,11 +52,20 @@ function ChatController($scope, $rootScope, $location, ChatResource){
 		});
 	};
 
-	$scope.join = function(r) {
+	$scope.join = function() {
 		var room = $scope.selectedRoom;
-		$rootScope.joinedRoom = room;
-	
-		$location.path("/chatrooms/" + room.name);
-		
+		var roomObj = {
+			room: $scope.newRoomName,
+		};
+
+		ChatResource.joinRoom(room).then(function(success,err){
+			if(success){
+				$rootScope.joinedRoom = room;
+				$location.path("/chatrooms/" + room.name);
+				UserService.addRoom(room);
+			} else {
+				console.log("ERROR: Error while trying to join room.");s
+			}
+		});
 	};
 });

@@ -1,8 +1,10 @@
 "use strict";
 
 angular.module('chatApp').controller('HomeController', 
-function HomeController($scope, ChatResource){
+function HomeController($scope, $location, ChatResource, UserService){
 
+	$scope.online = UserService.getOnlineStatus();
+	console.log("DEB: Some1 online: " + $scope.online);
 	$scope.users = [];
 
 	ChatResource.getUsers();
@@ -13,4 +15,7 @@ function HomeController($scope, ChatResource){
 			console.log("ERROR: Error fetching users.");
 		}
 	});
+
+
 });
+

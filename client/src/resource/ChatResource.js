@@ -10,6 +10,7 @@
 
 angular.module("chatApp").factory("ChatResource", 
 function ChatResource($rootScope, $q) {
+	// This should only be run once, according to DEB info it seems to work
 	var socket = io.connect('http://localhost:8080');
 
 	return {
@@ -24,6 +25,11 @@ function ChatResource($rootScope, $q) {
 				deferred.resolve(available);
 				});
 				return deferred.promise;
+		},
+
+		logout: function () {
+			console.log("disc");
+			socket.emit("logout");
 		},
 
 		/* Called for example by LoginController when user has loged on */
@@ -41,6 +47,18 @@ function ChatResource($rootScope, $q) {
 		createRoom: function(newRoom, callback) {
 			var deferred = $q.defer();
 			socket.emit("joinroom", newRoom, function(data,err){
+				deferred.resolve(data);
+			});
+			return deferred.promise;
+		},
+
+		joinRoom: function(room, callback) {
+			var obj = {
+				room: room.name,
+			};
+
+			var deferred = $q.defer();
+			socket.emit("joinroom", obj, function(data,err){
 				deferred.resolve(data);
 			});
 			return deferred.promise;

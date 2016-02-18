@@ -1,5 +1,6 @@
 <h1>Welcome to Le Chat!</h1>
-<form name="loginForm">
+
+<form ng-hide="online" name="loginForm">
 	<input 		type="text" 
 				placeholder="Pick a user name" 
 				autofocus="" 
@@ -10,3 +11,8 @@
 	<div ng-show="loginForm.$invalid">A valid username includes only letters and digits.</div>
 	<button ng-click="login()" ng-show="loginForm.$valid">Login</button>
 </form>
+
+<p ng-show="online">Hi {{username}}!</p>
+<a href ="#/chatrooms" ng-show="online">Go to chatrooms!</a>
+<button ng-click="logout()" ng-show="online">Log out</button>
+<br>

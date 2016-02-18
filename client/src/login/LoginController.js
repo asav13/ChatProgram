@@ -1,13 +1,16 @@
 "use strict";
 
 angular.module('chatApp').controller('LoginController', 
-function LoginController($scope, $location, ChatResource){
+function LoginController($scope, $location, ChatResource, UserService){
 
 	$scope.logininfo = "";
-	$scope.online = false;
+	$scope.online = UserService.getOnlineStatus();
+	console.log("DEB: scope online in login controller is " + $scope.online);
 	$scope.rooms = [];
 
 	$scope.login = function() {
+		UserService.login($scope.username);
+
 		ChatResource.login($scope.username).then(function (available){
 			if(available) {
 				$scope.logininfo = "Welcome " + $scope.username + "!";
@@ -18,5 +21,18 @@ function LoginController($scope, $location, ChatResource){
 				$scope.logininfo = "Username " + "'" + $scope.username + "' " + "not available.";
 			}
 		});
+	};
+
+	$scope.logout = function() {
+		UserService.logout();
+		$scope.online = false;
+		$location.path('/#'); // redirect
+		console.log("TODO: Log out server side");
+		ChatResource.logout();
+		/*{
+			console.log("DEB: After logout in login controller");
+			console.log(data);
+		});*/
+		//TODO logout server side
 	};
 });
