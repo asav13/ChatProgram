@@ -51,9 +51,7 @@ function UserService() {
 				console.log("ERROR: No user logged in but trying to join room");
 			} else {
 				var room = room_par;
-				console.log("DEB: added room");
 				userinfo.rooms.push(room);
-				console.log(userinfo.rooms);
 			}
 		}
 	};

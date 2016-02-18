@@ -4,7 +4,6 @@ angular.module('chatApp').controller('HomeController',
 function HomeController($scope, $location, ChatResource, UserService){
 
 	$scope.online = UserService.getOnlineStatus();
-	console.log("DEB: Some1 online: " + $scope.online);
 	$scope.users = [];
 
 	ChatResource.getUsers();
