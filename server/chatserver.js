@@ -254,6 +254,14 @@ io.sockets.on('connection', function (socket) {
 		socket.emit('roomlist', rooms);
 	});
 
+	//Returns a list of all avaliable rooms.
+	socket.on('roomUsers', function(room) {
+		var users = rooms[room].users;
+		socket.emit('roomUserlist', users);
+	});	
+
+
+
 	//Returns a list of all connected users.
 	socket.on('users', function() {
 		var userlist = [];

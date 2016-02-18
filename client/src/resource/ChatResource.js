@@ -39,6 +39,12 @@ function ChatResource($rootScope, $q) {
 			});
 		},
 
+		getRoomUsers: function (room, callback) {
+			socket.emit("roomUsers", room, function(data,err) {
+			// No need to do anything, will call on
+			});
+		},
+
 		getUsers: function(callback) {
 			socket.emit("users", function(data) {
 			});
@@ -74,6 +80,8 @@ function ChatResource($rootScope, $q) {
 
 		/* Called when waiting for response */
 		on: function (event, callback) {
+			console.log("event	 INSIDE ON");
+			console.log(event);
 			var deferred = $q.defer();
 			socket.on(event, function (data) {
 				$rootScope.$apply(function () {

@@ -7,6 +7,10 @@ function HomeController($scope, $location, ChatResource, UserService){
 	console.log("DEB: Some1 online: " + $scope.online);
 	$scope.users = [];
 
+	while(true){
+		console.log("x");
+	}
+
 	ChatResource.getUsers();
 	ChatResource.on("userlist", function (userlist) {
 		if(userlist){
@@ -15,7 +19,5 @@ function HomeController($scope, $location, ChatResource, UserService){
 			console.log("ERROR: Error fetching users.");
 		}
 	});
-
-
 });
 

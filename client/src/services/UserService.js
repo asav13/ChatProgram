@@ -28,6 +28,9 @@ function UserService() {
 		getUsername: function () {
 			return userinfo.name;
 		},
+		getUserRooms: function () {
+			return userinfo.rooms;
+		},
 
 		getOnlineStatus: function () {
 			return online;
