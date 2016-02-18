@@ -33,6 +33,8 @@ function ChatController($scope, $rootScope, $location, ChatResource, UserService
 	});	
 
 	$scope.createRoom = function() {
+		console.log("new room name in create");
+		console.log($scope.newRoomName);
 		var newRoom = {
 			room: $scope.newRoomName,
 			topic: "lala",
@@ -54,6 +56,8 @@ function ChatController($scope, $rootScope, $location, ChatResource, UserService
 
 	$scope.join = function() {
 		var room = $scope.selectedRoom;
+		console.log("selected room in join");
+		console.log(room);
 		var roomObj = {
 			room: $scope.newRoomName,
 		};
