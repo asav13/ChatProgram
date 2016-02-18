@@ -28,7 +28,6 @@ function ChatResource($rootScope, $q) {
 		},
 
 		logout: function () {
-			console.log("disc");
 			socket.emit("logout");
 		},
 
@@ -71,17 +70,13 @@ function ChatResource($rootScope, $q) {
 		},
 
 		setTopic: function(data, callback){
-			console.log("DEB in ChatResource.setTopic");
 			socket.emit("setTopic", data, function(data,err){
-				console.log("DEB: Inside ChatResource.setTopic data is");
-				console.log(data);
 			});
 		}, 
 
 		/* Called when waiting for response */
 		on: function (event, callback) {
-			console.log("event	 INSIDE ON");
-			console.log(event);
+			console.log("Event received:" + event);
 			var deferred = $q.defer();
 			socket.on(event, function (data) {
 				$rootScope.$apply(function () {

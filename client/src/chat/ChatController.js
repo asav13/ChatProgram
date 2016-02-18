@@ -33,18 +33,12 @@ function ChatController($scope, $rootScope, $location, ChatResource, UserService
 	});
 
 	ChatResource.on("updateusers", function(data,err){
-		console.log("data"); console.log(data);
-		console.log("err");  console.log(err);
-
+		if(!UserService.getOnlineStatus()) {
+			return;
+		} 
 		var roomsUserIsIn = UserService.getUserRooms();
-		console.log("Rooms user is in");
-		console.log(roomsUserIsIn);
-		for(var i in roomsUserIsIn){
-			console.log(i.name);
-		}
-		console.log("Data er " + data.toString());
+
 		if(roomsUserIsIn.find(x => x.name == data.toString()) !== undefined){
-			console.log("in if");
 			ChatResource.getRoomUsers(data.toString());
 			ChatResource.on("roomUserlist", function (data,err){
 				if(data){
@@ -61,11 +55,8 @@ function ChatController($scope, $rootScope, $location, ChatResource, UserService
 
 
 	$scope.createRoom = function() {
-		console.log("new room name in create");
-		console.log($scope.newRoomName);
 		var newRoom = {
-			room: $scope.newRoomName,
-			topic: "lala",
+			room: $scope.newRoomName
 		};
 
 		ChatResource.createRoom(newRoom).then(function(success, err){
@@ -84,8 +75,6 @@ function ChatController($scope, $rootScope, $location, ChatResource, UserService
 
 	$scope.join = function() {
 		var room = $scope.selectedRoom;
-		console.log("selected room in join");
-		console.log(room);
 		var roomObj = {
 			room: $scope.newRoomName,
 		};
