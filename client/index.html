@@ -2,11 +2,11 @@
 <head>
 	<title>Le chat !</title>
 </head>
-
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
+				<p>ADD LOGO AND PROJECT NAME HERE</p>
 				<a href="#/">Home</a>
 				<a href="#/login">Login</a>
 			</div>
@@ -18,6 +18,7 @@
 	<script src="node_modules/angular-bootstrap/ui-bootstrap.js"></script>	
 	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="src/css/style.css" type="text/css">
 	<script src="src/app.js"></script>
 	<script src="src/login/LoginController.js"></script>
 	<script src="src/home/HomeController.js"></script>
@@ -25,9 +26,9 @@
 	<script src="src/resource/ChatResource.js"></script>
 	<script src="src/services/UserService.js"></script>
 
-	<div class="container" ng-view></div>
+	<div class="container margin" ng-view></div>
 
-	<footer>
+	<footer class="container">
 		Created by: asav13@ru.is, laurar14@ru.is, vedise13@ru.is (this is a footer element, TODO make pretty)
 	</footer>
 
