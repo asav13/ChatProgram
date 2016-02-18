@@ -30,7 +30,35 @@ function ChatController($scope, $rootScope, $location, ChatResource, UserService
 		// When we get an "update chat" event, we update the roomlist
 		// update users inside the room etc
 		ChatResource.getRoomList();
-	});	
+	});
+
+	ChatResource.on("updateusers", function(data,err){
+		console.log("data"); console.log(data);
+		console.log("err");  console.log(err);
+
+		var roomsUserIsIn = UserService.getUserRooms();
+		console.log("Rooms user is in");
+		console.log(roomsUserIsIn);
+		for(var i in roomsUserIsIn){
+			console.log(i.name);
+		}
+		console.log("Data er " + data.toString());
+		if(roomsUserIsIn.find(x => x.name == data.toString()) !== undefined){
+			console.log("in if");
+			ChatResource.getRoomUsers(data.toString());
+			ChatResource.on("roomUserlist", function (data,err){
+				if(data){
+					$scope.joinedRoom.users = data;
+				}else {
+					console.log("ERROR: " + err);
+				}
+
+			});
+		}
+
+	});
+
+
 
 	$scope.createRoom = function() {
 		console.log("new room name in create");
@@ -67,6 +95,17 @@ function ChatController($scope, $rootScope, $location, ChatResource, UserService
 				$rootScope.joinedRoom = room;
 				$location.path("/chatrooms/" + room.name);
 				UserService.addRoom(room);
+
+				ChatResource.getRoomUsers(room.name);
+				ChatResource.on("roomUserlist", function (data,err){
+				if(data){
+					$scope.joinedRoom.users = data;
+				}else {
+					console.log("ERROR: " + err);
+				}
+			});
+
+
 			} else {
 				console.log("ERROR: Error while trying to join room.");s
 			}

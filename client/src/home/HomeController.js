@@ -15,7 +15,5 @@ function HomeController($scope, $location, ChatResource, UserService){
 			console.log("ERROR: Error fetching users.");
 		}
 	});
-
-
 });
 

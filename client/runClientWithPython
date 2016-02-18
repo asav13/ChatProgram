@@ -1,2 +1,2 @@
 #!/bin/sh
-"C:\Program Files (x86)\python\python.exe" -m SimpleHTTPServer 8000
+"C:\Python27\python.exe" -m SimpleHTTPServer 8000
