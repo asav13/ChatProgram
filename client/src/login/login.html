@@ -9,7 +9,7 @@
 				ng-model="username" />
 	<p>{{logininfo}}</p>
 	<div ng-show="loginForm.$invalid">A valid username includes only letters and digits.</div>
-	<button ng-click="login()" ng-show="loginForm.$valid">Login</button>
+	<button class="btn btn-primary" ng-click="login()" ng-show="loginForm.$valid">Login</button>
 </form>
 
 <p ng-show="online">Hi {{username}}!</p>
