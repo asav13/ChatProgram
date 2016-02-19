@@ -6,6 +6,7 @@ function HomeController($scope, $location, ChatResource, UserService){
 	$scope.online = UserService.getOnlineStatus();
 	$scope.users = [];
 
+
 	ChatResource.getUsers();
 	ChatResource.on("userlist", function (userlist) {
 		if(userlist){

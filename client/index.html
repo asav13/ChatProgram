@@ -1,31 +1,33 @@
 <html ng-app="chatApp">
 <head>
 	<title>Le chat !</title>
-</head>
-<body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<p>ADD LOGO AND PROJECT NAME HERE</p>
-				<a href="#/">Home</a>
-				<a href="#/login">Login</a>
-			</div>
-		</div>
-	</nav>
 	<script src="node_modules/angular/angular.js"></script>
 	<script src="node_modules/angular-route/angular-route.min.js"></script>
 	<script src="node_modules/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 	<script src="node_modules/angular-bootstrap/ui-bootstrap.js"></script>	
 	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<link rel="stylesheet" href="src/css/style.css" type="text/css">
 	<script src="src/app.js"></script>
 	<script src="src/login/LoginController.js"></script>
 	<script src="src/home/HomeController.js"></script>
 	<script src="src/chat/ChatController.js"></script>
 	<script src="src/resource/ChatResource.js"></script>
 	<script src="src/services/UserService.js"></script>
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="src/css/style.css" type="text/css">
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" onclick="location.href='#/'"  data-toggle="tooltip" title="Home" uib-tooltip="Home">
+					<img src="src/img/logo_light.png" alt="LeChat Logo">
+				</button>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#/login">Login</a></li>
+			</ul>			
+		</div>
+	</nav>
 	<div class="container margin" ng-view></div>
 
 	<footer class="container">

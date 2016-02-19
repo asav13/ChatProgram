@@ -5,3 +5,19 @@ footer {
 .margin {
 	margin-top: 80px;
 }
+.navbar {
+	background-color: #333;
+	color: #ebebeb;
+}
+.navbar-default .navbar-nav>li>a {
+	color: #ebebeb;
+}
+.navbar-default .navbar-nav>li>a:active, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:active, .navbar-default .navbar-nav>li>a:focus {
+	color: #fff;
+}
+
+.navbar button, .navbar button:active, .navbar button:focus, .navbar button:hover {
+    border:none !important;
+    outline:none !important;
+    background-color: transparent;
+}
