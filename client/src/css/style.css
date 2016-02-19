@@ -17,6 +17,7 @@ footer {
 .navbar {
 	background-color: #333;
 	color: #ebebeb;
+	padding-top: 5px;
 }
 .navbar-default .navbar-nav>li>a {
 	color: #ebebeb;
