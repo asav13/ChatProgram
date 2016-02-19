@@ -68,6 +68,8 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				//		console.log(success);
 				//	});
 				// TODO set topic
+			/*	$scope.selectedRoom = $scope.newRoomName;
+				$scope.join();*/
 				} else {
 					console.log("ERROR: " + err);
 				}
