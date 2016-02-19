@@ -4,7 +4,7 @@ function UserService() {
 	// This should only be run once per client session, according to DEB info it seems to work
 	var userinfo = {
 		name: 	null,
-		rooms: 	null
+		room: 	null
 	};
 
 	var online 		= false;
@@ -28,8 +28,8 @@ function UserService() {
 		getUsername: function () {
 			return userinfo.name;
 		},
-		getUserRooms: function () {
-			return userinfo.rooms;
+		getUserRoom: function () {
+			return userinfo.room;
 		},
 
 		getOnlineStatus: function () {
@@ -42,7 +42,7 @@ function UserService() {
 			} else {
 				online 			= false;
 				userinfo.name 	= null;
-				userinfo.rooms 	= null;
+				userinfo.room 	= null;
 			}
 		},
 
@@ -50,15 +50,14 @@ function UserService() {
 			if(!online) {
 				console.log("ERROR: No user logged in but trying to join room");
 			} else {
-				var room = room_par;
-				userinfo.rooms.push(room);
+				userinfo.room = room_par;
 			}
 		},
 		leaveRoom: function (room_par) {
 			if(!online) {
 				console.log("ERROR: No user logged in but trying to join room");
 			} else {
-				userinfo.rooms.pop(); // Should we have more than one room !?!T ODO
+				userinfo.room = null; // Should we have more than one room !?!T ODO
 			}
 		}
 	};

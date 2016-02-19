@@ -36,9 +36,12 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		if(!UserService.getOnlineStatus()) {
 			return;
 		} 
-		var roomsUserIsIn = UserService.getUserRooms();
+		var roomUserIsIn = UserService.getUserRoom();
+		if(roomUserIsIn === null) {
+			return;
+		}
 
-		if(roomsUserIsIn.find(x => x.name == data.toString()) !== undefined){
+		if(roomUserIsIn.name === data){
 			ChatResource.getRoomUsers(data.toString());
 			ChatResource.on("roomUserlist", function (data,err){
 				if(data){
@@ -51,7 +54,6 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		}
 
 	});
-
 
 
 	$scope.createRoom = function() {
@@ -93,16 +95,12 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 					console.log("ERROR: " + err);
 				}
 			});
+
 			} else {
 				console.log("ERROR: Error while trying to join room.");s
 			}
 		});
+
 	};
 
-	$scope.leaveRoom = function () {
-		var roomName = $routeParams.name;
-		ChatResource.leaveRoom(roomName);
-		$location.path("/chatrooms");
-		UserService.leaveRoom();
-	};
 });
