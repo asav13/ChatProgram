@@ -62,11 +62,16 @@ function ChatResource($rootScope, $q) {
 				room: room.name,
 			};
 
+
 			var deferred = $q.defer();
 			socket.emit("joinroom", obj, function(data,err){
 				deferred.resolve(data);
 			});
 			return deferred.promise;
+		},
+
+		leaveRoom: function(room) {
+			socket.emit("partroom", room);
 		},
 
 		setTopic: function(data, callback){

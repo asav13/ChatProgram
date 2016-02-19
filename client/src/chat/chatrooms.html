@@ -12,5 +12,8 @@
 	<ul>
 		<li ng-repeat="op in joinedRoom.ops">{{op}}</li>
 	</ul>
+	<button ng-click="leaveRoom()">Leave room</button>
 </div>
+
 <div ng-hide="online">You must be logged in to chat!</div>
+<button

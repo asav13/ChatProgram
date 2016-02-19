@@ -53,6 +53,13 @@ function UserService() {
 				var room = room_par;
 				userinfo.rooms.push(room);
 			}
+		},
+		leaveRoom: function (room_par) {
+			if(!online) {
+				console.log("ERROR: No user logged in but trying to join room");
+			} else {
+				userinfo.rooms.pop(); // Should we have more than one room !?!T ODO
+			}
 		}
 	};
 });

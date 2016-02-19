@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('chatApp').controller('ChatController', 
-function ChatController($scope, $rootScope, $location, ChatResource, UserService){
+function ChatController($scope, $rootScope, $routeParams, $location, ChatResource, UserService){
 
 	$scope.online = UserService.getOnlineStatus();
 	ChatResource.getRoomList();
@@ -93,11 +93,16 @@ function ChatController($scope, $rootScope, $location, ChatResource, UserService
 					console.log("ERROR: " + err);
 				}
 			});
-
-
 			} else {
 				console.log("ERROR: Error while trying to join room.");s
 			}
 		});
+	};
+
+	$scope.leaveRoom = function () {
+		var roomName = $routeParams.name;
+		ChatResource.leaveRoom(roomName);
+		$location.path("/chatrooms");
+		UserService.leaveRoom();
 	};
 });
