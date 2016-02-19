@@ -5,8 +5,9 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	
 	$scope.online = UserService.getOnlineStatus();
 	var room = UserService.getUserRoom();
+	//ChatResource.getMessages(room.name);
 
-	
+
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
 		ChatResource.leaveRoom(roomName);
@@ -17,7 +18,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	if(room !== null){
 		$rootScope.$on( "$routeChangeSuccess", function(event, next, current) {
-			console.log(location.hash);
 			if($location.hash === "#/chatrooms"){
 				return;
 			}
@@ -30,4 +30,29 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			room = null;
 		});
 	}
+
+	$scope.sendMessage = function () {
+		var roomName = $routeParams.name;
+		var msgInput = $scope.chatInput;
+
+		var message = {
+			roomName: 	roomName,
+			msg: 		msgInput
+		};
+		ChatResource.sendMsg(message);
+	};
+
+	ChatResource.on("updatechat", function(data,err) {
+		ChatResource.getMessages(data);
+	});
+
+	ChatResource.on("roomMessages", function(data, err){
+		if(data) { 
+			$scope.roomMessages = data;
+		} else {
+			console.log("ERROR: " + err);
+		}
+
+	});
+
 });
