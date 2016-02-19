@@ -34,7 +34,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.sendMessage = function () {
 		var roomName = $routeParams.name;
 		var msgInput = $scope.chatInput;
-
+		var date = new Date();
 		var message = {
 			roomName: 	roomName,
 			msg: 		msgInput
@@ -48,6 +48,11 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	ChatResource.on("roomMessages", function(data, err){
 		if(data) { 
+			
+			for(var i = 0; i < data.length; i++){
+				data[i].time = (data[i].timestamp).substring(11,19);
+			}
+			console.log(data);
 			$scope.roomMessages = data;
 		} else {
 			console.log("ERROR: " + err);
