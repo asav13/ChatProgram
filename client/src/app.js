@@ -14,8 +14,8 @@ angular.module("chatApp", ["ngRoute", "ui.bootstrap"]).config(function($routePro
 	})
 	.when("/chatrooms/:name", {
 		templateUrl: "src/chat/chatrooms.html",
-		controller: "ChatController"
-	})	
+		controller: "ChatRoomController"
+	})
 	.otherwise({
 		templateUrl: "src/home/home.html" 
 	});
