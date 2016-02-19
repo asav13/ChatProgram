@@ -65,7 +65,6 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 
 		ChatResource.createRoom(newRoom).then(function(success, err){
 			if(success){
-				UserService.addMyRoom(newRoom);
 			//	var leRoom = {room: $scope.newRoomName, topic: "updated topic..."};
 			//	ChatResource.setTopic(leRoom, function(success, err){
 			//		console.log("DEB: success in chat controller after set topic");
