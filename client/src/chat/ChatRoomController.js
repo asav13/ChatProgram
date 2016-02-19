@@ -52,7 +52,21 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		} else {
 			console.log("ERROR: " + err);
 		}
-
 	});
+
+	$scope.changeTopic = function () {
+		var topicObj = {
+			room: room.name,
+			topic: $scope.changedTopic
+		}
+		ChatResource.setTopic(topicObj).then(function(data,err){
+			if(data) {
+				$scope.joinedRoom.topic = topicObj.topic;
+				$scope.changedTopic="";
+			} else {
+				console.log("ERROR: Error while changing topic " + err);
+			}
+		});
+	}
 
 });

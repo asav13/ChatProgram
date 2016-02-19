@@ -3,6 +3,8 @@
 <div ng-show="online">
 <h2>Topic:</h2>
 	<p>{{joinedRoom.topic}}</p>
+	<input type="text" ng-model="changedTopic" placeholder="Change the topic"></input>
+	<button ng-click="changeTopic()">Change</button>
 <h2>Users:</h2>
 	<ul>
 		<li ng-repeat="user in joinedRoom.users">{{user}}</li>

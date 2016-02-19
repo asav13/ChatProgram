@@ -32,3 +32,6 @@ In addition, the following technical requirements are given:
 
 (10%) 
 [ ] The code should go through JSHint/JSLint without warnings. A grunt or gulp file should be included to ensure running jshint/jslint is easy.
+
+OTHER
+[x] Set topic

@@ -62,14 +62,6 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 			};
 			ChatResource.createRoom(newRoom).then(function(success, err){
 				if(success){
-				//	var leRoom = {room: $scope.newRoomName, topic: "updated topic..."};
-				//	ChatResource.setTopic(leRoom, function(success, err){
-				//		console.log("DEB: success in chat controller after set topic");
-				//		console.log(success);
-				//	});
-				// TODO set topic
-			/*	$scope.selectedRoom = $scope.newRoomName;
-				$scope.join();*/
 				} else {
 					console.log("ERROR: " + err);
 				}
@@ -80,7 +72,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 	$scope.join = function() {
 		var room = $scope.selectedRoom;
 		var roomObj = {
-			room: $scope.newRoomName,
+			room: $scope.selectedRoom,
 		};
 
 		ChatResource.joinRoom(room).then(function(success,err){
