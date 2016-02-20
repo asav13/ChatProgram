@@ -46,9 +46,34 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		}
 	};
 
+	// This shit is connected to an unordered list in chatrooms.html
+	$scope.sendPrivateMessage = function () {										//VÉDÍS
+		var username = $scope.getUsername;											//VÉDÍS
+		var msgInput = prompt("Type a private message to " + username, "");			//VÉDÍS
+																					//VÉDÍS
+		if(msgInput != null) {														//VÉDÍS
+			var date = new Date();													//VÉDÍS
+			var message = {															//VÉDÍS
+				userName: 	username,												//VÉDÍS
+				msg: 		msgInput												//VÉDÍS
+			};																		//VÉDÍS
+			ChatResource.sendPrivateMsg(message);									//VÉDÍS
+		}																			//VÉDÍS
+	};																				//VÉDÍS
+
 	ChatResource.on("updatechat", function(data,err) {
 		ChatResource.getMessages(data);
 	});
+
+	// I'm not sure if this is the thing to do...
+	ChatResource.on("recv_privatemsg", function(data, err) {						//VÉDÍS
+		if(data[1]) {																//VÉDÍS
+			alert("YOU GOT A MESSAGE!!");											//VÉDÍS
+			console.log("DATA");													//VÉDÍS
+			console.log(data);														//VÉDÍS
+		}																			//VÉDÍS
+		ChatResource.getPrivateMessages(data);										//VÉDÍS
+	});																				//VÉDÍS
 
 	ChatResource.on("roomMessages", function(data, err){
 		if(data) { 

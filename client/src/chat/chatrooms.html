@@ -15,7 +15,7 @@
 <div name="users">
 	<h2>Users:</h2>
 	<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser"></select>
-	<button ng-show="selectedUser">Private chat</button>
+	<button ng-click="sendPrivateMessage()" ng-show="selectedUser">Private chat</button>
 	
 	<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
 
