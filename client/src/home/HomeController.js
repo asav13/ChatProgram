@@ -17,13 +17,19 @@ function HomeController($scope, $location, ChatResource, UserService, $parse){
 					name: i,
 					users: "",
 				};
-				for(var j in roomlist[i].users){
-					allUsers.push(roomlist[i].users[j]);
-					console.log(allUsers);
+				console.log(roomlist[i].users);
+				for(var j in roomlist[i].users) {
+						allUsers.push(roomlist[i].users[j]);
 				}
-				var usersToString = allUsers.toString();
-				availableRooms.users = usersToString;
+				//if the roomlist[i].users object is not empty, we stringify the array
+				if(!angular.equals({}, roomlist[i].users)) 	{
+					availableRooms.users = allUsers.toString();
+				} else {
+					console.log("No Users!");
+					availableRooms.users = "Nobody here!";
+				}
 				rooms.push(availableRooms);
+				
 			}
 			$scope.rooms = rooms;
 		} else {
