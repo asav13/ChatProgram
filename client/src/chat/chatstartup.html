@@ -5,6 +5,7 @@
 <div>Topic: {{selectedRoom.topic}}</div>
 
 <button ng-click="join(selectedRoom)">Join</button>
+<div ng-show="joinError" class="error">There was a problem joining the room, maybe you were banned, you troll.</div>
 
 <p>..or create a new one: </p>
 <form name="newRoomForm">

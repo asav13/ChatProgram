@@ -20,8 +20,8 @@
 (15%) 
 [x] The creator of a room should be able to kick a user from a room. 
 [x] A user which has been kicked from a room can re-enter. 
-[ ] The creator can also ban a user, which means 
-[ ] (s)he won't be able to join the room again.
+[x] The creator can also ban a user, which means 
+[x] (s)he won't be able to join the room again.
 
 In addition, the following technical requirements are given:
 
@@ -34,4 +34,21 @@ In addition, the following technical requirements are given:
 [ ] The code should go through JSHint/JSLint without warnings. A grunt or gulp file should be included to ensure running jshint/jslint is easy.
 
 OTHER
-[x] Set topic
+
+[ ] op
+	Allows the creator of a room to convert another user to a "op", i.e. grant that user the same priviledges as the creator of the room.
+ 
+[ ] deop
+	Allows an op to "deop" another operator. Note: there is nothing that prevents the following events from happening: A creates a room, B joins, A ops B, B deops A.
+ 
+[ ] setpassword
+	Sets a password for a room. Only an OP can perform this action.
+ 
+[ ] removepassword
+	Reverts the "setpassword" command.
+ 
+[x] settopic
+	Sets a "topic" for a room. Only an OP can perform this action.
+ 
+[ ] unban
+	Reverts the "ban" operation.

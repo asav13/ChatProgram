@@ -67,6 +67,17 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		}
 	});
 
+	ChatResource.on("banned", function(data,err){
+		console.log("Banned");
+		console.log(data);
+		console.log(err);
+		// second parameter is username
+		if(data[1] === UserService.getUsername()){
+			alert("You've been banned from the room by " + data[2] +". Behave!");
+			$location.path("/chatrooms");
+		}
+	});
+
 	$scope.changeTopic = function () {
 		var topicObj = {
 			room: room.name,
@@ -110,6 +121,18 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		ChatResource.kick(kickObj, function (data){
 			if(!data){
 				console.log("ERROR: Error while kicking user");
+			}
+		});
+	};
+
+	$scope.ban = function () {
+		var banObj = {
+			user: $scope.selectedUser,
+			room: $routeParams.name
+		}
+		ChatResource.ban(banObj, function (data){
+			if(!data){
+				console.log("ERROR: Error while banning user");
 			}
 		});
 	};

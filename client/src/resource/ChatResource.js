@@ -98,6 +98,15 @@ function ChatResource($rootScope, $q) {
 			});
 		},
 
+		ban: function(banObj, callback) {
+			socket.emit("ban", banObj, function(data){
+				$rootScope.$apply(function () {
+					callback.apply(socket, [data]);
+				});
+			});
+		},
+
+
 		/* Called when waiting for response */
 		on: function (event, callback) {
 			console.log("Event received:" + event);
