@@ -96,14 +96,13 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 							}
 						}
 
-					$scope.joinedRoom.users = data;
-				}else {
-					console.log("ERROR: " + err);
-				}
-			});
-
+						$scope.joinedRoom.users = data;
+					}else {
+						console.log("ERROR: " + err);
+					}
+				});
 			} else {
-				console.log("ERROR: Error while trying to join room.");s
+				console.log("ERROR: Error while trying to join room.");
 			}
 		});
 
