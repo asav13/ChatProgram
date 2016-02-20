@@ -5,8 +5,9 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	
 	$scope.online = UserService.getOnlineStatus();
 	var room = UserService.getUserRoom();
+	//ChatResource.getMessages(room.name);
 
-	
+
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
 		ChatResource.leaveRoom(roomName);
@@ -17,7 +18,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	if(room !== null){
 		$rootScope.$on( "$routeChangeSuccess", function(event, next, current) {
-			console.log(location.hash);
 			if($location.hash === "#/chatrooms"){
 				return;
 			}
@@ -30,4 +30,48 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			room = null;
 		});
 	}
+
+	$scope.sendMessage = function () {
+		var roomName = $routeParams.name;
+		var msgInput = $scope.chatInput;
+		var date = new Date();
+		var message = {
+			roomName: 	roomName,
+			msg: 		msgInput
+		};
+		ChatResource.sendMsg(message);
+	};
+
+	ChatResource.on("updatechat", function(data,err) {
+		ChatResource.getMessages(data);
+	});
+
+	ChatResource.on("roomMessages", function(data, err){
+		if(data) { 
+			
+			for(var i = 0; i < data.length; i++){
+				data[i].time = (data[i].timestamp).substring(11,19);
+			}
+			console.log(data);
+			$scope.roomMessages = data;
+		} else {
+			console.log("ERROR: " + err);
+		}
+	});
+
+	$scope.changeTopic = function () {
+		var topicObj = {
+			room: room.name,
+			topic: $scope.changedTopic
+		}
+		ChatResource.setTopic(topicObj).then(function(data,err){
+			if(data) {
+				$scope.joinedRoom.topic = topicObj.topic;
+				$scope.changedTopic="";
+			} else {
+				console.log("ERROR: Error while changing topic " + err);
+			}
+		});
+	}
+
 });

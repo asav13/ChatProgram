@@ -10,6 +10,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 	ChatResource.on("roomlist", function (roomlist) {
 		if(roomlist){
 			var temp = [];
+
 			for(var i in roomlist){
 				var currRoom = {
 					name: i,
@@ -17,6 +18,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 					users: roomlist[i].users,
 					ops: roomlist[i].ops
 				};
+
 				temp.push(currRoom);
 			}
 			$scope.rooms = temp;
@@ -49,36 +51,28 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				}else {
 					console.log("ERROR: " + err);
 				}
-
 			});
 		}
-
 	});
 
-
 	$scope.createRoom = function() {
-		var newRoom = {
-			room: $scope.newRoomName
-		};
-
-		ChatResource.createRoom(newRoom).then(function(success, err){
-			if(success){
-			//	var leRoom = {room: $scope.newRoomName, topic: "updated topic..."};
-			//	ChatResource.setTopic(leRoom, function(success, err){
-			//		console.log("DEB: success in chat controller after set topic");
-			//		console.log(success);
-			//	});
-			// TODO set topic
-			} else {
-				console.log("ERROR: " + err);
-			}
-		});
+		if($scope.newRoomName !== undefined){
+			var newRoom = {
+				room: $scope.newRoomName
+			};
+			ChatResource.createRoom(newRoom).then(function(success, err){
+				if(success){
+				} else {
+					console.log("ERROR: " + err);
+				}
+			});
+		}
 	};
 
 	$scope.join = function() {
 		var room = $scope.selectedRoom;
 		var roomObj = {
-			room: $scope.newRoomName,
+			room: $scope.selectedRoom,
 		};
 
 		ChatResource.joinRoom(room).then(function(success,err){
@@ -90,6 +84,18 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				ChatResource.getRoomUsers(room.name);
 				ChatResource.on("roomUserlist", function (data,err){
 				if(data){
+					var theRoom = UserService.getUserRoom();
+
+					for(var j in theRoom.users){
+						for(var k in theRoom.ops){
+							console.log(k);
+							if(j === k){
+								j = "@" + j;
+								data[k] = j;
+							}
+						}
+					}
+
 					$scope.joinedRoom.users = data;
 				}else {
 					console.log("ERROR: " + err);

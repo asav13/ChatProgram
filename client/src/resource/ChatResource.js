@@ -44,12 +44,18 @@ function ChatResource($rootScope, $q) {
 			});
 		},
 
+		getMessages: function (room, callback) {
+			socket.emit("roomMessages", room, function(data,err) {
+			// No need to do anything, will call on
+			});
+		},
+
 		getUsers: function(callback) {
 			socket.emit("users", function(data) {
 			});
 		},
 
-		createRoom: function(newRoom, callback) {
+		createRoom: function(newRoom) {
 			var deferred = $q.defer();
 			socket.emit("joinroom", newRoom, function(data,err){
 				deferred.resolve(data);
@@ -57,12 +63,10 @@ function ChatResource($rootScope, $q) {
 			return deferred.promise;
 		},
 
-		joinRoom: function(room, callback) {
+		joinRoom: function(room) {
 			var obj = {
 				room: room.name,
 			};
-
-
 			var deferred = $q.defer();
 			socket.emit("joinroom", obj, function(data,err){
 				deferred.resolve(data);
@@ -74,10 +78,17 @@ function ChatResource($rootScope, $q) {
 			socket.emit("partroom", room);
 		},
 
-		setTopic: function(data, callback){
-			socket.emit("setTopic", data, function(data,err){
+		setTopic: function(topicObj, callback){
+			var deferred = $q.defer();
+			socket.emit("settopic", topicObj, function(data,err){
+				deferred.resolve(data);
 			});
+			return deferred.promise;
 		}, 
+
+		sendMsg: function(data) {
+			socket.emit("sendmsg", data);
+		},
 
 		/* Called when waiting for response */
 		on: function (event, callback) {

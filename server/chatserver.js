@@ -258,8 +258,14 @@ io.sockets.on('connection', function (socket) {
 	socket.on('roomUsers', function(room) {
 		var users = rooms[room].users;
 		socket.emit('roomUserlist', users);
-	});	
+	});
 
+	//Returns a list of all avaliable rooms.
+	socket.on('roomMessages', function(room) {
+		var messages = rooms[room].messageHistory;
+		console.log(messages);
+		socket.emit('roomMessages', messages);
+	});
 
 
 	//Returns a list of all connected users.
