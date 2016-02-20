@@ -59,7 +59,8 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 	$scope.createRoom = function() {
 		if($scope.newRoomName !== undefined){
 			var newRoom = {
-				room: $scope.newRoomName
+				room: $scope.newRoomName,
+				name: $scope.newRoomName
 			};
 			ChatResource.createRoom(newRoom).then(function(success, err){
 				if(success){
