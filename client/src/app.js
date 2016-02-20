@@ -3,14 +3,6 @@ var myApp = angular.module("chatApp", ["ngRoute", "ui.bootstrap"]);
 //controller for the template layout
 myApp.controller('LayoutController', function($scope, $location) {
 	$scope.navbarCollapsed = true;
-	if($scope.navbarCollapsed) {
-		console.log("COLLAPSED!");
-		$scope.bodyPadding = "{'padding-top':" + 40 + "px;}";
-	}
-	else {
-		console.log("NOT COLLAPSED!");
-		$scope.bodyPadding = "{'padding-top':" + 70 + "px;}";
-	}
 
 	$scope.go = function ( path ) {
   	 	$location.path( path );

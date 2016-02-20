@@ -10,23 +10,17 @@ function HomeController($scope, $location, ChatResource, UserService){
 	ChatResource.getRoomList();
 	ChatResource.on("roomlist", function (roomlist) {
 		if(roomlist){
+			var userName = [];
 			var rooms = [];
 			for(var i in roomlist){
-				/*var availableRooms = {
-					name: i,
-					users: roomlist[i].users,
-				};*/
-
-				var roomName = i;
-				var roomUsers = roomlist[i].users;
-				console.log(roomUsers);
 				var availableRooms = {
-					name: roomName,
+					name: i,
 					users: ""
 				};
 				for(var u in roomlist[i].users){
 					availableRooms.users = availableRooms.user + " , " + roomlist[i].users[u];
 				}
+				$scope.userName = 
 				rooms.push(availableRooms);
 			}
 			$scope.rooms = rooms;
