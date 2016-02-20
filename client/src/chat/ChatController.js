@@ -71,7 +71,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		}
 	};
 
-	$rootScope.join = function() {
+	$scope.join = function() {
 		var room = $scope.selectedRoom;
 		var roomObj = {
 			room: $scope.selectedRoom,
