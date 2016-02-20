@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('chatApp').controller('HomeController', 
-function HomeController($scope, $location, ChatResource, UserService){
+function HomeController($scope, $location, ChatResource, UserService, $parse){
 
 	$scope.online = UserService.getOnlineStatus();
 	$scope.rooms = [];
@@ -10,22 +10,28 @@ function HomeController($scope, $location, ChatResource, UserService){
 	ChatResource.getRoomList();
 	ChatResource.on("roomlist", function (roomlist) {
 		if(roomlist){
-			var userName = [];
 			var rooms = [];
 			for(var i in roomlist){
+				var allUsers = [];
 				var availableRooms = {
 					name: i,
-					users: ""
+					users: "",
 				};
-				for(var u in roomlist[i].users){
-					availableRooms.users = availableRooms.user + " , " + roomlist[i].users[u];
+				console.log(roomlist[i].users);
+				for(var j in roomlist[i].users) {
+						allUsers.push(roomlist[i].users[j]);
 				}
-				$scope.userName = 
+				//if the roomlist[i].users object is not empty, we stringify the array
+				if(!angular.equals({}, roomlist[i].users)) 	{
+					availableRooms.users = allUsers.toString();
+				} else {
+					console.log("No Users!");
+					availableRooms.users = "Nobody here!";
+				}
 				rooms.push(availableRooms);
+				
 			}
 			$scope.rooms = rooms;
-			console.log("$scope.rooms");
-			console.log($scope.rooms);
 		} else {
 			console.log("ERROR: Error fetching rooms.");
 		}
