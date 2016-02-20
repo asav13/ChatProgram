@@ -194,7 +194,7 @@ io.sockets.on('connection', function (socket) {
 			//Op the user.
 			rooms[opObj.room].ops[opObj.user] = opObj.user;
 			//Broadcast to the room who got opped.
-			io.sockets.emit('opped', opObj.room, opObj.user, socket.username);
+			io.sockets.emit('opped', [opObj.room, opObj.user, socket.username]);
 			//Update user list for room.
 			io.sockets.emit('updateusers', opObj.room, rooms[opObj.room].users, rooms[opObj.room].ops);
 			fn(true);

@@ -106,6 +106,14 @@ function ChatResource($rootScope, $q) {
 			});
 		},
 
+		makeOp: function(opObj, callback) {
+			socket.emit("op", opObj, function(data){
+				$rootScope.$apply(function () {
+					callback.apply(socket, [data]);
+				});
+			});
+		},
+
 
 		/* Called when waiting for response */
 		on: function (event, callback) {

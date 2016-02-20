@@ -5,8 +5,10 @@
 <div ng-show="online">
 <h2>Topic:</h2>
 	<p>{{joinedRoom.topic}}</p>
-	<input type="text" ng-model="changedTopic" placeholder="Change the topic"></input>
-	<button ng-click="changeTopic()">Change</button>
+	<form name="topicForm" ng-show="isOp">
+		<input type="text" ng-model="changedTopic" placeholder="Change the topic"></input>
+		<button ng-click="changeTopic()">Change</button>
+	</form name="topicForm">
 </div>
 
 
@@ -14,9 +16,12 @@
 	<h2>Users:</h2>
 	<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser"></select>
 	<button ng-show="selectedUser">Private chat</button>
-	<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
-	<button ng-click="ban()" ng-show"selectedUser && isOp">Ban</button>
 	
+	<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
+
+	<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
+	
+	<button ng-click="makeOp()" ng-show="selectedUser && isOp">Op</button>
 </div>
 
 
@@ -30,9 +35,9 @@
 </ul>
 
 </div>
-
+<form name="sendMsgForm">
 <input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"></input>
 <button ng-click="sendMessage()">Send</button>
-
+</form name="sendMsgForm">
 <br>
 <button ng-click="leaveRoom()">Leave room</button>
