@@ -22,9 +22,9 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 	margin-top: 50px;
 }
 .navbar {
+	
 	background-color: #333;
 	color: #ebebeb;
-	padding-top: 5px;
 }
 .navbar-default .navbar-nav>li>a {
 	color: #ebebeb;

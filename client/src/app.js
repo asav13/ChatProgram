@@ -1,4 +1,15 @@
-angular.module("chatApp", ["ngRoute", "ui.bootstrap"]).config(function($routeProvider){
+var myApp = angular.module("chatApp", ["ngRoute", "ui.bootstrap"]);
+
+//controller for the template layout
+myApp.controller('LayoutController', function($scope, $location) {
+	$scope.navbarCollapsed = true;
+
+	$scope.go = function ( path ) {
+  	 	$location.path( path );
+	};
+})
+
+myApp.config(function($routeProvider){
 	$routeProvider
 	.when("/", {
 		templateUrl: "src/home/home.html",
