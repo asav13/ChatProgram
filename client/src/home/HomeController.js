@@ -37,7 +37,6 @@ function HomeController($scope, $location, ChatResource, UserService, $rootScope
 				}	
 				rooms.push(availableRooms);		
 			}
-			count = 0;
 			$scope.rooms = rooms;
 		} else {
 			console.log("ERROR: Error fetching rooms.");

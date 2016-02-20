@@ -15,24 +15,16 @@
 		<div class="col-md-6" ng-repeat="room in rooms|limitTo:6">
 			<div class="well">
 				<div class="row">
-					<div class="col-xs-2 col-md-2 chat_img text-center">
-						<img class="" src="src/img/chat-room.png">
+					<div class="col-xs-2 col-md-2 text-center">
+						<img src="src/img/chat-room.png">
 					</div>
 					<div class="col-xs-10 col-md-10 section-box chat_img">
-						<h3>{{room.name}}</h3>
+						<h3 ng-show="online"><a ng-href="#/chatrooms/{{room.name}}" title="Go to chatroom">{{room.name}}</a></h3>
+						<h3 ng-hide="online"><a ng-href="#/login" title="You must login first">{{room.name}}</a></h3>
 						<p>{{room.users}}</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<!--<ul ng-repeat="room in rooms|limitTo:5" class="list-group">
-		<li class="list-group-item"><img class="img-rounded" src="src/img/chat-room.png">{{room.name}}</li>
-		<li class="list-group-item">{{room.users}}</li>
-	</ul>
-	<dl ng-repeat="room in rooms|limitTo:5" class="dl-horizontal">
-		<dt>{{room.name}}</dt>
-		<dd>{{room.users}}</dd>
-	</dl>-->
 </div>
