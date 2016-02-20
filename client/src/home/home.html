@@ -11,8 +11,28 @@
 	<a href ="#/chatrooms" ng-show="online">Go to chatrooms!</a>
 
 	<h2>Who's online:</h2>
-	<dl ng-repeat="room in rooms" class="dl-horizontal">
+	<div class="row">
+		<div class="col-md-6" ng-repeat="room in rooms|limitTo:6">
+			<div class="well">
+				<div class="row">
+					<div class="col-xs-2 col-md-2 chat_img text-center">
+						<img class="" src="src/img/chat-room.png">
+					</div>
+					<div class="col-xs-10 col-md-10 section-box chat_img">
+						<h3>{{room.name}}</h3>
+						<p>{{room.users}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--<ul ng-repeat="room in rooms|limitTo:5" class="list-group">
+		<li class="list-group-item"><img class="img-rounded" src="src/img/chat-room.png">{{room.name}}</li>
+		<li class="list-group-item">{{room.users}}</li>
+	</ul>
+	<dl ng-repeat="room in rooms|limitTo:5" class="dl-horizontal">
 		<dt>{{room.name}}</dt>
 		<dd>{{room.users}}</dd>
-	</dl>
+	</dl>-->
 </div>

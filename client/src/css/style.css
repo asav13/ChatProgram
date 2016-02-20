@@ -4,6 +4,7 @@ body {
 	height: 100%;
 	
 }
+
 footer {
 	font-size: 10pt;
 }
@@ -61,4 +62,9 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 
 .error {
 	color: red;
+}
+
+.chat_img {
+	border-left: solid #ddd 1px;
+	font-size: 9pt;
 }
