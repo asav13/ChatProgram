@@ -18,8 +18,8 @@
 [ ] It should be possible to send a private message to another user.
 
 (15%) 
-[ ] The creator of a room should be able to kick a user from a room. 
-[ ] A user which has been kicked from a room can re-enter. 
+[x] The creator of a room should be able to kick a user from a room. 
+[x] A user which has been kicked from a room can re-enter. 
 [ ] The creator can also ban a user, which means 
 [ ] (s)he won't be able to join the room again.
 
