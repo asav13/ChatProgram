@@ -50,6 +50,12 @@ function ChatResource($rootScope, $q) {
 			});
 		},
 
+		getPrivateMessages: function (user, callback) {							//VÉDÍS
+			socket.emit("roomPrivateMessages", user, function(data, err) {		//VÉDÍS
+																				//VÉDÍS
+			});																	//VÉDÍS
+		},																		//VÉDÍS
+
 		getUsers: function(callback) {
 			socket.emit("users", function(data) {
 			});
@@ -89,6 +95,18 @@ function ChatResource($rootScope, $q) {
 		sendMsg: function(data) {
 			socket.emit("sendmsg", data);
 		},
+
+		// What am I supposed to send to the server???
+		sendPrivateMsg: function(data, callback) {						//VÉDÍS
+			// This "privateMsg" is supposed to be						//VÉDÍS
+			// the connection to the chat server, right?				//VÉDÍS
+			// Is it ok to do the same callback as kick below?			//VÉDÍS
+			socket.emit("privateMsg", data, function(data){				//VÉDÍS
+				$rootscope.$apply(function () {							//VÉDÍS
+					callback.apply(socket, [data]);						//VÉDÍS
+				});														//VÉDÍS
+			});															//VÉDÍS
+		},																//VÉDÍS
 
 		kick: function(kickObj, callback) {
 			socket.emit("kick", kickObj, function(data){

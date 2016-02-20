@@ -46,9 +46,34 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		}
 	};
 
+	// This shit is connected to an unordered list in chatrooms.html
+	$scope.sendPrivateMessage = function () {										//VÉDÍS
+		var username = $scope.getUsername;											//VÉDÍS
+		var msgInput = prompt("Type a private message to " + username, "");			//VÉDÍS
+																					//VÉDÍS
+		if(msgInput != null) {														//VÉDÍS
+			var date = new Date();													//VÉDÍS
+			var message = {															//VÉDÍS
+				userName: 	username,												//VÉDÍS
+				msg: 		msgInput												//VÉDÍS
+			};																		//VÉDÍS
+			ChatResource.sendPrivateMsg(message);									//VÉDÍS
+		}																			//VÉDÍS
+	};																				//VÉDÍS
+
 	ChatResource.on("updatechat", function(data,err) {
 		ChatResource.getMessages(data);
 	});
+
+	// I'm not sure if this is the thing to do...
+	ChatResource.on("recv_privatemsg", function(data, err) {						//VÉDÍS
+		if(data[1]) {																//VÉDÍS
+			alert("YOU GOT A MESSAGE!!");											//VÉDÍS
+			console.log("DATA");													//VÉDÍS
+			console.log(data);														//VÉDÍS
+		}																			//VÉDÍS
+		ChatResource.getPrivateMessages(data);										//VÉDÍS
+	});																				//VÉDÍS
 
 	ChatResource.on("roomMessages", function(data, err){
 		if(data) { 
@@ -81,14 +106,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		}
 	});
 
-	ChatResource.on("opped", function(data){
-		console.log("opped");
-		console.log(data);
-		// second parameter is username
-		if(data[1] === UserService.getUsername()){
-			alert("You've been opped by " + data[2] + "!");
-		}
-	});
 
 	$scope.changeTopic = function () {
 		var topicObj = {
@@ -121,10 +138,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		} else {$scope.selectedUser = "";}
 	});
 
-	$scope.sendPrivateMessage = function () {
-		var theUser = $scope.selectedUser;
-	};
-
 	$scope.kick = function () {
 		var kickObj = {
 			user: $scope.selectedUser,
@@ -149,16 +162,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		});
 	};
 
-	$scope.makeOp = function () {
-		var opObj = {
-			user: $scope.selectedUser,
-			room: $routeParams.name
-		}
-		ChatResource.makeOp(opObj, function (data){
-			if(!data){
-				console.log("ERROR: Error while opping user");
-			}
-		});
-	};	
+
 
 });
