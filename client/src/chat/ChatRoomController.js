@@ -8,9 +8,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.someOneSelected = false;
 	$scope.isOp = false;
 	var room = UserService.getUserRoom();
-	//ChatResource.getMessages(room.name);
-	console.log("s1 sel");
-	console.log($scope.someOneSelected);
 
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
@@ -56,10 +53,17 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			for(var i = 0; i < data.length; i++){
 				data[i].time = (data[i].timestamp).substring(11,19);
 			}
-			console.log(data);
 			$scope.roomMessages = data;
 		} else {
 			console.log("ERROR: " + err);
+		}
+	});
+
+	ChatResource.on("kicked", function(data,err){
+		// second parameter is username
+		if(data[1] === UserService.getUsername()){
+			alert("You've been kicked out of the room by " + data[2] +". Behave!");
+			$location.path("/chatrooms");
 		}
 	});
 
@@ -80,20 +84,13 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	$scope.$watch("selectedUser", function () {
 		var currUser = UserService.getUsername();
-		console.log("curr");
-		console.log(currUser);
-		console.log("selected");
-		console.log($scope.selectedUser);
 		var currNamePlusOp = "@"+currUser;
 		if(!($scope.selectedUser === currUser || $scope.selectedUser === currNamePlusOp)){
-			console.log("went here ");
 
 			$scope.someOneSelected = true;
 			var currRoom = UserService.getUserRoom();
 
 			for(var i in currRoom.ops){
-				console.log(i);
-				console.log(currUser);
 				if(i === currUser){
 					$scope.isOp = true;
 				}
@@ -103,8 +100,18 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	$scope.sendPrivateMessage = function () {
 		var theUser = $scope.selectedUser;
+	};
 
-		console.log(theUser);
+	$scope.kick = function () {
+		var kickObj = {
+			user: $scope.selectedUser,
+			room: $routeParams.name
+		}
+		ChatResource.kick(kickObj, function (data){
+			if(!data){
+				console.log("ERROR: Error while kicking user");
+			}
+		});
 	};
 
 });

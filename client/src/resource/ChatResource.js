@@ -90,11 +90,19 @@ function ChatResource($rootScope, $q) {
 			socket.emit("sendmsg", data);
 		},
 
+		kick: function(kickObj, callback) {
+			socket.emit("kick", kickObj, function(data){
+				$rootScope.$apply(function () {
+					callback.apply(socket, [data]);
+				});
+			});
+		},
+
 		/* Called when waiting for response */
 		on: function (event, callback) {
 			console.log("Event received:" + event);
 			var deferred = $q.defer();
-			socket.on(event, function (data) {
+			socket.on(event, function (data, data1, data2) {
 				$rootScope.$apply(function () {
 					callback.apply(socket, [data]);
 				});

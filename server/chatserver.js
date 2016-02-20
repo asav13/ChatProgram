@@ -175,7 +175,7 @@ io.sockets.on('connection', function (socket) {
 			//Remove the user from the ops roster.
 			delete rooms[kickObj.room].ops[kickObj.user];
 			//Broadcast to the room who got kicked.
-			io.sockets.emit('kicked', kickObj.room, kickObj.user, socket.username);
+			io.sockets.emit('kicked', [kickObj.room, kickObj.user, socket.username]);
 			//Update user list for room.
 			io.sockets.emit('updateusers', kickObj.room, rooms[kickObj.room].users, rooms[kickObj.room].ops);
 			fn(true);
