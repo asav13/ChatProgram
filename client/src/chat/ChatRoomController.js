@@ -48,16 +48,21 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	// This shit is connected to an unordered list in chatrooms.html
 	$scope.sendPrivateMessage = function () {										//VÉDÍS
-		var username = $scope.getUsername;											//VÉDÍS
+		//var username = $scope.getUsername;										//VÉDÍS
+		var username = $scope.selectedUser;											// ASA
 		var msgInput = prompt("Type a private message to " + username, "");			//VÉDÍS
 																					//VÉDÍS
-		if(msgInput != null) {														//VÉDÍS
+		if(msgInput !== null) {														//VÉDÍS
 			var date = new Date();													//VÉDÍS
 			var message = {															//VÉDÍS
-				userName: 	username,												//VÉDÍS
+				nick: 	username,												//changed
 				msg: 		msgInput												//VÉDÍS
-			};																		//VÉDÍS
-			ChatResource.sendPrivateMsg(message);									//VÉDÍS
+			};
+			console.log(message);														//VÉDÍS
+			ChatResource.sendPrivateMsg(message, function(success) {		//wants a callback
+				console.log("in callback");
+				console.log(success); //boolean variable 
+			} );									//VÉDÍS
 		}																			//VÉDÍS
 	};																				//VÉDÍS
 

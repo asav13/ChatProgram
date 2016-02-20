@@ -101,8 +101,8 @@ function ChatResource($rootScope, $q) {
 			// This "privateMsg" is supposed to be						//VÉDÍS
 			// the connection to the chat server, right?				//VÉDÍS
 			// Is it ok to do the same callback as kick below?			//VÉDÍS
-			socket.emit("privateMsg", data, function(data){				//VÉDÍS
-				$rootscope.$apply(function () {							//VÉDÍS
+			socket.emit("privatemsg", data, function(data){				//VÉDÍS, msg not Msg
+				$rootScope.$apply(function () {							//VÉDÍS, rootScope not rootscope, stupid case sensitive stuff
 					callback.apply(socket, [data]);						//VÉDÍS
 				});														//VÉDÍS
 			});															//VÉDÍS
