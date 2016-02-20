@@ -1,16 +1,23 @@
 body {
 	background-color: #ebebeb;
+	height: 100%;
 }
 footer {
 	font-size: 10pt;
 	padding-top: 20px;
+}
+footer a {
+	color: #ff8800;
+}
+
+footer a:hover, footer a:active, footer a:hover, footer a:focus {
+	color: #ffcc00;
 }
 .footer_bg {
 	border-top: #cacaca solid 1px;
 	background: url("../img/swirl_pattern.jpg");
 	height: 100px;
 }
-
 .margin-top {
 	margin-top: 50px;
 }

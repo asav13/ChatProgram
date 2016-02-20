@@ -4,15 +4,15 @@
 </div>
 <div class="container">
 	<!-- If no one is logged in -->
-	<p ng-hide="online">Pick a user name and get started chatting.</p>
-	<a href="#/login" ng-hide="online">Pick a user name!</a>
+	<a href="#/login" ng-hide="online">Pick a user name and get started chatting!</a>
 
 	<!-- If somenone is logged in -->
 	<p ng-show="online">Hi {{username}}!</p>
 	<a href ="#/chatrooms" ng-show="online">Go to chatrooms!</a>
 
 	<h2>Who's online:</h2>
-	<ul>
-		<li ng-repeat="user in users">{{user}}</li>
-	</ul>
+	<dl ng-repeat="room in rooms" class="dl-horizontal">
+		<dt>{{room.name}}</dt>
+		<dd ng-repeat="users in rooms.users">{{users}}</dd>
+	</dl>
 </div>

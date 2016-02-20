@@ -5,7 +5,7 @@
 				placeholder="Pick a user name" 
 				autofocus="" 
 				required="required" 
-				pattern="[a-zA-Z1-9]+"
+				pattern="[a-zA-Z0-9]+"
 				ng-model="username" />
 	<p>{{logininfo}}</p>
 	<div ng-show="loginForm.$invalid">A valid username includes only letters and digits.</div>
