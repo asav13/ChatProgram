@@ -4,9 +4,13 @@ angular.module('chatApp').controller('ChatRoomController',
 function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatResource, UserService){
 	
 	$scope.online = UserService.getOnlineStatus();
+	$scope.selectedUser = "";
+	$scope.someOneSelected = false;
+	$scope.isOp = false;
 	var room = UserService.getUserRoom();
 	//ChatResource.getMessages(room.name);
-
+	console.log("s1 sel");
+	console.log($scope.someOneSelected);
 
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
@@ -72,6 +76,35 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				console.log("ERROR: Error while changing topic " + err);
 			}
 		});
+	}
+
+	$scope.$watch("selectedUser", function () {
+		var currUser = UserService.getUsername();
+		console.log("curr");
+		console.log(currUser);
+		console.log("selected");
+		console.log($scope.selectedUser);
+		var currNamePlusOp = "@"+currUser;
+		if(!($scope.selectedUser === currUser || $scope.selectedUser === currNamePlusOp)){
+			console.log("went here ");
+
+			$scope.someOneSelected = true;
+			var currRoom = UserService.getUserRoom();
+
+			for(var i in currRoom.ops){
+				console.log(i);
+				console.log(currUser);
+				if(i === currUser){
+					$scope.isOp = true;
+				}
+			}
+		} else {$scope.selectedUser = "";}
+	});
+
+	$scope.sendPrivateMessage = function () {
+		var theUser = $scope.selectedUser;
+
+		console.log(theUser);
 	}
 
 });

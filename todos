@@ -10,9 +10,9 @@
 [x] It should of course also be possible to create a new room.
 
 (15%) 
-[ ] Inside a given room, the user should be able to send messages to the room, 
-[ ] see previous messages, 
-[ ] and see new messages appear in real time (without having to refresh the page manually).
+[x] Inside a given room, the user should be able to send messages to the room, 
+[x] see previous messages, 
+[x] and see new messages appear in real time (without having to refresh the page manually).
 
 (10%) 
 [ ] It should be possible to send a private message to another user.
