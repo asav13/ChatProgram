@@ -81,14 +81,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		}
 	});
 
-	ChatResource.on("opped", function(data){
-		console.log("opped");
-		console.log(data);
-		// second parameter is username
-		if(data[1] === UserService.getUsername()){
-			alert("You've been opped by " + data[2] + "!");
-		}
-	});
 
 	$scope.changeTopic = function () {
 		var topicObj = {
@@ -149,16 +141,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		});
 	};
 
-	$scope.makeOp = function () {
-		var opObj = {
-			user: $scope.selectedUser,
-			room: $routeParams.name
-		}
-		ChatResource.makeOp(opObj, function (data){
-			if(!data){
-				console.log("ERROR: Error while opping user");
-			}
-		});
-	};	
+
 
 });
