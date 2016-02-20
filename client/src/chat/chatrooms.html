@@ -39,3 +39,8 @@
 </form name="sendMsgForm">
 <br>
 <button ng-click="leaveRoom()">Leave room</button>
+
+<h3>PRIVATE MESSAGES</h3>
+<ul>
+	<li ng-repeat="msg in roomPrivateMessages">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
+</ul>

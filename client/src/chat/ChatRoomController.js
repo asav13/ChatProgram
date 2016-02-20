@@ -113,10 +113,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		} else {$scope.selectedUser = "";}
 	});
 
-	$scope.sendPrivateMessage = function () {
-		var theUser = $scope.selectedUser;
-	};
-
 	$scope.kick = function () {
 		var kickObj = {
 			user: $scope.selectedUser,
