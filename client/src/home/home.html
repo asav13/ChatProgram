@@ -13,6 +13,6 @@
 	<h2>Who's online:</h2>
 	<dl ng-repeat="room in rooms" class="dl-horizontal">
 		<dt>{{room.name}}</dt>
-		<dd ng-repeat="users in rooms.users">{{users}}</dd>
+		<dd>{{room.users}}</dd>
 	</dl>
 </div>

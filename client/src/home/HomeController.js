@@ -10,36 +10,28 @@ function HomeController($scope, $location, ChatResource, UserService){
 	ChatResource.getRoomList();
 	ChatResource.on("roomlist", function (roomlist) {
 		if(roomlist){
-
-			/*------------------------
-			var roomName = [];
-			for(var i in roomlist){
-				roomName.push(i);
-			}
-			console.log("NAME: " + roomName);
-			$scope.rooms = roomName;
-			------------------------*/
 			var rooms = [];
 			for(var i in roomlist){
-				var createdRooms = {
+				/*var availableRooms = {
 					name: i,
 					users: roomlist[i].users,
+				};*/
+
+				var roomName = i;
+				var roomUsers = roomlist[i].users;
+				console.log(roomUsers);
+				var availableRooms = {
+					name: roomName,
+					users: ""
 				};
-				rooms.push(createdRooms);
-				console.log("ROOM NAME: " + rooms.name);
-				console.log("USERS: " + rooms.users);
-				ChatResource.getRoomUsers(i);
-				ChatResource.on("roomUserlist", function (data,err){
-				if(data){
-					console.log("DEB: roomUserList data: ")
-					console.log(data);
-					$scope.rooms.users = data;
-				} else {
-					console.log("ERROR: " + err);
+				for(var u in roomlist[i].users){
+					availableRooms.users = availableRooms.user + " , " + roomlist[i].users[u];
 				}
-			});
+				rooms.push(availableRooms);
 			}
 			$scope.rooms = rooms;
+			console.log("$scope.rooms");
+			console.log($scope.rooms);
 		} else {
 			console.log("ERROR: Error fetching rooms.");
 		}
