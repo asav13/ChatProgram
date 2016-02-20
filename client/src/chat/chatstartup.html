@@ -5,6 +5,7 @@
 <div>Topic: {{selectedRoom.topic}}</div>
 
 <button ng-click="join(selectedRoom)">Join</button>
+<div ng-show="joinError" class="error">There was a problem joining the room, maybe you were banned, you troll.</div>
 
 <p>..or create a new one: </p>
 <form name="newRoomForm">
@@ -12,7 +13,7 @@
 				placeholder="New chat room name" 
 				autofocus="autofocus" 
 				required="required" 
-				pattern="[a-zA-Z1-9]+"
+				pattern="[a-zA-Z0-9]+"
 				ng-model="newRoomName" />
 
 	<div ng-show="newRoomForm.$invalid">A valid chat room name includes only letters and digits.</div>

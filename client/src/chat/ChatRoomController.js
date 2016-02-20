@@ -33,14 +33,17 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	}
 
 	$scope.sendMessage = function () {
-		var roomName = $routeParams.name;
 		var msgInput = $scope.chatInput;
-		var date = new Date();
-		var message = {
-			roomName: 	roomName,
-			msg: 		msgInput
-		};
-		ChatResource.sendMsg(message);
+		if(msgInput.length > 0) {
+			var roomName = $routeParams.name;
+			var date = new Date();
+			var message = {
+				roomName: 	roomName,
+				msg: 		msgInput
+			};
+			$scope.chatInput = "";
+			ChatResource.sendMsg(message);
+		}
 	};
 
 	ChatResource.on("updatechat", function(data,err) {
@@ -64,6 +67,26 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		if(data[1] === UserService.getUsername()){
 			alert("You've been kicked out of the room by " + data[2] +". Behave!");
 			$location.path("/chatrooms");
+		}
+	});
+
+	ChatResource.on("banned", function(data){
+		console.log("Banned");
+		console.log(data);
+		console.log(err);
+		// second parameter is username
+		if(data[1] === UserService.getUsername()){
+			alert("You've been banned from the room by " + data[2] +". Behave!");
+			$location.path("/chatrooms");
+		}
+	});
+
+	ChatResource.on("opped", function(data){
+		console.log("opped");
+		console.log(data);
+		// second parameter is username
+		if(data[1] === UserService.getUsername()){
+			alert("You've been opped by " + data[2] + "!");
 		}
 	});
 
@@ -113,5 +136,29 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			}
 		});
 	};
+
+	$scope.ban = function () {
+		var banObj = {
+			user: $scope.selectedUser,
+			room: $routeParams.name
+		}
+		ChatResource.ban(banObj, function (data){
+			if(!data){
+				console.log("ERROR: Error while banning user");
+			}
+		});
+	};
+
+	$scope.makeOp = function () {
+		var opObj = {
+			user: $scope.selectedUser,
+			room: $routeParams.name
+		}
+		ChatResource.makeOp(opObj, function (data){
+			if(!data){
+				console.log("ERROR: Error while opping user");
+			}
+		});
+	};	
 
 });

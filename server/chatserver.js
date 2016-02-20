@@ -194,7 +194,7 @@ io.sockets.on('connection', function (socket) {
 			//Op the user.
 			rooms[opObj.room].ops[opObj.user] = opObj.user;
 			//Broadcast to the room who got opped.
-			io.sockets.emit('opped', opObj.room, opObj.user, socket.username);
+			io.sockets.emit('opped', [opObj.room, opObj.user, socket.username]);
 			//Update user list for room.
 			io.sockets.emit('updateusers', opObj.room, rooms[opObj.room].users, rooms[opObj.room].ops);
 			fn(true);
@@ -232,7 +232,7 @@ io.sockets.on('connection', function (socket) {
 			//Add the user to the ban list and remove him from the room user roster.
 			rooms[banObj.room].banUser(banObj.user);
 			//Kick the user from the room.
-			io.sockets.emit('banned', banObj.room, banObj.user, socket.username);
+			io.sockets.emit('banned', [banObj.room, banObj.user, socket.username]);
 			io.sockets.emit('updateusers', banObj.room, rooms[banObj.room].users, rooms[banObj.room].ops);
 			fn(true);
 		}

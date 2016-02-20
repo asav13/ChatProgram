@@ -4,6 +4,7 @@ angular.module('chatApp').controller('ChatController',
 function ChatController($scope, $rootScope, $routeParams, $location, ChatResource, UserService){
 
 	$scope.online = UserService.getOnlineStatus();
+	$scope.joinError = false;
 	ChatResource.getRoomList();
 
 	// When we get an "roomlist" event, we update the roomlist
@@ -75,14 +76,15 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 			room: $scope.selectedRoom,
 		};
 
-		ChatResource.joinRoom(room).then(function(success,err){
+		ChatResource.joinRoom(room).then(function(success){
 			if(success){
+				$scope.joinError = false;
 				$rootScope.joinedRoom = room;
 				$location.path("/chatrooms/" + room.name);
 				UserService.addRoom(room);
 
 				ChatResource.getRoomUsers(room.name);
-				ChatResource.on("roomUserlist", function (data,err){
+				ChatResource.on("roomUserlist", function (data, err){
 					if(data){
 						var theRoom = UserService.getUserRoom();
 
@@ -102,6 +104,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 					}
 				});
 			} else {
+				$scope.joinError = true;
 				console.log("ERROR: Error while trying to join room.");
 			}
 		});
