@@ -67,7 +67,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		var topicObj = {
 			room: room.name,
 			topic: $scope.changedTopic
-		}
+		};
 		ChatResource.setTopic(topicObj).then(function(data,err){
 			if(data) {
 				$scope.joinedRoom.topic = topicObj.topic;
@@ -76,7 +76,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				console.log("ERROR: Error while changing topic " + err);
 			}
 		});
-	}
+	};
 
 	$scope.$watch("selectedUser", function () {
 		var currUser = UserService.getUsername();
@@ -105,6 +105,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		var theUser = $scope.selectedUser;
 
 		console.log(theUser);
-	}
+	};
 
 });

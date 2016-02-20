@@ -83,27 +83,26 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 
 				ChatResource.getRoomUsers(room.name);
 				ChatResource.on("roomUserlist", function (data,err){
-				if(data){
-					var theRoom = UserService.getUserRoom();
+					if(data){
+						var theRoom = UserService.getUserRoom();
 
-					for(var j in theRoom.users){
-						for(var k in theRoom.ops){
-							console.log(k);
-							if(j === k){
-								j = "@" + j;
-								data[k] = j;
+						for(var j in theRoom.users){
+							for(var k in theRoom.ops){
+								console.log(k);
+								if(j === k){
+									j = "@" + j;
+									data[k] = j;
+								}
 							}
 						}
+
+						$scope.joinedRoom.users = data;
+					}else {
+						console.log("ERROR: " + err);
 					}
-
-					$scope.joinedRoom.users = data;
-				}else {
-					console.log("ERROR: " + err);
-				}
-			});
-
+				});
 			} else {
-				console.log("ERROR: Error while trying to join room.");s
+				console.log("ERROR: Error while trying to join room.");
 			}
 		});
 
