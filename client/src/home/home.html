@@ -19,12 +19,14 @@
 						<img src="src/img/chat-room.png">
 					</div>
 					<div class="col-xs-10 col-md-10 section-box chat_img">
-						<h3 ng-show="online"><a ng-href="#/chatrooms/{{room.name}}" title="Go to chatroom">{{room.name}}</a></h3>
+						<h3 ng-show="online"><a ng-click="join(room.name)" title="Go to chatroom">{{room.name}}</a></h3>
 						<h3 ng-hide="online"><a ng-href="#/login" title="You must login first">{{room.name}}</a></h3>
 						<p>{{room.users}}</p>
 					</div>
 				</div>
 			</div>
 		</div>
+		<a ng-href="#/chatrooms" class="pull-right" ng-show="showDiv; online ">...and more!</a>
+		<a ng-href="#/login" class="pull-right" ng-show="showDiv; !online ">...and more!</a>
 	</div>
 </div>
