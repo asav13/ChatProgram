@@ -67,21 +67,19 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};																				//VÉDÍS
 
 	ChatResource.on("updatechat", function(data,err) {
-		console.log("!!!! 1");
 		ChatResource.getMessages(data);
-		var userViewModel = $scope.joinedRoom.users;
-		console.log("Here");
-		for(var u in userViewModel){
-			console.log(u);
-
-		}
+		ChatResource.getRoomUsers(data);
 	});
 
 	// data is the nick that sent this
 	ChatResource.on("recv_privatemsg", function(data, err) {						//VÉDÍS
 		console.log("!!!! 2");
+		$scope.roomPrivateMessages = [];
+		
 		if(data[1]) {																//VÉDÍS
 			alert(data[0] + " sent you a message:\n" + data[1]);											//VÉDÍS
+			var m = data[0] + " sent you a message:\n" + data[1];
+			$scope.roomPrivateMessages.push(m);
 			ChatResource.getPrivateMessages(data);
 		}										//VÉDÍS
 	});																				//VÉDÍS
