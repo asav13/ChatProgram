@@ -12,11 +12,13 @@
 </div>
 
 
+<p ng-repeat="op in joinedRoom.ops">@{{op}}<p>
+
+
 <div name="users">
 	<h2>Users:</h2>
 	<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser"></select>
 	<button ng-click="sendPrivateMessage()" ng-show="selectedUser">Private chat</button>
-	
 	<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
 
 	<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>

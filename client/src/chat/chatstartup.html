@@ -17,5 +17,5 @@
 				ng-model="newRoomName" />
 
 	<div ng-show="newRoomForm.$invalid">A valid chat room name includes only letters and digits.</div>
-	<button ng-click="join()" ng-show="newRoomForm.$valid">Create</button>
+	<button ng-click="createRoom()" ng-show="newRoomForm.$valid">Create</button>
 </form>

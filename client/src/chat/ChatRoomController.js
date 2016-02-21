@@ -129,18 +129,18 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	$scope.$watch("selectedUser", function () {
 		var currUser = UserService.getUsername();
-		var currNamePlusOp = "@"+currUser;
-		if(!($scope.selectedUser === currUser || $scope.selectedUser === currNamePlusOp)){
 
-			$scope.someOneSelected = true;
-			var currRoom = UserService.getUserRoom();
+		$scope.someOneSelected = true;
+		
+		if(UserService.getOpRoom() !== null){
+			$scope.isOp = true;
+		}
 
-			for(var i in currRoom.ops){
-				if(i === currUser){
-					$scope.isOp = true;
-				}
-			}
-		} else {$scope.selectedUser = "";}
+		if($scope.selectedUser === currUser){
+			$scope.someOneSelected = false;
+			$scope.isOp = false;
+			$scope.selectedUser = "";
+		}
 	});
 
 	$scope.kick = function () {
