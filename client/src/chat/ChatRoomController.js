@@ -8,7 +8,14 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.someOneSelected = false;
 	$scope.isOp = false;
 	$scope.roomPrivateMessages = [];
+	$scope.usersUserIsChattingTo = [];
 	var room = UserService.getUserRoom();
+
+												$scope.usersUserIsChattingTo.push("amma");
+												$scope.tabs = [
+													{ title:'Dynamic Title 1', content:'Hallo hallo' },
+													{ title:'Dynamic Title 2', content:'hey hey'}
+													];
 
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
@@ -82,6 +89,11 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				from: 	data[0],
 				msg: 	data[1],
 				time: 	time
+			}
+			var listOfChatters = $scope.usersUserIsChattingTo;
+			if(listOfChatters.indexOf(message.from) < 0) {
+				alert(message.from + " started a conversation with you!");
+				listOfChatters.push(message.from);
 			}
 			$scope.roomPrivateMessages.push(message);
 		}
