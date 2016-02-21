@@ -15,7 +15,7 @@
 [x] and see new messages appear in real time (without having to refresh the page manually).
 
 (10%) 
-[ ] It should be possible to send a private message to another user.
+[x] It should be possible to send a private message to another user.
 
 (15%) 
 [x] The creator of a room should be able to kick a user from a room. 
@@ -35,10 +35,10 @@ In addition, the following technical requirements are given:
 
 OTHER
 
-[ ] op
+[x] op
 	Allows the creator of a room to convert another user to a "op", i.e. grant that user the same priviledges as the creator of the room.
  
-[ ] deop
+[x] deop
 	Allows an op to "deop" another operator. Note: there is nothing that prevents the following events from happening: A creates a room, B joins, A ops B, B deops A.
  
 [ ] setpassword

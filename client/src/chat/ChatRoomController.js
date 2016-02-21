@@ -120,13 +120,43 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	});
 
 	ChatResource.on("banned", function(data){
-		console.log("Banned");
-		console.log(data);
-		console.log(err);
 		// second parameter is username
 		if(data[1] === UserService.getUsername()){
 			alert("You've been banned from the room by " + data[2] +". Behave!");
 			$location.path("/chatrooms");
+		}
+	});
+
+
+	ChatResource.on("opped", function(data){
+		if(data[1] === UserService.getUsername()){
+			alert("You've been opped by " + data[2] +"!");
+			$scope.isOp = true;
+			var currRoom = $rootScope.joinedRoom;
+			UserService.addOpRoom(currRoom);
+		}
+	});
+
+	ChatResource.on("deopped", function(data){
+		if(data[1] === UserService.getUsername()){
+			alert("You've been deopped by " + data[2] +". Sorry!");
+			$scope.isOp = false;
+			var currRoom = $rootScope.joinedRoom;
+			UserService.addOpRoom(currRoom);
+		}
+	});	
+
+	ChatResource.on("roomUserlist", function(data){
+		for(var u in data){
+			$rootScope.joinedRoom.users[u]=u;
+		}
+	});
+
+	ChatResource.on("roomoplist", function(data){
+		$rootScope.joinedRoom.ops = data;
+		//also on user list
+		for(var u in data){
+			$rootScope.joinedRoom.users[u]=u;
 		}
 	});
 
@@ -186,6 +216,30 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		});
 	};
 
+	$scope.makeOp = function () {
+		var opObj = {
+			user: $scope.selectedUser,
+			room: $routeParams.name
+		}
+		ChatResource.makeOp(opObj, function (data){
+			ChatResource.getRoomUsers(opObj.room);
+			if(!data){
+				console.log("ERROR: Error while opping user");
+			}
+		});
+	};
+	$scope.deOp = function () {
+		var deopObj = {
+			user: $scope.selectedUser,
+			room: $routeParams.name
+		}
+		ChatResource.deOp(deopObj, function (data){
+			ChatResource.getRoomUsers(deopObj.room);
+			if(!data){
+				console.log("ERROR: Error while deopping user");
+			}
+		});
+	};	
 
 
 });

@@ -125,13 +125,20 @@ function ChatResource($rootScope, $q) {
 		},
 
 		makeOp: function(opObj, callback) {
+			console.log("making op");
 			socket.emit("op", opObj, function(data){
 				$rootScope.$apply(function () {
 					callback.apply(socket, [data]);
 				});
 			});
 		},
-
+		deOp: function(deopObj, callback) {
+			socket.emit("deop", deopObj, function(data){
+				$rootScope.$apply(function () {
+					callback.apply(socket, [data]);
+				});
+			});
+		},
 
 		/* Called when waiting for response */
 		on: function (event, callback) {

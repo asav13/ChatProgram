@@ -16,50 +16,50 @@
 </div>
 <div>
 	<uib-tabset>
-		<uib-tab heading="Static title">Static content</uib-tab>
+		<uib-tab heading="Room">
+		<div ng-show="online">
+		<h2>Topic:</h2>
+			<p>{{joinedRoom.topic}}</p>
+			<form name="topicForm" ng-show="isOp">
+				<input type="text" ng-model="changedTopic" placeholder="Change the topic"></input>
+				<button ng-click="changeTopic()">Change</button>
+			</form name="topicForm">
+		</div>
+
+
+		<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
+
+
+		<div name="users">
+			<h2>Users:</h2>
+			<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser"></select>
+			<button ng-click="sendPrivateMessage()" ng-show="selectedUser">Private chat</button>
+			<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
+			<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
+			<button ng-click="makeOp()" ng-show="selectedUser && isOp">Make OP</button>
+			<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>	
+		</div>
+
+
+		<div ng-hide="online">You must be logged in to chat!</div>
+
+		<div ng-model="chatArea">
+
+		<ul>
+			<li ng-repeat="msg in roomMessages">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
+		</ul>
+
+		</div>
+		<form name="sendMsgForm">
+		<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"></input>
+		<button ng-click="sendMessage()">Send</button>
+		</form name="sendMsgForm">
+
+				</uib-tab>
 		<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
 		{{tab.content}}
 		</uib-tab>
 	</uib-tabset>
 </div>
-
-<div ng-show="online">
-<h2>Topic:</h2>
-	<p>{{joinedRoom.topic}}</p>
-	<form name="topicForm" ng-show="isOp">
-		<input type="text" ng-model="changedTopic" placeholder="Change the topic"></input>
-		<button ng-click="changeTopic()">Change</button>
-	</form name="topicForm">
-</div>
-
-
-<p ng-repeat="op in joinedRoom.ops">@{{op}}<p>
-
-
-<div name="users">
-	<h2>Users:</h2>
-	<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser"></select>
-	<button ng-click="sendPrivateMessage()" ng-show="selectedUser">Private chat</button>
-	<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
-
-	<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
-	
-</div>
-
-
-
-<div ng-hide="online">You must be logged in to chat!</div>
-
-<div ng-model="chatArea">
-
-<ul>
-	<li ng-repeat="msg in roomMessages">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
-</ul>
-
-</div>
-<form name="sendMsgForm">
-<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"></input>
-<button ng-click="sendMessage()">Send</button>
-</form name="sendMsgForm">
 <br>
 <button ng-click="leaveRoom()">Leave room</button>

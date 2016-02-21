@@ -214,7 +214,7 @@ io.sockets.on('connection', function (socket) {
 			//Add the user to the room roster.
 			rooms[deopObj.room].users[deopObj.user] = deopObj.user;
 			//Broadcast to the room who got opped.
-			io.sockets.emit('deopped', deopObj.room, deopObj.user, socket.username);
+			io.sockets.emit('deopped', [deopObj.room, deopObj.user, socket.username]);
 			//Update user list for room.
 			io.sockets.emit('updateusers', deopObj.room, rooms[deopObj.room].users, rooms[deopObj.room].ops);
 			fn(true);
@@ -257,7 +257,9 @@ io.sockets.on('connection', function (socket) {
 	//Returns a list of all avaliable rooms.
 	socket.on('roomUsers', function(room) {
 		var users = rooms[room].users;
+		var ops = rooms[room].ops;
 		socket.emit('roomUserlist', users);
+		socket.emit('roomoplist', ops);
 	});
 
 	//Returns a list of all avaliable rooms.

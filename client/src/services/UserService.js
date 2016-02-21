@@ -65,11 +65,13 @@ function UserService() {
 		},
 		addOpRoom: function (room_par) {
 			userinfo.opRoom = room_par;
-			console.log("DEB: HERE added op");
 		},
 		getOpRoom: function (room_par) {
 			return userinfo.opRoom;
 			
-		}		
+		},
+		removeOpRoom: function () {
+			userinfo.opRoom = null;
+		}
 	};
 });
