@@ -19,7 +19,7 @@ function HomeController($scope, $location, ChatResource, UserService, $rootScope
 					name: i,
 					users: "",
 				};
-				console.log(roomlist[i].users);
+				//beginning of voodoo for getting a string out of this
 				for(var j in roomlist[i].users) {
 						allUsers.push(roomlist[i].users[j]);
 				}
@@ -32,9 +32,6 @@ function HomeController($scope, $location, ChatResource, UserService, $rootScope
 				if(count > 6) {
 					$rootScope.showDiv = true;
 				}
-				else {
-					$rootScope.showDiv = true;
-				}	
 				rooms.push(availableRooms);		
 			}
 			$scope.rooms = rooms;

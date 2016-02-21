@@ -50,8 +50,8 @@ function ChatResource($rootScope, $q) {
 			});
 		},
 
-		getPrivateMessages: function (user, callback) {							//VÉDÍS
-			socket.emit("roomPrivateMessages", user, function(data, err) {		//VÉDÍS
+		getPrivateMessages: function (message, callback) {							//VÉDÍS
+			socket.emit("roomPrivateMessages", message, function(data, err) {		//VÉDÍS
 																				//VÉDÍS
 			});																	//VÉDÍS
 		},																		//VÉDÍS
