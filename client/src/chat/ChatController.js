@@ -54,8 +54,8 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		}
 	});
 
+
 	$scope.join = function() {
-		var room = $scope.selectedRoom;
 		if($scope.newRoomName !== undefined){
 			var roomObj = {
 				room: $scope.newRoomName,
@@ -68,12 +68,12 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 			name: $scope.selectedRoom
 		};}
 
-		ChatResource.joinRoom(room).then(function(success){
+		ChatResource.joinRoom(roomObj).then(function(success){
 			if(success){
 				$scope.joinError = false;
-				$rootScope.joinedRoom = room;
-				$location.path("/chatrooms/" + room.name);
-				UserService.addRoom(room);
+				$rootScope.joinedRoom = roomObj;
+				$location.path("/chatrooms/" + roomObj.name);
+				UserService.addRoom(roomObj);
 			} else {
 				$scope.joinError = true;
 				console.log("ERROR: Error while trying to join room.");
