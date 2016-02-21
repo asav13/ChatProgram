@@ -68,6 +68,12 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	ChatResource.on("updatechat", function(data,err) {
 		ChatResource.getMessages(data);
+		var userViewModel = $scope.joinedRoom.users;
+		console.log("Here");
+		for(var u in userViewModel){
+			console.log(u);
+
+		}
 	});
 
 	// I'm not sure if this is the thing to do...
