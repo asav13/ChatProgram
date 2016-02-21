@@ -22,15 +22,14 @@
 		<div class="container" ng-include="'src/_partials/navbar.html'"></div>
 	</nav>
 	<div id="wrapper">
-		<div ng-view></div>
-		<div ng-show="showDiv" style="height: 100px"></div>
-		<div id="footer" class="footer_bg">
-			<footer class="container">
-				Created by: <a href="mailto:asav13@ru.is">asav13@ru.is</a>,
-				<a href="mailto:laurar14@ru.is">laurar14@ru.is</a>, 
-				<a href="mailto:vedise13@ru.is">vedise13@ru.is</a>
-			</footer>
-		</div>
+		<div id="main" ng-view></div>
+	</div>
+	<div id="footer" class="footer_bg">
+		<footer class="container">
+			Created by: <a href="mailto:asav13@ru.is">asav13@ru.is</a>,
+			<a href="mailto:laurar14@ru.is">laurar14@ru.is</a>, 
+			<a href="mailto:vedise13@ru.is">vedise13@ru.is</a>
+		</footer>
 	</div>
 </body>
 </html>
