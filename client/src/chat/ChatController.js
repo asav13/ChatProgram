@@ -6,7 +6,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 	$scope.online = UserService.getOnlineStatus();
 	$scope.joinError = false;
 	ChatResource.getRoomList();
-
+	
 	// When we get an "roomlist" event, we update the roomlist
 	ChatResource.on("roomlist", function (roomlist) {
 		if(roomlist){
