@@ -8,6 +8,20 @@
 		<li ng-repeat="msg in roomPrivateMessages">[{{msg.time}}] - {{msg.from}} says: {{msg.msg}}</li>
 	</ul>
 </div>
+<div>
+	<h3>I'm chatting to:</h3>
+	<ul>
+		<li ng-repeat="user in usersUserIsChattingTo">{{user}}</li>
+	</ul>
+</div>
+<div>
+	<uib-tabset>
+		<uib-tab heading="Static title">Static content</uib-tab>
+		<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+		{{tab.content}}
+		</uib-tab>
+	</uib-tabset>
+</div>
 
 <div ng-show="online">
 <h2>Topic:</h2>
