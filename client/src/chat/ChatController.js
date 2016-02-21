@@ -20,6 +20,19 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 					ops: roomlist[i].ops
 				};
 
+				console.log("BEFORE");
+				console.log(currRoom);
+
+				for(var u in currRoom.users){
+					for(var o in currRoom.ops){
+						if(o == u){
+							delete currRoom.users[u];
+						}
+					}
+				}
+				console.log("after");
+				console.log(currRoom);
+
 				temp.push(currRoom);
 			}
 			$scope.rooms = temp;

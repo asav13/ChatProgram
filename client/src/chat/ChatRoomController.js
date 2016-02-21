@@ -56,7 +56,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			var date = new Date();													//VÉDÍS
 			var message = {															//VÉDÍS
 				nick: 	username,												//changed
-				msg: 		msgInput												//VÉDÍS
+				message: 		msgInput												//VÉDÍS
 			};
 			console.log(message);														//VÉDÍS
 			ChatResource.sendPrivateMsg(message, function(success) {		//wants a callback
@@ -67,22 +67,28 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};																				//VÉDÍS
 
 	ChatResource.on("updatechat", function(data,err) {
+		console.log("!!!! 1");
 		ChatResource.getMessages(data);
+		var userViewModel = $scope.joinedRoom.users;
+		console.log("Here");
+		for(var u in userViewModel){
+			console.log(u);
+
+		}
 	});
 
-	// I'm not sure if this is the thing to do...
+	// data is the nick that sent this
 	ChatResource.on("recv_privatemsg", function(data, err) {						//VÉDÍS
+		console.log("!!!! 2");
 		if(data[1]) {																//VÉDÍS
-			alert("YOU GOT A MESSAGE!!");											//VÉDÍS
-			console.log("DATA");													//VÉDÍS
-			console.log(data);														//VÉDÍS
-		}																			//VÉDÍS
-		ChatResource.getPrivateMessages(data);										//VÉDÍS
+			alert(data[0] + " sent you a message:\n" + data[1]);											//VÉDÍS
+			ChatResource.getPrivateMessages(data);
+		}										//VÉDÍS
 	});																				//VÉDÍS
 
 	ChatResource.on("roomMessages", function(data, err){
+
 		if(data) { 
-			
 			for(var i = 0; i < data.length; i++){
 				data[i].time = (data[i].timestamp).substring(11,19);
 			}
@@ -91,6 +97,20 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			console.log("ERROR: " + err);
 		}
 	});
+
+	ChatResource.on("roomPrivateMessages", function(data, err) {
+		console.log("!!!! 3");
+		console.log(data);
+		if(data) {
+			for(var i = 0; i < data.length; i++){
+				data[i].time = (data[i].timestamp).substring(11,19);
+			}
+			$scope.roomPrivateMessages = data;
+		} else {
+			console.log("ERROR: " + err);
+		}
+	});
+
 
 	ChatResource.on("kicked", function(data,err){
 		// second parameter is username

@@ -1,7 +1,6 @@
 <h1>{{joinedRoom.name}}</h1>
 <!--Making sure the user only sees this if logged in-->
 
-
 <div ng-show="online">
 <h2>Topic:</h2>
 	<p>{{joinedRoom.topic}}</p>
@@ -22,6 +21,7 @@
 	<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
 
 	<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
+	
 </div>
 
 
@@ -42,7 +42,9 @@
 <br>
 <button ng-click="leaveRoom()">Leave room</button>
 
-<h3>PRIVATE MESSAGES</h3>
-<ul>
-	<li ng-repeat="msg in roomPrivateMessages">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
-</ul>
+<div>
+	<h3>PRIVATE MESSAGES</h3>
+	<ul>
+		<li ng-repeat="msg in roomPrivateMessages">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
+	</ul>
+</div>
