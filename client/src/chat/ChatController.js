@@ -49,7 +49,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 			ChatResource.getRoomUsers(data.toString());
 			ChatResource.on("roomUserlist", function (data,err){
 				if(data){
-					$scope.joinedRoom.users = data;
+					$rootScope.joinedRoom.users = data;
 				}else {
 					console.log("ERROR: " + err);
 				}
@@ -97,6 +97,15 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				$rootScope.joinedRoom = room;
 				$location.path("/chatrooms/" + room.name);
 				UserService.addRoom(room);
+				ChatResource.getRoomUsers(room.name);
+				ChatResource.on("roomUserlist", function (data, err){
+					if(data){
+						$rootScope.joinedRoom.users = data;
+					}else {
+						console.log("ERROR: " + err);
+					}
+				});
+
 			} else {
 				$scope.joinError = true;
 				console.log("ERROR: Error while trying to join room.");
