@@ -33,7 +33,7 @@
 </div>
 
 
-<p ng-repeat="op in joinedRoom.ops">@{{op}}<p>
+<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
 
 
 <div name="users">
@@ -41,8 +41,9 @@
 	<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser"></select>
 	<button ng-click="sendPrivateMessage()" ng-show="selectedUser">Private chat</button>
 	<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
-
 	<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
+	<button ng-click="makeOp()" ng-show="selectedUser && isOp">Make OP</button>
+	<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>
 	
 </div>
 
