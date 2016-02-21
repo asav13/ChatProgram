@@ -1,21 +1,21 @@
-<h1>Hi {{username}} ! You're ready to start chatting.</h1>
-<p> Pick a room.. </p>
-<select size="10" ng-options="room as room.name for room in rooms" ng-model="selectedRoom"></select>
+<div class="container extra-padding">
+	<h1>{{username}}, pick a room and start chatting....</h1>
+	<select size="10" ng-options="room as room.name for room in rooms" ng-model="selectedRoom"></select>
 
-<div>Topic: {{selectedRoom.topic}}</div>
+	<div>Topic: {{selectedRoom.topic}}</div>
 
-<button ng-click="join()">Join</button>
-<div ng-show="joinError" class="error">There was a problem joining the room, maybe you were banned, you troll.</div>
+	<button ng-click="join()">Join</button>
+	<div ng-show="joinError" class="error">There was a problem joining the room, maybe you were banned, you troll.</div>
 
-<p>..or create a new one: </p>
-<form name="newRoomForm">
-	<input 		type="text" 
-				placeholder="New chat room name" 
-				autofocus="autofocus" 
-				required="required" 
-				pattern="[a-zA-Z0-9]+"
-				ng-model="newRoomName" />
-
-	<div ng-show="newRoomForm.$invalid">A valid chat room name includes only letters and digits.</div>
-	<button ng-click="createRoom()" ng-show="newRoomForm.$valid">Create</button>
-</form>
+	<h3>..or create a new one!</h3>
+	<form class="form-group" name="newRoomForm">
+		<input 		type="text" 
+					placeholder="New chatroom name" 
+					autofocus="autofocus" 
+					required="required" 
+					pattern="[a-zA-Z0-9]+"
+					ng-model="newRoomName" />
+		<div ng-show="newRoomForm.$invalid">A valid chat room name includes only letters and digits.</div>
+		<button ng-click="createRoom()" ng-show="newRoomForm.$valid">Create</button>
+	</form>	
+</div>
