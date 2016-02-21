@@ -125,7 +125,6 @@ function ChatResource($rootScope, $q) {
 		},
 
 		makeOp: function(opObj, callback) {
-			console.log("making op");
 			socket.emit("op", opObj, function(data){
 				$rootScope.$apply(function () {
 					callback.apply(socket, [data]);
