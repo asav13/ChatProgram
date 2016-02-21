@@ -6,7 +6,7 @@ function HomeController($scope, $location, ChatResource, UserService, $rootScope
 	$scope.online = UserService.getOnlineStatus();
 	$scope.rooms = [];
 	$scope.users = [];
-	$rootScope.showDiv = false;
+	$scope.showDiv = false;
 
 	ChatResource.getRoomList();
 	ChatResource.on("roomlist", function (roomlist) {
@@ -28,12 +28,12 @@ function HomeController($scope, $location, ChatResource, UserService, $rootScope
 				if(!angular.equals({}, roomlist[i].users)) 	{
 					availableRooms.users = allUsers.toString();
 				} else {
-					availableRooms.users = "Nobody here!";
+					availableRooms.users = "Nobody here...";
 				}
 				rooms.push(availableRooms);		
 			}
 			if(count >= 6) {
-				$rootScope.showDiv = true;
+				$scope.showDiv = true;
 			}
 			$scope.rooms = rooms;
 		} else {
