@@ -81,13 +81,19 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 }
 
 .login-card {
-	max-width: 400px;
+	max-width: 370px;
+	border: 1px solid #ccc;
+	border-bottom: none;
 	min-height: 300px;
 	margin: 0 auto;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 }
 
 .bottom-well {
-	max-width: 400px;
+	max-width: 370px;
 	min-height: 50px;
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
