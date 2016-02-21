@@ -4,7 +4,8 @@ function UserService() {
 	// This should only be run once per client session, according to DEB info it seems to work
 	var userinfo = {
 		name: 	null,
-		room: 	null
+		room: 	null,
+		opRoom: null
 	};
 
 	var online 		= false;
@@ -43,6 +44,7 @@ function UserService() {
 				online 			= false;
 				userinfo.name 	= null;
 				userinfo.room 	= null;
+				userinfo.opRoom = null
 			}
 		},
 
@@ -58,7 +60,16 @@ function UserService() {
 				console.log("ERROR: No user logged in but trying to join room");
 			} else {
 				userinfo.room = null; // Should we have more than one room !?!T ODO
+				userinfo.opRoom = null;
 			}
-		}
+		},
+		addOpRoom: function (room_par) {
+			userinfo.opRoom = room_par;
+			console.log("DEB: HERE added op");
+		},
+		getOpRoom: function (room_par) {
+			return userinfo.opRoom;
+			
+		}		
 	};
 });

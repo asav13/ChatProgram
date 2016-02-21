@@ -57,13 +57,25 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 	});
 
 	$scope.createRoom = function() {
+		var userName = UserService.getUsername();
+		var currUser = {
+			userName: userName
+		};
+
 		if($scope.newRoomName !== undefined){
 			var newRoom = {
 				room: $scope.newRoomName,
-				name: $scope.newRoomName
+				name: $scope.newRoomName,
+				topic: "No topic has been set for room..",
+				ops: currUser
 			};
 			ChatResource.createRoom(newRoom).then(function(success, err){
 				if(success){
+					$scope.joinError = false;
+					$rootScope.joinedRoom = newRoom;
+					$location.path("/chatrooms/" + newRoom.name);
+					UserService.addRoom(newRoom);
+					UserService.addOpRoom(newRoom);
 				} else {
 					console.log("ERROR: " + err);
 				}
@@ -71,7 +83,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		}
 	};
 
-	$rootScope.join = function() {
+	$scope.join = function() {
 		var room = $scope.selectedRoom;
 		var roomObj = {
 			room: $scope.selectedRoom,
@@ -83,27 +95,6 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				$rootScope.joinedRoom = room;
 				$location.path("/chatrooms/" + room.name);
 				UserService.addRoom(room);
-
-				ChatResource.getRoomUsers(room.name);
-				ChatResource.on("roomUserlist", function (data, err){
-					if(data){
-						var theRoom = UserService.getUserRoom();
-
-						for(var j in theRoom.users){
-							for(var k in theRoom.ops){
-								console.log(k);
-								if(j === k){
-									j = "@" + j;
-									data[k] = j;
-								}
-							}
-						}
-
-						$scope.joinedRoom.users = data;
-					}else {
-						console.log("ERROR: " + err);
-					}
-				});
 			} else {
 				$scope.joinError = true;
 				console.log("ERROR: Error while trying to join room.");
