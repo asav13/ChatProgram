@@ -147,12 +147,21 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	});	
 
 	ChatResource.on("roomUserlist", function(data){
+		if($rootScope.joinedRoom.users === undefined){
+			$rootScope.joinedRoom.users = {};
+		}
 		for(var u in data){
 			$rootScope.joinedRoom.users[u]=u;
 		}
 	});
 
 	ChatResource.on("roomoplist", function(data){
+		if($rootScope.joinedRoom.users === undefined){
+			$rootScope.joinedRoom.users = {};
+		}
+		if($rootScope.joinedRoom.ops === undefined){
+			$rootScope.joinedRoom.ops = {};
+		}				
 		$rootScope.joinedRoom.ops = data;
 		//also on user list
 		for(var u in data){
@@ -168,7 +177,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		};
 		ChatResource.setTopic(topicObj).then(function(data,err){
 			if(data) {
-				$scope.joinedRoom.topic = topicObj.topic;
+				$rootScope.joinedRoom.topic = topicObj.topic;
 				$scope.changedTopic="";
 			} else {
 				console.log("ERROR: Error while changing topic " + err);

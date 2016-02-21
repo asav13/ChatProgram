@@ -1,6 +1,23 @@
 <h1>{{joinedRoom.name}}</h1>
-<!--Making sure the user only sees this if logged in-->
+<!--Topic and users need to be outside tab...unless we figure out the fix thingie-->
+<h2>Topic:</h2>
+	<p>{{joinedRoom.topic}}</p>
+	<form name="topicForm" ng-show="isOp">
+		<input type="text" ng-model="changedTopic" placeholder="Change the topic"></input>
+		<button ng-click="changeTopic()">Change</button>
+	</form name="topicForm">
+<p>Le Ops - Be nice to them.. or else.</p>
+<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
 
+<div name="users">
+	<h2>Users:</h2>
+	<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser"></select>
+	<button ng-click="sendPrivateMessage()" ng-show="selectedUser">Private chat</button>
+	<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
+	<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
+	<button ng-click="makeOp()" ng-show="selectedUser && isOp">Make OP</button>
+	<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>
+</div>
 
 <div>
 	<h3>PRIVATE MESSAGES</h3>
@@ -18,32 +35,10 @@
 	<uib-tabset>
 		<uib-tab heading="Room">
 		<div ng-show="online">
-		<h2>Topic:</h2>
-			<p>{{joinedRoom.topic}}</p>
-			<form name="topicForm" ng-show="isOp">
-				<input type="text" ng-model="changedTopic" placeholder="Change the topic"></input>
-				<button ng-click="changeTopic()">Change</button>
-			</form name="topicForm">
+
 		</div>
-
-
-		<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
-
-
-		<div name="users">
-			<h2>Users:</h2>
-			<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser"></select>
-			<button ng-click="sendPrivateMessage()" ng-show="selectedUser">Private chat</button>
-			<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
-			<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
-			<button ng-click="makeOp()" ng-show="selectedUser && isOp">Make OP</button>
-			<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>	
-		</div>
-
-
 
 		<div ng-hide="online">You must be logged in to chat!</div>
-
 		<div ng-model="chatArea">
 
 		<ul>

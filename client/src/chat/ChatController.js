@@ -97,6 +97,8 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				$rootScope.joinedRoom = room;
 				$location.path("/chatrooms/" + room.name);
 				UserService.addRoom(room);
+				ChatResource.getRoomUsers(room.name);
+
 
 			} else {
 				$scope.joinError = true;
