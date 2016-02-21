@@ -68,17 +68,16 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};
 
 	ChatResource.on("updatechat", function(data,err) {
-		console.log("!!!! 1");
 		ChatResource.getMessages(data);
+		ChatResource.getRoomUsers(data);
 	});
 
 	ChatResource.on("recv_privatemsg", function(data, err) {
 		if(data[1]) {
-			alert(data[0] + " sent you a message:\n" + data[1]);
 			ChatResource.getPrivateMessages(data);
-			var time = new Date();
-			time = time.toString();
-			time = time.substring(16, 24);
+			var time 	= new Date();
+			time 		= time.toString();
+			time 		= time.substring(16, 24);
 			var message = {
 				from: 	data[0],
 				msg: 	data[1],

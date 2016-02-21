@@ -15,6 +15,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 			for(var i in roomlist){
 				var currRoom = {
 					name: i,
+					room: i,
 					topic: roomlist[i].topic,
 					users: roomlist[i].users,
 					ops: roomlist[i].ops
@@ -91,6 +92,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 
 		ChatResource.joinRoom(room).then(function(success){
 			if(success){
+				ChatResource.getRoomList();
 				$scope.joinError = false;
 				$rootScope.joinedRoom = room;
 				$location.path("/chatrooms/" + room.name);
