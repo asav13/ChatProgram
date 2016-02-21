@@ -7,6 +7,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.selectedUser = "";
 	$scope.someOneSelected = false;
 	$scope.isOp = false;
+	$scope.roomPrivateMessages = [];
 	var room = UserService.getUserRoom();
 
 	$scope.leaveRoom = function () {
@@ -47,44 +48,44 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};
 
 	// This shit is connected to an unordered list in chatrooms.html
-	$scope.sendPrivateMessage = function () {										//VÉDÍS
-		//var username = $scope.getUsername;										//VÉDÍS
-		var username = $scope.selectedUser;											// ASA
-		var msgInput = prompt("Type a private message to " + username, "");			//VÉDÍS
-																					//VÉDÍS
-		if(msgInput !== null) {														//VÉDÍS
-			var date = new Date();													//VÉDÍS
-			var message = {															//VÉDÍS
-				nick: 	username,												//changed
-				message: 		msgInput												//VÉDÍS
+	$scope.sendPrivateMessage = function () {
+		//var username = $scope.getUsername;
+		var username = $scope.selectedUser;
+		var msgInput = prompt("Type a private message to " + username, "");
+
+		if(msgInput !== null) {
+			var date = new Date();
+			var message = {
+				nick: 		username,
+				message: 	msgInput
 			};
-			console.log(message);														//VÉDÍS
+			console.log(message);
 			ChatResource.sendPrivateMsg(message, function(success) {		//wants a callback
 				console.log("in callback");
 				console.log(success); //boolean variable 
-			} );									//VÉDÍS
-		}																			//VÉDÍS
-	};																				//VÉDÍS
+			} );
+		}
+	};
 
 	ChatResource.on("updatechat", function(data,err) {
-		console.log("!!!! 1");
 		ChatResource.getMessages(data);
-		var userViewModel = $scope.joinedRoom.users;
-		console.log("Here");
-		for(var u in userViewModel){
-			console.log(u);
-
-		}
+		ChatResource.getRoomUsers(data);
 	});
 
-	// data is the nick that sent this
-	ChatResource.on("recv_privatemsg", function(data, err) {						//VÉDÍS
-		console.log("!!!! 2");
-		if(data[1]) {																//VÉDÍS
-			alert(data[0] + " sent you a message:\n" + data[1]);											//VÉDÍS
+	ChatResource.on("recv_privatemsg", function(data, err) {
+		if(data[1]) {
 			ChatResource.getPrivateMessages(data);
-		}										//VÉDÍS
-	});																				//VÉDÍS
+			var time 	= new Date();
+			time 		= time.toString();
+			time 		= time.substring(16, 24);
+			var message = {
+				from: 	data[0],
+				msg: 	data[1],
+				time: 	time
+			}
+			$scope.roomPrivateMessages.push(message);
+		}
+	});
 
 	ChatResource.on("roomMessages", function(data, err){
 
@@ -97,20 +98,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			console.log("ERROR: " + err);
 		}
 	});
-
-	ChatResource.on("roomPrivateMessages", function(data, err) {
-		console.log("!!!! 3");
-		console.log(data);
-		if(data) {
-			for(var i = 0; i < data.length; i++){
-				data[i].time = (data[i].timestamp).substring(11,19);
-			}
-			$scope.roomPrivateMessages = data;
-		} else {
-			console.log("ERROR: " + err);
-		}
-	});
-
 
 	ChatResource.on("kicked", function(data,err){
 		// second parameter is username
