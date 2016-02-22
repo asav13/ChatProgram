@@ -2,11 +2,23 @@
 	<div class="row">
 		<div class="user-column pull-left" name="users">
 			<h2>Users:</h2>
-			<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser" ng-click="setSelectedUser()"></select>
+			<select size="15" 
+					class="form-control userlist" 
+					ng-options="user as user for user in joinedRoom.users" 
+					ng-model="selectedUser" 
+					ng-click="setSelectedUser()">
+			</select>
 			<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
 			<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
 			<button ng-click="makeOp()" ng-show="selectedUser && isOp">Make OP</button>
-			<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>	
+			<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>
+			<!--UNBANNING-->
+			<button ng-click="unban()" ng-show="isOp">Unban</button>
+			<form name="unbanForm" ng-show="isOp && unbanning" ng-model="unbanning">
+				<label for="unbanuser">Who do you want to unban?</label>
+				<input type="text" name="unbanuser" ng-model="unbanusername"/>
+				<button ng-click="confirmUnban()">Confirm</button>
+			</form>
 		</div>
 		<!--ALL CHAT STUFF GOES HERE-->
 		<div class="chat-column pull-left">
@@ -19,12 +31,8 @@
 			<p>Le Ops - Be nice to them.. or else.</p>
 			<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
 			<div class="chat-display">
-				<div name="newMsg" ng-show="newMsg">
-					<p>You've got a message from {{newMsgFrom}}!</p>
-					<img id="newMsg" src="src/img/newMsgIcon.png" alt="new message"></img>
-			        </button>
-				</div name="newMsg">
 				<uib-tabset>
+					<!--MAIN CHAT-->
 					<uib-tab ng-click="setSelectedUserNone()" heading="Room">						
 						<div class="well" ng-model="chatArea">
 							<ul>
@@ -32,38 +40,43 @@
 							</ul>
 						</div>
 					</uib-tab>
-						<uib-tab select="setSelectedUser(tab.title)" ng-repeat="tab in tabs" heading="{{tab.title}}" ng-model="selectedUser">
-							<ul>
-								<li ng-repeat="msg in tab.content">[{{msg.time}}]<{{msg.from}}>  {{msg.message}}</li>
-							</ul>
+					<!--PM CHAT-->
+					<uib-tab select="setSelectedUser(tab.title)" ng-repeat="tab in tabs" ng-model="selectedUser">
+						<uib-tab-heading><i ng-show="newMsg" class="glyphicon glyphicon-bell"></i> {{tab.title}}</uib-tab-heading>
+							<div class="well">
+								<ul>
+									<li ng-repeat="msg in tab.content">[{{msg.time}}]<{{msg.from}}>  {{msg.message}}</li>
+								</ul>
+							</div>
 					</uib-tab>
 				</uib-tabset>
 			</div>
 			<div class="extra-padding">
 				<form name="sendMsgForm" ng-show="public">
 					<!---<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"/>-->
-					<textarea class="form-control" rows="3" ng-model="chatInput" placeholder="Write a public message..." maxlength="200"></textarea>
+					<textarea class="form-control" 
+							  rows="3" 
+							  ng-model="chatInput" 
+							  placeholder="Write a public message..." 
+							  maxlength="200">
+					</textarea>
 					<button ng-click="sendMessage()"  class="btn btn-primary pull-right">Send</button>
 				</form>
 				<form name="sendPmForm" ng-show="private">
 					<!---<input type="text" ng-model="pmInput" placeholder="Write message here..." maxlength="200"/>-->
-					<textarea class="form-control" rows="3" ng-model="pmInput" placeholder="Write a private message to {{selectedUser}}" maxlength="200"></textarea>
+					<textarea class="form-control" 
+							  rows="3" 
+							  ng-model="pmInput" 
+							  placeholder="Write a private message to {{selectedUser}}" 
+							  maxlength="200">
+					</textarea>
 					<button ng-click="sendPrivateMessage()" class="btn btn-primary pull-right">Send PM</button>
 				</form>
 				<div ></div>
 				<span class="help-block" ng-hide="online"><small class="error">You must be logged in to chat!</small></span>
+				<button ng-click="leaveRoom()">Leave room</button>
 			</div>
 		</div>
 		<!--END OF CHAT STUFF-->
 	</div>
-	<!--UNBANNING-->
-	<button ng-click="unban()" ng-show="isOp">Unban</button>
-	<form name="unbanForm" ng-show="isOp && unbanning" ng-model="unbanning">
-		<label for="unbanuser">Who do you want to unban?</label>
-		<input type="text" name="unbanuser" ng-model="unbanusername"/>
-		<button ng-click="confirmUnban()">Confirm</button>
-	</form>
-	<br>
-	<button ng-click="leaveRoom()">Leave room</button>
-
 </div>
