@@ -33,7 +33,7 @@ gulp.task('build', function () {
 		.pipe(ngAnnotate())
 		.pipe(uglify())
 		.pipe(concat('app.min.js'))
-		.pipe(gulp.dest('./build'));
+		.pipe(gulp.dest('./'));
 });
 
 /* gulp jshint only runs jshint */

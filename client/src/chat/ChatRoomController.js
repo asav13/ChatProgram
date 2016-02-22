@@ -2,7 +2,7 @@
 
 angular.module('chatApp').controller('ChatRoomController', 
 function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatResource, UserService){
-	
+
 	$scope.online = UserService.getOnlineStatus();
 	$scope.myName = UserService.getUsername();
 	$scope.selectedUser = "";
@@ -16,7 +16,14 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	var room = UserService.getUserRoom();
 	$scope.unbanning = false;
 
-
+	if(!$scope.online){
+		// You shouldn't be here silly.
+		$location.path("/login");
+	} else{ 
+		// Making sure we old see msgs as soon as we enter.
+		ChatResource.getMessages($scope.joinedRoom.room);
+		ChatResource.getRoomUsers($scope.joinedRoom.room);
+	}
 
 	$scope.public = true;
 	$scope.private = false;
@@ -92,6 +99,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		var username = $scope.selectedUser;
 		var msgInput = $scope.pmInput;
 		var time 	= new Date();
+		var messageToUser;
+		var messageFromUser;
 		time 		= time.toString();
 		time 		= time.substring(16, 24);
 
@@ -156,6 +165,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	ChatResource.on("updatechat", function(data,err) {
 		ChatResource.getMessages(data);
 		ChatResource.getRoomUsers(data);
+
 	});
 
 	ChatResource.on("recv_privatemsg", function(data, err) {
@@ -227,7 +237,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	ChatResource.on("kicked", function(data,err){
 		// second parameter is username
 		if(data[1] === UserService.getUsername()){
-			alert("You've been kicked out of the room by " + data[2] +". Behave!");
 			$location.path("/chatrooms");
 		}
 	});
@@ -235,7 +244,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	ChatResource.on("banned", function(data){
 		// second parameter is username
 		if(data[1] === UserService.getUsername()){
-			alert("You've been banned from the room by " + data[2] +". Behave!");
 			$location.path("/chatrooms");
 		}
 	});
@@ -243,7 +251,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	ChatResource.on("opped", function(data){
 		if(data[1] === UserService.getUsername()){
-			alert("You've been opped by " + data[2] +"!");
 			$scope.isOp = true;
 			var currRoom = $rootScope.joinedRoom;
 			UserService.addOpRoom(currRoom);
@@ -252,7 +259,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	ChatResource.on("deopped", function(data){
 		if(data[1] === UserService.getUsername()){
-			alert("You've been deopped by " + data[2] +". Sorry!");
 			$scope.isOp = false;
 			var currRoom = $rootScope.joinedRoom;
 			UserService.addOpRoom(currRoom);
