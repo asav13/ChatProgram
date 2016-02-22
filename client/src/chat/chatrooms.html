@@ -8,9 +8,9 @@
 			<button ng-click="makeOp()" ng-show="selectedUser && isOp">Make OP</button>
 			<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>	
 		</div>
+		<!--ALL CHAT STUFF GOES HERE-->
 		<div class="chat-column pull-left">
 			<h1>{{joinedRoom.name}}</h1>
-			<!--Topic and users need to be outside tab...unless we figure out the fix thingie-->
 			<h2>Topic: {{joinedRoom.topic}}</h2>
 			<form name="topicForm" ng-show="isOp">
 				<input type="text" ng-model="changedTopic" placeholder="Change the topic"/>
@@ -18,71 +18,44 @@
 			</form>
 			<p>Le Ops - Be nice to them.. or else.</p>
 			<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
-			<div>
+			<div class="chat-display">
+				<div name="newMsg" ng-show="newMsg">
+					<p>You've got a message from {{newMsgFrom}}!</p>
+					<img id="newMsg" src="src/img/newMsgIcon.png" alt="new message"></img>
+			        </button>
+				</div name="newMsg">
 				<uib-tabset>
-					<uib-tab ng-click="setSelectedUserNone()" heading="Room">
-						<div ng-hide="online">
-							You must be logged in to chat!
-						</div>
-						<div ng-model="chatArea">
+					<uib-tab ng-click="setSelectedUserNone()" heading="Room">						
+						<div class="well" ng-model="chatArea">
 							<ul>
-								<li ng-repeat="msg in roomMessages[joinedRoom]">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
+								<li ng-repeat="msg in roomMessages[joinedRoom]">[{{msg.time}}]<{{msg.nick}}>  {{msg.message}}</li>
 							</ul>
 						</div>
 					</uib-tab>
 						<uib-tab ng-click="setSelectUser()" ng-repeat="tab in tabs" heading="{{tab.title}}" ng-model="selectedUser">
 							<ul>
-								<li ng-repeat="msg in tab.content">[{{msg.time}}] - {{msg.from}} says: {{msg.message}}</li>
+								<li ng-repeat="msg in tab.content">[{{msg.time}}]<{{msg.from}}>  {{msg.message}}</li>
 							</ul>
 					</uib-tab>
 				</uib-tabset>
 			</div>
+			<div class="extra-padding">
+				<form name="sendMsgForm" ng-show="public">
+					<!---<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"/>-->
+					<textarea class="form-control" rows="3" ng-model="chatInput" placeholder="Write a public message..." maxlength="200"></textarea>
+					<button ng-click="sendMessage()"  class="btn btn-primary pull-right">Send</button>
+				</form>
+				<form name="sendPmForm" ng-show="private">
+					<!---<input type="text" ng-model="pmInput" placeholder="Write message here..." maxlength="200"/>-->
+					<textarea class="form-control" rows="3" ng-model="pmInput" placeholder="Write a private message to {{selectedUser}}" maxlength="200"></textarea>
+					<button ng-click="sendPrivateMessage()" class="btn btn-primary pull-right">Send PM</button>
+				</form>
+				<div ></div>
+				<span class="help-block" ng-hide="online"><small class="error">You must be logged in to chat!</small></span>
+			</div>
 		</div>
+		<!--END OF CHAT STUFF-->
 	</div>
-	<div>
-		<uib-tabset>
-			<uib-tab ng-click="setSelectedUserNone()" heading="Room">
-			<div ng-show="online">
-			</div>
-
-			<div ng-hide="online">You must be logged in to chat!</div>
-			<div ng-model="chatArea">
-
-			<ul>
-				<li ng-repeat="msg in roomMessages[joinedRoom]">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
-			</ul>
-
-			</div>
-			<!--MOVED TEMPORARILY, see blow-->
-			<!--form name="sendMsgForm">
-			<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"></input>
-			<button ng-click="sendMessage()">Send</button>
-			</form name="sendMsgForm"-->
-
-			</uib-tab>
-			<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="setSelectedUser(tab.title)"  ng-model="selectedUser">
-			<ul>
-				<li ng-repeat="msg in tab.content">[{{msg.time}}] - {{msg.from}} says: {{msg.message}}</li>
-			</ul>
-			</uib-tab>
-		</uib-tabset>
-	</div>
-	<br>
-	<!---Moved here temporarililily-->
-	<div ng-show="public">
-		<form name="sendMsgForm">
-			<input type="text" ng-model="chatInput" placeholder="Write public message" maxlength="200"/>
-			<button ng-click="sendMessage()">Send</button>
-		</form>
-	</div>
-
-	<div ng-show="private">
-		<form name="sendPmForm">
-			<input type="text" ng-model="pmInput" placeholder="Write private message to {{selectedUser}}" maxlength="200"/>
-			<button ng-click="sendPrivateMessage()">Send PM</button>
-		</form>
-	</div>
-
 	<!--UNBANNING-->
 	<button ng-click="unban()" ng-show="isOp">Unban</button>
 	<form name="unbanForm" ng-show="isOp && unbanning" ng-model="unbanning">

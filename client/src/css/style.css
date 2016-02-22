@@ -147,3 +147,16 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 	width: 80%;
 	border: red 1px solid;
 }
+
+<<<<<<< HEAD
+.chat-display .well{
+
+	background-color: white;
+	margin-bottom: 0;
+}
+=======
+/* addded by asa ....:$*/
+#newMsg {
+	max-width: 	5%;
+	max-height: 5%;
+>>>>>>> bdf0feb8abf637d1d525fba3a0348265c5c3170d
