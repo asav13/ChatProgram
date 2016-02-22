@@ -132,11 +132,23 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 	background-color: #ff8800;
 }
 
+/*CHATROOMS*/
 
+.user-column {
 
+	height: 100%;
+	border: red 1px solid;
+	width: 20%;
+	min-width: 100px;
+}
 
-/*addded by asa*/
+.chat-column {
+	height: 100%;
+	width: 80%;
+	border: red 1px solid;
+}
+
+/* addded by asa ....:$*/
 #newMsg {
 	max-width: 	5%;
 	max-height: 5%;
-}
