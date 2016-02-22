@@ -111,12 +111,12 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		time 		= time.substring(16, 24);
 
 		if(msgInput !== null) {
-			var messageToUser = {
+			messageToUser = {
 				nick: 		username,
 				message: 	msgInput
 			};
 			// This is so the user also sees the private messages he sends
-			var messageFromUser = {
+			messageFromUser = {
 				nick: 		UserService.getUsername(),
 				message: 	msgInput
 			};
