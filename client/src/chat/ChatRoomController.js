@@ -14,6 +14,29 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	var room = UserService.getUserRoom();
 	$scope.unbanning = false;
 
+	$scope.public = true;
+	$scope.private = false;
+
+	$scope.setSelectedUser = function () {
+		console.log("private: " + $scope.private);
+		console.log("public: " + $scope.public);
+		
+		$scope.private = true;
+		$scope.public = false;
+
+		console.log($scope.selectedUser);
+		console.log("private: " + $scope.private);
+		console.log("public: " + $scope.public);
+	};
+
+	$scope.setSelectedUserNone = function () {
+		$scope.public = true;
+		$scope.private = false;
+
+		$scope.selectedUser = "";
+	};
+
+
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
 		ChatResource.leaveRoom(roomName);
@@ -58,7 +81,10 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.sendPrivateMessage = function () {
 		//var username = $scope.getUsername;
 		var username = $scope.selectedUser;
-		var msgInput = prompt("Type a private message to " + username, "");
+		var msgInput = $scope.pmInput;
+		var time 	= new Date();
+		time 		= time.toString();
+		time 		= time.substring(16, 24);
 
 		if(msgInput !== null) {
 			var messageToUser = {
@@ -79,28 +105,43 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			};
 
 			$scope.privateMessages.push(pm);
-			
-			// Add the recieving user to the list of people I'm chatting to If it is first message
-			if($scope.usersUserIsChattingTo.indexOf(messageToUser.nick) < 0) {
-				$scope.usersUserIsChattingTo.push(messageToUser.nick);
 
-				console.log(UserService.getUsername());
-				console.log(messageToUser.nick);
+			var contMsg = {
+				from: 		UserService.getUsername(),
+				time: 		time,
+				message: 	msgInput
+			};
+
+			// I have to create a new tab here with receiver's name and msg from current user
+			// if it is the first message, else, I add it to the tab whose title is = receiving user
+			// I must do this there instead of receive because the server only sends back the sender
+
+			// If the user is not in the list of ppl chatting to me
+			if($scope.usersUserIsChattingTo.indexOf(messageToUser.nick) < 0) {
+				$scope.usersUserIsChattingTo.push(username);
 
 				var tab = {
 					title: 		username,
-					content: 	""
+					content: 	[contMsg]
 				};
 
-				// Add a new tab for a new pm
 				$scope.tabs.push(tab);
+			} else {
+				// Find the tab with title === username and add the message to contents there
+				for(var i = 0; i < $scope.tabs.length; i++) {
+					if($scope.tabs[i].title === username) {
+						$scope.tabs[i].content.push(contMsg);
+					}
+				}
 			}
-
-			ChatResource.sendPrivateMsg(messageToUser, function(success) {
-			});
-			ChatResource.sendPrivateMsg(messageFromUser, function(success) {
-			});
 		}
+
+		$scope.pmInput = "";
+
+		ChatResource.sendPrivateMsg(messageToUser, function(success) {
+		});
+		ChatResource.sendPrivateMsg(messageFromUser, function(success) {
+		});
 	};
 
 	ChatResource.on("updatechat", function(data,err) {
@@ -111,77 +152,45 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	ChatResource.on("recv_privatemsg", function(data, err) {
 		if(data[1]) {
 			ChatResource.getPrivateMessages(data);
+
 			var time 	= new Date();
 			time 		= time.toString();
 			time 		= time.substring(16, 24);
+
 			var message = {
 				from: 	data[0],
 				msg: 	data[1],
 				time: 	time
 			};
-			
-			// Checks if this is the first message from the user. Does not check messages from self
 
-			// Er notandinn í listanum af fólki sem er verið að tala við?
-			// OG er sendandinn nokkuð ég sjálfur?
-			if($scope.usersUserIsChattingTo.indexOf(message.from) < 0 && message.from !== UserService.getUsername()) {
-				//alert(message.from + " started a conversation with you!");
-
-				// Add new user to list of conversations
-				$scope.usersUserIsChattingTo.push(message.from);
-
-				var messagesBetweenUsers = [];
-
-				var message = {
-					from: "Babe",
-					time: new Date(),
-					message: "YOLO"
+			// If the message is from self, don't do anything since messages from self are logged at send
+			if(message.from !== UserService.getUsername()) {
+				var contMsg = {
+					from: 		message.from,
+					time: 		message.time,
+					message: 	message.msg
 				};
 
-				messagesBetweenUsers.push(message);
+				// If it is the first message between users, create a new tab and add the user to list of chatters
+				if($scope.usersUserIsChattingTo.indexOf(message.from) < 0) {
+					$scope.usersUserIsChattingTo.push(message.from);
 
-				var message2 = {
-					from: "Babe",
-					time: new Date(),
-					message: "SWAG"
-				};
-				messagesBetweenUsers.push(message2);
+					var tab = {
+						title: 		message.from,
+						content: 	[contMsg]
+					};
 
-				var tab = {
-				title: 		message.from,
-				content: 	messagesBetweenUsers
-				};
-
-				$scope.tabs.push(tab);
-								console.log(messagesBetweenUsers);
-				console.log($scope.tabs);
-			} else {
-				var messagesBetweenUsers = [];
-
-				for(var i = 0; i < $scope.privateMessages.length; i++) {
-					if($scope.privateMessages[i].from === message.from && $scope.privateMessages[i].to === UserService.getUsername()) {
-						messagesBetweenUsers.push($scope.privateMessages[i]);
-						console.log($scope.privateMessages[i]);// NOTA BENE THIS WAS MISSING SCOPE !!!!!
-					}
-				}
-
-				//Núna vil ég finna hvaða tab passar við message.from
-
-				for(var i = 0; i < $scope.tabs.length; i++) {
-					if($scope.tabs[i].title === message.from) {
-						//tékk hvort nýju skilaboðin eru til í tabs[i].content
-						for(var j = 0; j < messagesBetweenUsers.length; j++) {
-							if($scope.tabs[i].content.indexOf(messagesBetweenUsers[j]) < 0) {
-								// Ef skilaboðin eru ekki til í tabinum
-								$scope.tabs[i].content.push(messagesBetweenUsers[j]);
-								console.log(messagesBetweenUsers[i]);
-							}
+					$scope.tabs.push(tab);
+				} else {
+					for(var i = 0; i < $scope.tabs.length; i++) {
+						if($scope.tabs[i].title === message.from) {
+							// push the new message to the right tab content
+							$scope.tabs[i].content.push(contMsg);
 						}
 					}
 				}
-				console.log(messagesBetweenUsers);
-				console.log($scope.tabs);
 			}
+			
 		}
 	});
 
@@ -278,6 +287,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};
 
 	$scope.$watch("selectedUser", function () {
+		$scope.setSelectedUser();
+
 		var currUser = UserService.getUsername();
 
 		$scope.someOneSelected = true;
