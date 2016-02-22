@@ -2,21 +2,24 @@
 	<h1 class="container">Welcome to LeChat!</h1>
 	<h2 class="container" style="color: red">STILL TONS TO DO</h2>
 </div>
+
 <div class="container">
 	<h2>Who's online:</h2>
 	<div class="row">
 		<div class="col-md-6" ng-repeat="room in rooms | limitTo:6">
 			<div class="well">
 				<div class="row">
-					<div style="padding-top: 8px" class="col-xs-2 col-md-2 text-center img-responsive">
+					<div style="padding-top: 8px"
+						class="col-xs-2 col-md-2 text-center img-responsive">
 						<img  src="src/img/chat-room-circle.png">
 					</div>
+
 					<div class="col-xs-10 col-md-10 section-box chat_img">
 						<h3 ng-show="online"><a ng-href="#/chatrooms" title="Go to chatrooms">{{room.name}}</a></h3>
 						<h3 ng-hide="online"><a ng-href="#/login" title="You must login first">{{room.name}}</a></h3>
 						<span class="help-block">
 							Currently online: <span class="online">{{room.users | limitTo:userLimit}}</span>
-						</span>						
+						</span>
 					</div>
 				</div>
 			</div>

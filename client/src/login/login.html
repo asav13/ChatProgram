@@ -8,17 +8,17 @@
 					<div class="input-group">
 						<input type="text" 
 							class="form-control"
-							placeholder="Pick a user name" 
-							autofocus="autofocus" 
-							required="required" 
+							placeholder="Pick a user name"
+							autofocus="autofocus"
+							required="required"
 							pattern="[a-zA-Z0-9]{1,20}"
 							ng-model="username" />
 						<span class="input-group-btn">
-							<button class="btn btn-default disabled" 
+							<button class="btn btn-default disabled"
 									ng-hide="loginForm.$valid">Create
 							</button>
-							<button type="button" class="btn btn-default" 
-									ng-click="login()" 
+							<button type="button" class="btn btn-default"
+									ng-click="login()"
 									ng-show="loginForm.$valid">Create
 							</button>
 						</span>

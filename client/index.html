@@ -8,10 +8,11 @@
 	<script src="node_modules/angular-animate/angular-animate.min.js"></script>
 	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>	
-	
+
 	<!-- FOR RUNNING -->
 	<!--script src="build/app.min.js"></script-->
 	<!-- FOR DEVELOPING -->
+
 	<script src="src/app.js"></script>
 	<script src="src/login/LoginController.js"></script>
 	<script src="src/home/HomeController.js"></script>
@@ -19,20 +20,22 @@
 	<script src="src/chat/ChatRoomController.js"></script>
 	<script src="src/resource/ChatResource.js"></script>
 	<script src="src/services/UserService.js"></script>
-	
 
-	<link rel="shortcut icon" href="src/favicon/favicon.ico">	
+	<link rel="shortcut icon" href="src/favicon/favicon.ico">
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="src/css/style.css" type="text/css">
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container" ng-include="'src/_partials/navbar.html'"></div>
+		<div class="container"
+			ng-include="'src/_partials/navbar.html'"></div>
 	</nav>
 	<div id="wrapper">
-		<div id="main" ng-view></div>
+		<div id="main"
+			ng-view></div>
 	</div>
-	<div id="footer" class="footer_bg">
+	<div id="footer"
+		class="footer_bg">
 		<footer class="container">
 			Created by: <a href="mailto:asav13@ru.is">asav13@ru.is</a>,
 			<a href="mailto:laurar14@ru.is">laurar14@ru.is</a>, 
