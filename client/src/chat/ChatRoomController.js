@@ -72,7 +72,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			if($location.hash === "/chatrooms"){
 				return;
 			}
-			if(room === null){return;} // could have changed in meantime!!
+			if(room === null){return;} // could have changed in meantime!
 			
 			var roomName = room.name;
 			ChatResource.leaveRoom(roomName);
@@ -238,8 +238,9 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 					$rootScope.joinedRoom = room;
 					$scope.roomMessages[room] = m;
 				} else {
-					console.log("ERROR: Error while loading messages.");
-				}	
+					/* Uncomment for debugging */
+					//console.log("ERROR: Error while loading messages.");
+				}
 			}
 		}
 	});
@@ -289,7 +290,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		}
 		if($rootScope.joinedRoom.ops === undefined){
 			$rootScope.joinedRoom.ops = {};
-		}				
+		}
 		$rootScope.joinedRoom.ops = data;
 		//also on user list
 		for(var u in data){
@@ -299,23 +300,24 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 
 	$scope.changeTopic = function () {
-		var topicObj = {
-			room: room.name,
-			topic: $scope.changedTopic
-		};
-		ChatResource.setTopic(topicObj).then(function(data,err){
-			if(data) {
-				$rootScope.joinedRoom.topic = topicObj.topic;
-				$scope.changedTopic="";
-			} else {
-				console.log("ERROR: Error while changing topic " + err);
-			}
-		});
+		if($scope.changedTopic !== undefined && $scope.changedTopic !== "") {
+			var topicObj = {
+				room: room.name,
+				topic: $scope.changedTopic
+			};
+			ChatResource.setTopic(topicObj).then(function(data,err){
+				if(data) {
+					$rootScope.joinedRoom.topic = topicObj.topic;
+					$scope.changedTopic="";
+				} else {
+					/* Uncomment for debugging */
+					//console.log("ERROR: Error while changing topic " + err);
+				}
+			});
+		}
 	};
 
 	$scope.$watch("selectedUser", function () {
-
-		//$scope.setSelectedUser();
 
 		var currUser = UserService.getUsername();
 
@@ -339,7 +341,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		};
 		ChatResource.kick(kickObj, function (data){
 			if(!data){
-				console.log("ERROR: Error while kicking user");
+				/* Uncomment for debugging */
+				// console.log("ERROR: Error while kicking user");
 			}
 		});
 	};
@@ -351,7 +354,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		};
 		ChatResource.ban(banObj, function (data){
 			if(!data){
-				console.log("ERROR: Error while banning user");
+				/* Uncomment for debugging */
+				// console.log("ERROR: Error while banning user");
 			}
 		});
 	};
@@ -364,7 +368,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		ChatResource.makeOp(opObj, function (data){
 			ChatResource.getRoomUsers(opObj.room);
 			if(!data){
-				console.log("ERROR: Error while opping user");
+				/* Uncomment for debugging */
+				// console.log("ERROR: Error while opping user");
 			}
 		});
 	};
@@ -376,7 +381,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		ChatResource.deOp(deopObj, function (data){
 			ChatResource.getRoomUsers(deopObj.room);
 			if(!data){
-				console.log("ERROR: Error while deopping user");
+				/* Uncomment for debugging */
+				// console.log("ERROR: Error while deopping user");
 			}
 		});
 	};
@@ -391,7 +397,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			};
 			ChatResource.unban(unbanObj, function (data){
 				if(!data){
-					console.log("ERROR: Error while unbanning user");
+					/* Uncomment for debugging */
+					//console.log("ERROR: Error while unbanning user");
 				}
 			});
 			$scope.unbanning = false;
