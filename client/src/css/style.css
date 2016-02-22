@@ -135,21 +135,26 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 /*CHATROOMS*/
 
 .user-column {
-
 	height: 100%;
-	border: red 1px solid;
 	width: 20%;
 	min-width: 100px;
+	background-color:  #ff8800;
+}
+
+.user-column select {
+	overflow: hidden;
+	height: 80%;
+
 }
 
 .chat-column {
 	height: 100%;
 	width: 80%;
-	border: red 1px solid;
+}
+.chat-display{
+	height: 30%;
 }
 
-.chat-display .well{
-
-	background-color: white;
-	margin-bottom: 0;
-}
+.panel .panel-heading {
+	color: #fff;
+	background-color: #8fc0b4;
