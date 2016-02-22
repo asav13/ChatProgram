@@ -2,7 +2,7 @@
 
 angular.module('chatApp').controller('ChatRoomController', 
 function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatResource, UserService){
-	
+
 	$scope.online = UserService.getOnlineStatus();
 	$scope.selectedUser = "";
 	$scope.someOneSelected = false;
@@ -16,9 +16,13 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.unbanning = false;
 
 	if(!$scope.online){
+		// You shouldn't be here silly.
 		$location.path("/login");
+	} else{ 
+		// Making sure we old see msgs as soon as we enter.
+		ChatResource.getMessages($scope.joinedRoom.room);
+		ChatResource.getRoomUsers($scope.joinedRoom.room);
 	}
-
 
 	$scope.public = true;
 	$scope.private = false;
@@ -158,6 +162,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	ChatResource.on("updatechat", function(data,err) {
 		ChatResource.getMessages(data);
 		ChatResource.getRoomUsers(data);
+
 	});
 
 	ChatResource.on("recv_privatemsg", function(data, err) {

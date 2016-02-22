@@ -105,7 +105,6 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				$location.path("/chatrooms/" + room.room);
 				UserService.addRoom(room);
 				ChatResource.getRoomUsers(room.room);
-				ChatResource.getMessages(room.room);
 
 
 			} else {
