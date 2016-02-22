@@ -32,7 +32,7 @@
 							</ul>
 						</div>
 					</uib-tab>
-						<uib-tab ng-click="setSelectUser()" ng-repeat="tab in tabs" heading="{{tab.title}}" ng-model="selectedUser">
+						<uib-tab select="setSelectedUser(tab.title)" ng-repeat="tab in tabs" heading="{{tab.title}}" ng-model="selectedUser">
 							<ul>
 								<li ng-repeat="msg in tab.content">[{{msg.time}}]<{{msg.from}}>  {{msg.message}}</li>
 							</ul>
