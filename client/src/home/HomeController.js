@@ -7,6 +7,7 @@ function HomeController($scope, $location, ChatResource, UserService, $rootScope
 	$scope.rooms = [];
 	$scope.users = [];
 	$scope.showDiv = false;
+	$scope.userLimit = 20;
 
 	ChatResource.getRoomList();
 	ChatResource.on("roomlist", function (roomlist) {
