@@ -31,7 +31,8 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 			$scope.selectedRoom	 = $scope.rooms[0];
 
 		} else {
-			console.log("ERROR: Error fetching rooms");
+			/* Uncomment for debugging */
+			//console.log("ERROR: Error fetching rooms");
 		}
 	});
 
@@ -56,7 +57,8 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				if(data){
 					$rootScope.joinedRoom.users = data;
 				}else {
-					console.log("ERROR: " + err);
+					/* Uncomment for debugging */
+					//console.log("ERROR: " + err);
 				}
 			});
 		}
@@ -84,7 +86,8 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 					UserService.addRoom(newRoom);
 					UserService.addOpRoom(newRoom);
 				} else {
-					console.log("ERROR: " + err);
+					/* Uncomment for debugging */
+					//console.log("ERROR: " + err);
 				}
 			});
 		}
@@ -104,12 +107,12 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				$rootScope.joinedRoom = room;
 				$location.path("/chatrooms/" + room.room);
 				UserService.addRoom(room);
-				ChatResource.getRoomUsers(room.room);
 
 
 			} else {
 				$scope.joinError = true;
-				console.log("ERROR: Error while trying to join room.");
+				/* Uncomment for debugging */
+				//console.log("ERROR: Error while trying to join room.");
 			}
 		});
 
