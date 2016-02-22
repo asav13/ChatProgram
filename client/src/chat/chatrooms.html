@@ -5,22 +5,22 @@
 			<button class="btn btn-primary" ng-click="unban()" ng-show="isOp">Unban User</button>
 			<form name="unbanForm" ng-show="isOp && unbanning" ng-model="unbanning">
 				<div class="input-group">
-					<input type="text" 
+					<input type="text"
 						class="form-control"
-						placeholder="Username" 
+						placeholder="Username"
 						name="unbanuser"
 						ng-model="unbanusername"/>
 					<span class="input-group-btn">
-						<button type="button" class="btn btn-default" 
+						<button type="button" class="btn btn-default"
 								ng-click="confirmUnban()">Unban
 						</button>
-					</span>					
+					</span>
 				</div>
 			</form>
-			<select size="15" 
-					class="form-control userlist" 
-					ng-options="user as user for user in joinedRoom.users" 
-					ng-model="selectedUser" 
+			<select size="15"
+					class="form-control userlist"
+					ng-options="user as user for user in joinedRoom.users"
+					ng-model="selectedUser"
 					ng-click="setSelectedUser()">
 			</select>
 			<div class="btn-group btn-group-sm" role="group" aria-label="...">
@@ -32,28 +32,28 @@
 			<!--UNBANNING-->
 		</div>
 		<!--ALL CHAT STUFF GOES HERE-->
-		<div class="chat-column pull-left container clearfix">			
+		<div class="chat-column pull-left container clearfix">
 			<h1><small>{{joinedRoom.name}}</small></h1>
 			<button class="pull-right btn btn-default" ng-click="leaveRoom()">Leave room</button>
 			<h2>{{joinedRoom.topic}}</h2>
 			<form name="topicForm" ng-show="isOp">
 				<div class="input-group">
-					<input type="text" 
+					<input type="text"
 						class="form-control"
-						placeholder="Change the topic" 
+						placeholder="Change the topic"
 						ng-model="changedTopic" />
 					<span class="input-group-btn">
-						<button type="button" class="btn btn-default" 
+						<button type="button" class="btn btn-default"
 								ng-click="changeTopic()">Change
 						</button>
-					</span>					
+					</span>
 				</div>
 			</form>
 			<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
 			<div class="panel panel-primary">
 				<uib-tabset>
 					<!--MAIN CHAT-->
-					<uib-tab ng-click="setSelectedUserNone()" heading="Room">						
+					<uib-tab ng-click="setSelectedUserNone()" heading="Room">
 						<div class="chat-display well panel-body" ng-model="chatArea">
 							<ul>
 								<li ng-repeat="msg in roomMessages[joinedRoom]">[{{msg.time}}]<{{msg.nick}}>  {{msg.message}}</li>
@@ -78,21 +78,19 @@
 				</div>
 				<div class="panel-body clearfix">
 					<form name="sendMsgForm" ng-show="public">
-						<!---<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"/>-->
-						<textarea class="form-control" 
+						<textarea class="form-control"
 								  rows="3" 
-								  ng-model="chatInput" 
-								  placeholder="Write a public message..." 
+								  ng-model="chatInput"
+								  placeholder="Write a public message..."
 								  maxlength="200">
 						</textarea>
 						<button ng-click="sendMessage()"  class="btn btn-primary pull-right">Send</button>
 					</form>
 					<form name="sendPmForm" ng-show="private">
-						<!---<input type="text" ng-model="pmInput" placeholder="Write message here..." maxlength="200"/>-->
-						<textarea class="form-control" 
+						<textarea class="form-control"
 								  rows="3" 
-								  ng-model="pmInput" 
-								  placeholder="Write a private message to {{selectedUser}}" 
+								  ng-model="pmInput"
+								  placeholder="Write a private message to {{selectedUser}}"
 								  maxlength="200">
 						</textarea>
 						<button ng-click="sendPrivateMessage()" class="btn btn-primary pull-right">Send PM</button>
@@ -101,6 +99,5 @@
 				</div>
 			</div>
 		</div>
-		<!--END OF CHAT STUFF-->
 	</div>
 </div>
