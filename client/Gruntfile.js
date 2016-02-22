@@ -12,6 +12,8 @@ module.exports = function ( grunt ) {
 					"globals": {
 						"$": 	true,
 						"console": 	true,
+						"prompt": true,
+						"alert": true,
 						"io":		true,
 						"$routeProvider": true,
 						"document": true,

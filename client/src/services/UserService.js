@@ -44,7 +44,7 @@ function UserService() {
 				online 			= false;
 				userinfo.name 	= null;
 				userinfo.room 	= null;
-				userinfo.opRoom = null
+				userinfo.opRoom = null;
 			}
 		},
 

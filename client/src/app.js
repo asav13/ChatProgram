@@ -8,7 +8,7 @@ function($scope, $location, $rootScope,	ChatResource, UserService) {
 	$rootScope.go = function ( path ) {
   	 	$location.path( path );
 	};
-})
+});
 
 myApp.config(function($routeProvider){
 	$routeProvider

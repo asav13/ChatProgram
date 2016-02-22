@@ -118,7 +118,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				from: 	data[0],
 				msg: 	data[1],
 				time: 	time
-			}
+			};
 			
 			// Checks if this is the first message from the user. Does not check messages from self
 
@@ -161,7 +161,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				for(var i = 0; i < $scope.privateMessages.length; i++) {
 					if($scope.privateMessages[i].from === message.from && $scope.privateMessages[i].to === UserService.getUsername()) {
 						messagesBetweenUsers.push($scope.privateMessages[i]);
-						console.log(privateMessages[i]);
+						console.log($scope.privateMessages[i]);// NOTA BENE THIS WAS MISSING SCOPE !!!!!
 					}
 				}
 
@@ -297,7 +297,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		var kickObj = {
 			user: $scope.selectedUser,
 			room: $routeParams.name
-		}
+		};
 		ChatResource.kick(kickObj, function (data){
 			if(!data){
 				console.log("ERROR: Error while kicking user");
@@ -309,7 +309,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		var banObj = {
 			user: $scope.selectedUser,
 			room: $routeParams.name
-		}
+		};
 		ChatResource.ban(banObj, function (data){
 			if(!data){
 				console.log("ERROR: Error while banning user");
@@ -321,7 +321,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		var opObj = {
 			user: $scope.selectedUser,
 			room: $routeParams.name
-		}
+		};
 		ChatResource.makeOp(opObj, function (data){
 			ChatResource.getRoomUsers(opObj.room);
 			if(!data){
@@ -333,7 +333,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		var deopObj = {
 			user: $scope.selectedUser,
 			room: $routeParams.name
-		}
+		};
 		ChatResource.deOp(deopObj, function (data){
 			ChatResource.getRoomUsers(deopObj.room);
 			if(!data){
