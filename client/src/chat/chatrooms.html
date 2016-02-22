@@ -42,7 +42,7 @@
 					</uib-tab>
 					<!--PM CHAT-->
 					<uib-tab select="setSelectedUser(tab.title)" ng-repeat="tab in tabs" ng-model="selectedUser">
-						<uib-tab-heading><i ng-show="newMsg" class="glyphicon glyphicon-bell"></i> {{tab.title}}</uib-tab-heading>
+						<uib-tab-heading><i ng-show="newMsg" ></i> {{tab.title}}{{tab.unread}}</uib-tab-heading>
 							<div class="well">
 								<ul>
 									<li ng-repeat="msg in tab.content">[{{msg.time}}]<{{msg.from}}>  {{msg.message}}</li>
