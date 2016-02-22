@@ -98,6 +98,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		var username = $scope.selectedUser;
 		var msgInput = $scope.pmInput;
 		var time 	= new Date();
+		var messageToUser;
+		var messageFromUser;
 		time 		= time.toString();
 		time 		= time.substring(16, 24);
 
