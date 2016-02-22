@@ -12,7 +12,7 @@ In order for everything to work properly one must first run:
 ```
 	npm install
 ```
-inside the /client folder and the /server folder. This takes care of installing neccessary dependencies.
+inside the /client folder <b>and</b> the /server folder. This takes care of installing neccessary dependencies.
 
 ### Run the server
 You need <a href="https://nodejs.org/en/download/">node.js</a> to run the server. Inside the /server folder run:
