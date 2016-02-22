@@ -4,6 +4,7 @@ angular.module('chatApp').controller('ChatRoomController',
 function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatResource, UserService){
 	
 	$scope.online = UserService.getOnlineStatus();
+	$scope.myName = UserService.getUsername();
 	$scope.selectedUser = "";
 	$scope.someOneSelected = false;
 	$scope.isOp = false;
