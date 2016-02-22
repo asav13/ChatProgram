@@ -34,6 +34,12 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			user[x] = x;
 			$scope.selectedUser = x;
 			$scope.someOneSelected = true;
+
+			for(var i = 0; i < $scope.tabs.length; i++) {
+				if($scope.tabs[i].title === $scope.selectedUser) {
+					$scope.tabs[i].unread = "";
+				}
+			}
 		}
 
 		if($scope.selectedUser !== ""){
@@ -105,12 +111,12 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		time 		= time.substring(16, 24);
 
 		if(msgInput !== null) {
-			var messageToUser = {
+			messageToUser = {
 				nick: 		username,
 				message: 	msgInput
 			};
 			// This is so the user also sees the private messages he sends
-			var messageFromUser = {
+			messageFromUser = {
 				nick: 		UserService.getUsername(),
 				message: 	msgInput
 			};
@@ -140,7 +146,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 				var tab = {
 					title: 		username,
-					content: 	[contMsg]
+					content: 	[contMsg],
+					unread: 	""
 				};
 
 				$scope.tabs.push(tab);
@@ -148,6 +155,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				// Find the tab with title === username and add the message to contents there
 				for(var i = 0; i < $scope.tabs.length; i++) {
 					if($scope.tabs[i].title === username) {
+						$scope.tabs[i].unread ="";
 						$scope.tabs[i].content.push(contMsg);
 					}
 				}
@@ -199,7 +207,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 					var tab = {
 						title: 		message.from,
-						content: 	[contMsg]
+						content: 	[contMsg],
+						unread: 	"(!)"
 					};
 
 					$scope.tabs.push(tab);
@@ -207,6 +216,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 					for(var i = 0; i < $scope.tabs.length; i++) {
 						if($scope.tabs[i].title === message.from) {
 							// push the new message to the right tab content
+							$scope.tabs[i].unread = "(!)";
 							$scope.tabs[i].content.push(contMsg);
 						}
 					}
