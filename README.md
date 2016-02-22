@@ -1,5 +1,5 @@
 # ChatProgram
-A chat client written in AngularJS.
+A chat client written in AngularJS and using Socket.IO. A chat server was provided but has been modified slightly.
 <br>
 Authors: asav13@ru.is, vedise13@ru.is, laurar14@ru.is
 ## Installation and dependencies
