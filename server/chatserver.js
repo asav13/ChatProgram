@@ -145,10 +145,12 @@ io.sockets.on('connection', function (socket) {
 		delete rooms[room].users[socket.username];
 		delete rooms[room].ops[socket.username];
 		//Remove the channel from the user object in the global user roster.
-		delete users[socket.username].channels[room];
-		//Update the userlist in the room.
-		io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
-		io.sockets.emit('servermessage', "part", room, socket.username);
+		if(users !== null) {
+			delete users[socket.username].channels[room]; // add nulll cehck
+			//Update the userlist in the room.
+			io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+			io.sockets.emit('servermessage', "part", room, socket.username);
+		}
 	});
 
 	// when the user disconnects.. perform this

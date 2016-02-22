@@ -11,6 +11,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.roomPrivateMessages = [];
 	$scope.usersUserIsChattingTo = [];
 	var room = UserService.getUserRoom();
+	$scope.unbanning = false;
 
 												$scope.usersUserIsChattingTo.push("amma");
 												$scope.tabs = [
@@ -258,7 +259,23 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				console.log("ERROR: Error while deopping user");
 			}
 		});
-	};	
+	};
 
+	$scope.unban = function () {
+		$scope.unbanning = true;
+		$scope.confirmUnban = function () {
+			var username = $scope.unbanusername;
+			var unbanObj = {
+				user: username,
+				room: $routeParams.name
+			};
+			ChatResource.unban(unbanObj, function (data){
+				if(!data){
+					console.log("ERROR: Error while unbanning user");
+				}
+			});
+			$scope.unbanning = false;
+		};
+	};
 
 });
