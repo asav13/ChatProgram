@@ -40,7 +40,7 @@
 			</form name="sendMsgForm"-->
 
 			</uib-tab>
-			<uib-tab ng-click="setSelectUser()" ng-repeat="tab in tabs" heading="{{tab.title}}" ng-model="selectedUser">
+			<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="setSelectedUser(tab.title)"  ng-model="selectedUser">
 			<ul>
 				<li ng-repeat="msg in tab.content">[{{msg.time}}] - {{msg.from}} says: {{msg.message}}</li>
 			</ul>

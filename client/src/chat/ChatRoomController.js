@@ -14,10 +14,22 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	var room = UserService.getUserRoom();
 	$scope.unbanning = false;
 
+
+
 	$scope.public = true;
 	$scope.private = false;
 
-	$scope.setSelectedUser = function () {
+	$scope.setSelectedUser = function (x) {
+		console.log("IN SET SELECTED USER");
+		console.log(x);
+		if(x !== undefined){
+			console.log('X ER ');
+			console.log(x);
+			var user = {};
+			user[x] = x;
+			$scope.selectedUser = x;
+			$scope.someOneSelected = true;
+		}
 		console.log("private: " + $scope.private);
 		console.log("public: " + $scope.public);
 		
@@ -287,6 +299,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};
 
 	$scope.$watch("selectedUser", function () {
+
 		//$scope.setSelectedUser();
 
 		var currUser = UserService.getUsername();
