@@ -12,20 +12,20 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 	ChatResource.on("roomlist", function (roomlist) {
 		if(roomlist){
 			var temp = [];
-
 			for(var i in roomlist){
 				var currRoom = {
 					name: i,
 					room: i,
 					topic: roomlist[i].topic,
 					users: roomlist[i].users,
+					userCount: Object.keys(roomlist[i].users).length,
 					ops: roomlist[i].ops
 				};
-
 				temp.push(currRoom);
 			}
 			$scope.rooms = temp;
 			$scope.selectedRoom	 = $scope.rooms[0];
+
 		} else {
 			console.log("ERROR: Error fetching rooms");
 		}

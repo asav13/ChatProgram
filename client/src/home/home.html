@@ -5,23 +5,25 @@
 <div class="container">
 	<h2>Who's online:</h2>
 	<div class="row">
-		<div class="col-md-6" ng-repeat="room in rooms|limitTo:6">
+		<div class="col-md-6" ng-repeat="room in rooms | limitTo:6">
 			<div class="well">
 				<div class="row">
-					<div class="col-xs-2 col-md-2 text-center">
-						<img src="src/img/chat-room.png">
+					<div style="padding-top: 8px" class="col-xs-2 col-md-2 text-center img-responsive">
+						<img  src="src/img/chat-room-circle.png">
 					</div>
 					<div class="col-xs-10 col-md-10 section-box chat_img">
 						<h3 ng-show="online"><a ng-href="#/chatrooms" title="Go to chatrooms">{{room.name}}</a></h3>
 						<h3 ng-hide="online"><a ng-href="#/login" title="You must login first">{{room.name}}</a></h3>
-						<p>{{room.users}}</p>
+						<span "help-block">
+							Currently online:<small class="help-block online">{{room.users}}</small>
+						</span>						
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="row" ng-show="showDiv">
-			<a ng-href="#/chatrooms" class="pull-right" ng-show="online">...and more!</a>
-			<a ng-href="#/login" class="pull-right" ng-hide="online">...and more!</a>
+		<a ng-href="#/chatrooms" class="pull-right" ng-show="online">...and more!</a>
+		<a ng-href="#/login" class="pull-right" ng-hide="online">...and more!</a>
 	</div>
 </div>

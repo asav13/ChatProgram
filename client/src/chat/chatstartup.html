@@ -1,17 +1,24 @@
 <div class="container extra-padding">
 	<div class=row>
 		<h2>Hi, {{username}}! </h2>
-		<div class="col-xs-6">
+		<div class="col-xs-6 chatlist">
 			<h3>Pick a room and start chatting</h3>
 			<span ng-repeat="room in rooms">
-				<button class="form-control" type="button" class="btn btn-default" 
+				<button class="form-control chatlist" type="button"
 						ng-click="isCollapsed = !isCollapsed" 
 						ng-model="selectedRoom">{{room.name}}</button>
-				<div uib-collapse="isCollapsed" class="well well-lg">
-					Topic: {{room.topic}}
-					<button class="btn btn-default pull-right" ng-click="join(room)">Join</button>
-					<div ng-show="joinError" class="error" style="color: red">
-						<small class="help-block">There was a problem joining the room, maybe you were banned, you troll.</small>
+				<div uib-collapse="isCollapsed" class="well">					
+					<div class="media">
+						<div class="media-body">
+							<p class="help-block">Topic: {{room.topic}}</p>
+							<span class="badge">online: {{room.userCount}}</span>
+						</div>
+						<div class="media-right">
+							<button class="btn btn-default" ng-click="join(room)">Join</button>
+						</div>
+					</div>	
+					<div ng-show="joinError" class="error">
+						<small class="help-block">There was a problem joining the room. Maybe you were banned, you troll.</small>
 					</div>
 				</div>
 			</span>
