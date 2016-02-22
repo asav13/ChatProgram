@@ -23,7 +23,6 @@ or the following command for <b>Python 3</b>:
 ```
 	python -m http.server 8000
 ```
-Note that since we're using Python, we must have the index.html file inside the root folder.
 
 ### Start the application
 Then open http://localhost:8000 while both server and client are running.
