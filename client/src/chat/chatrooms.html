@@ -1,3 +1,17 @@
+<!--<div>
+	<h3>PRIVATE MESSAGES</h3>
+	<ul>
+		<li ng-repeat="msg in roomPrivateMessages">[{{msg.time}}] - {{msg.from}} says: {{msg.msg}}</li>
+	</ul>
+</div>
+<div>
+	<h3>I'm chatting to:</h3>
+	<ul>
+		<li ng-repeat="user in usersUserIsChattingTo">{{user}}</li>
+	</ul>
+</div>
+<div>-->
+
 <h1>{{joinedRoom.name}}</h1>
 <!--Topic and users need to be outside tab...unless we figure out the fix thingie-->
 <h2>Topic:</h2>
@@ -20,22 +34,17 @@
 </div>
 
 <div>
-	<h3>PRIVATE MESSAGES</h3>
-	<ul>
-		<li ng-repeat="msg in roomPrivateMessages">[{{msg.time}}] - {{msg.from}} says: {{msg.msg}}</li>
-	</ul>
-</div>
-<div>
 	<h3>I'm chatting to:</h3>
 	<ul>
 		<li ng-repeat="user in usersUserIsChattingTo">{{user}}</li>
 	</ul>
 </div>
-<div>
+
+
+
 	<uib-tabset>
 		<uib-tab heading="Room">
 		<div ng-show="online">
-
 		</div>
 
 		<div ng-hide="online">You must be logged in to chat!</div>
@@ -51,9 +60,11 @@
 		<button ng-click="sendMessage()">Send</button>
 		</form name="sendMsgForm">
 
-				</uib-tab>
-		<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
-		{{tab.content}}
+		</uib-tab>
+		<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}">
+		<ul>
+			<li ng-repeat="msg in tabs.content">{{msg.from}} says: {{msg.message}}</li>
+		</ul>
 		</uib-tab>
 	</uib-tabset>
 </div>
