@@ -27,14 +27,14 @@
 					<uib-tab ng-click="setSelectedUserNone()" heading="Room">						
 						<div class="well" ng-model="chatArea">
 							<ul>
-								<li ng-repeat="msg in roomMessages[joinedRoom]">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
+								<li ng-repeat="msg in roomMessages[joinedRoom]">[{{msg.time}}]<{{msg.nick}}>  {{msg.message}}</li>
 							</ul>
 						</div>
 					</uib-tab>
 					<uib-tab select="setSelectedUser(tab.title)" ng-repeat="tab in tabs" ng-model="selectedUser">
 						<uib-tab-heading><i id="newMsg" class="glyphicon glyphicon-bell"></i> {{tab.title}}</uib-tab-heading>
 							<ul>
-								<li ng-repeat="msg in tab.content">[{{msg.time}}] - {{msg.from}} says: {{msg.message}}</li>
+								<li ng-repeat="msg in tab.content">[{{msg.time}}]<{{msg.from}}>  {{msg.message}}</li>
 							</ul>
 					</uib-tab>
 				</uib-tabset>
@@ -42,12 +42,12 @@
 			<div class="extra-padding">
 				<form name="sendMsgForm" ng-show="public">
 					<!---<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"/>-->
-					<textarea class="form-control" rows="3" ng-model="chatInput" placeholder="Write message here..." maxlength="200"></textarea>
+					<textarea class="form-control" rows="3" ng-model="chatInput" placeholder="Write a public message..." maxlength="200"></textarea>
 					<button ng-click="sendMessage()"  class="btn btn-primary pull-right">Send</button>
 				</form>
 				<form name="sendPmForm" ng-show="private">
 					<!---<input type="text" ng-model="pmInput" placeholder="Write message here..." maxlength="200"/>-->
-					<textarea class="form-control" rows="3" ng-model="pmInput" placeholder="Write message here..." maxlength="200"></textarea>
+					<textarea class="form-control" rows="3" ng-model="pmInput" placeholder="Write a private message to {{selectedUser}}" maxlength="200"></textarea>
 					<button ng-click="sendPrivateMessage()" class="btn btn-primary pull-right">Send PM</button>
 				</form>
 				<div ></div>
