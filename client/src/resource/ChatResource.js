@@ -83,17 +83,13 @@ function ChatResource($rootScope, $q) {
 			socket.emit("sendmsg", data);
 		},
 
-		// What am I supposed to send to the server???
-		sendPrivateMsg: function(data, callback) {						//VÉDÍS
-			// This "privateMsg" is supposed to be						//VÉDÍS
-			// the connection to the chat server, right?				//VÉDÍS
-			// Is it ok to do the same callback as kick below?			//VÉDÍS
-			socket.emit("privatemsg", data, function(data){				//VÉDÍS, msg not Msg
-				$rootScope.$apply(function () {							//VÉDÍS, rootScope not rootscope, stupid case sensitive stuff
-					callback.apply(socket, [data]);						//VÉDÍS
-				});														//VÉDÍS
-			});															//VÉDÍS
-		},																//VÉDÍS
+		sendPrivateMsg: function(data, callback) {
+			socket.emit("privatemsg", data, function (data) {
+				$rootScope.$apply(function () {
+					callback.apply(socket, [data]);
+				});
+			});
+		},
 
 		kick: function(kickObj, callback) {
 			socket.emit("kick", kickObj, function(data){
@@ -134,9 +130,10 @@ function ChatResource($rootScope, $q) {
 			});
 		},
 
-		/* Called when waiting for response */
+		/* Called when waiting for an event from the server */
 		on: function (event, callback) {
-			console.log("Event received:" + event);
+			/* Uncomment for debugging */
+			//console.log("INFO: Event received: " + event);
 			var deferred = $q.defer();
 			socket.on(event, function (data, data1, data2) {
 				$rootScope.$apply(function () {
