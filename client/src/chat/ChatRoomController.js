@@ -10,6 +10,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.roomMessages = {};
 	$scope.usersUserIsChattingTo = [];
 	$scope.tabs = [];
+	$scope.newMsg = false;
 	$scope.privateMessages = [];
 	var room = UserService.getUserRoom();
 	$scope.unbanning = false;
@@ -163,6 +164,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	ChatResource.on("recv_privatemsg", function(data, err) {
 		if(data[1]) {
+			$scope.newMsgFrom = data[0];
 			ChatResource.getPrivateMessages(data);
 
 			var time 	= new Date();
@@ -186,6 +188,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				// If it is the first message between users, create a new tab and add the user to list of chatters
 				if($scope.usersUserIsChattingTo.indexOf(message.from) < 0) {
 					$scope.usersUserIsChattingTo.push(message.from);
+					$scope.newMsg = true;
+					setTimeout(function(){ $scope.newMsg = false; }, 150);
 
 					var tab = {
 						title: 		message.from,

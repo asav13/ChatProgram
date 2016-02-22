@@ -19,6 +19,11 @@
 		<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>
 	</div>
 
+	<div name="newMsg" ng-show="newMsg">
+		<p>You've got a message from {{newMsgFrom}}!</p>
+		<img id="newMsg" src="src/img/newMsgIcon.png" alt="new message"></img>
+        </button>
+	</div name="newMsg">
 	<div>
 		<uib-tabset>
 			<uib-tab ng-click="setSelectedUserNone()" heading="Room">
