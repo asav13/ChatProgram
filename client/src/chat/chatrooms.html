@@ -19,6 +19,11 @@
 			<p>Le Ops - Be nice to them.. or else.</p>
 			<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
 			<div class="chat-display">
+				<div name="newMsg" ng-show="newMsg">
+					<p>You've got a message from {{newMsgFrom}}!</p>
+					<img id="newMsg" src="src/img/newMsgIcon.png" alt="new message"></img>
+			        </button>
+				</div name="newMsg">
 				<uib-tabset>
 					<uib-tab ng-click="setSelectedUserNone()" heading="Room">						
 						<div class="well" ng-model="chatArea">
