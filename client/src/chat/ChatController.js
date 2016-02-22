@@ -5,6 +5,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 
 	$scope.online = UserService.getOnlineStatus();
 	$scope.joinError = false;
+	$scope.isCollapsed = true;
 	ChatResource.getRoomList();
 	
 	// When we get an "roomlist" event, we update the roomlist
@@ -85,7 +86,8 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		}
 	};
 
-	$scope.join = function() {
+	$scope.join = function(chatroom) {
+		$scope.selectedRoom = chatroom;
 		var room = $scope.selectedRoom;
 		var roomObj = {
 			room: $scope.selectedRoom,

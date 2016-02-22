@@ -4,18 +4,28 @@
 			<img height="100" src="src/img/profile-user.png">
 			<form class="form-group margin-top" name="loginForm">
 				<div ng-hide="online">
-					<h3>Join Us</h3>
-					<input 		type="text"
-								class="form-control"
-								placeholder="Pick a user name" 
-								autofocus="" 
-								required="required" 
-								pattern="[a-zA-Z0-9]+"
-								ng-model="username" />
-					<p>{{logininfo}}</p>
-					<small class="help-block" ng-show="loginForm.$invalid"><i>*A valid username includes only letters and digits.</i></small>
-					<button class="btn btn-default" ng-click="login()" ng-show="loginForm.$valid">Login</button>
-				</div>				
+						<h3>Join Us</h3>
+					<div class="input-group">
+						<input type="text" 
+							class="form-control"
+							placeholder="Pick a user name" 
+							autofocus="autofocus" 
+							required="required" 
+							pattern="[a-zA-Z0-9]+"
+							ng-model="username" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default disabled" 
+									ng-hide="loginForm.$valid">Create
+							</button>
+							<button type="button" class="btn btn-default" 
+									ng-click="login()" 
+									ng-show="loginForm.$valid">Create
+							</button>
+						</span>					
+					</div>
+					<small class="help-block" style="color:red;"><i>{{logininfo}}</i></small>
+					<small class="help-block" ng-show="loginForm.$invalid">*A valid username includes only letters and digits.</small>
+				</div>			
 				<div ng-show="online">
 					<h3>Hi {{username}}!</h3>
 					<button class="btn btn-default" ng-click="go('/chatrooms/')">Chatrooms</button>
@@ -23,8 +33,7 @@
 				</div>
 			</form>		
 		</div>
-		<div class="text-center bottom-well"></div>
-		
+		<div class="text-center bottom-well"></div>		
 		<br>
 	</div>
 </div>
