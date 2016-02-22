@@ -14,6 +14,29 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	var room = UserService.getUserRoom();
 	$scope.unbanning = false;
 
+	$scope.public = true;
+	$scope.private = false;
+
+	$scope.setSelectedUser = function () {
+		console.log("private: " + $scope.private);
+		console.log("public: " + $scope.public);
+		
+		$scope.private = true;
+		$scope.public = false;
+
+		console.log($scope.selectedUser);
+		console.log("private: " + $scope.private);
+		console.log("public: " + $scope.public);
+	};
+
+	$scope.setSelectedUserNone = function () {
+		$scope.public = true;
+		$scope.private = false;
+
+		$scope.selectedUser = "";
+	};
+
+
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
 		ChatResource.leaveRoom(roomName);
@@ -58,7 +81,10 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.sendPrivateMessage = function () {
 		//var username = $scope.getUsername;
 		var username = $scope.selectedUser;
-		var msgInput = prompt("Type a private message to " + username, "");
+		var msgInput = $scope.pmInput;
+		var time 	= new Date();
+		time 		= time.toString();
+		time 		= time.substring(16, 24);
 
 		if(msgInput !== null) {
 			var messageToUser = {
@@ -80,6 +106,12 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 			$scope.privateMessages.push(pm);
 
+			var contMsg = {
+				from: 		UserService.getUsername(),
+				time: 		time,
+				message: 	msgInput
+			};
+
 			// I have to create a new tab here with receiver's name and msg from current user
 			// if it is the first message, else, I add it to the tab whose title is = receiving user
 			// I must do this there instead of receive because the server only sends back the sender
@@ -87,16 +119,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			// If the user is not in the list of ppl chatting to me
 			if($scope.usersUserIsChattingTo.indexOf(messageToUser.nick) < 0) {
 				$scope.usersUserIsChattingTo.push(username);
-
-				var time 	= new Date();
-				time 		= time.toString();
-				time 		= time.substring(16, 24);
-
-				var contMsg = {
-					from: 		UserService.getUsername(),
-					time: 		time,
-					message: 	msgInput
-				};
 
 				var tab = {
 					title: 		username,
@@ -106,12 +128,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				$scope.tabs.push(tab);
 			} else {
 				// Find the tab with title === username and add the message to contents there
-				var contMsg = {
-					from: 		UserService.getUsername(),
-					time: 		time,
-					message: 	msgInput
-				};
-
 				for(var i = 0; i < $scope.tabs.length; i++) {
 					if($scope.tabs[i].title === username) {
 						$scope.tabs[i].content.push(contMsg);
@@ -119,6 +135,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				}
 			}
 		}
+
+		$scope.pmInput = "";
 
 		ChatResource.sendPrivateMsg(messageToUser, function(success) {
 		});
