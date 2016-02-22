@@ -287,6 +287,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};
 
 	$scope.$watch("selectedUser", function () {
+		$scope.setSelectedUser();
+
 		var currUser = UserService.getUsername();
 
 		$scope.someOneSelected = true;
