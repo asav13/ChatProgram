@@ -1,24 +1,44 @@
 <div class="container">
-	<h1>{{joinedRoom.name}}</h1>
-	<!--Topic and users need to be outside tab...unless we figure out the fix thingie-->
-	<h2>Topic:</h2>
-		<p>{{joinedRoom.topic}}</p>
-		<form name="topicForm" ng-show="isOp">
-			<input type="text" ng-model="changedTopic" placeholder="Change the topic"/>
-			<button ng-click="changeTopic()">Change</button>
-		</form>
-	<p>Le Ops - Be nice to them.. or else.</p>
-	<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
-
-	<div name="users">
-		<h2>Users:</h2>
-		<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser" ng-click="setSelectedUser()"></select>
-		<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
-		<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
-		<button ng-click="makeOp()" ng-show="selectedUser && isOp">Make OP</button>
-		<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>
+	<div class="row">
+		<div class="user-column pull-left" name="users">
+			<h2>Users:</h2>
+			<select size="15" ng-options="user as user for user in joinedRoom.users" ng-model="selectedUser" ng-click="setSelectedUser()"></select>
+			<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
+			<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
+			<button ng-click="makeOp()" ng-show="selectedUser && isOp">Make OP</button>
+			<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>	
+		</div>
+		<div class="chat-column pull-left">
+			<h1>{{joinedRoom.name}}</h1>
+			<!--Topic and users need to be outside tab...unless we figure out the fix thingie-->
+			<h2>Topic: {{joinedRoom.topic}}</h2>
+			<form name="topicForm" ng-show="isOp">
+				<input type="text" ng-model="changedTopic" placeholder="Change the topic"/>
+				<button ng-click="changeTopic()">Change</button>
+			</form>
+			<p>Le Ops - Be nice to them.. or else.</p>
+			<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
+			<div>
+				<uib-tabset>
+					<uib-tab ng-click="setSelectedUserNone()" heading="Room">
+						<div ng-hide="online">
+							You must be logged in to chat!
+						</div>
+						<div ng-model="chatArea">
+							<ul>
+								<li ng-repeat="msg in roomMessages[joinedRoom]">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
+							</ul>
+						</div>
+					</uib-tab>
+						<uib-tab ng-click="setSelectUser()" ng-repeat="tab in tabs" heading="{{tab.title}}" ng-model="selectedUser">
+							<ul>
+								<li ng-repeat="msg in tab.content">[{{msg.time}}] - {{msg.from}} says: {{msg.message}}</li>
+							</ul>
+					</uib-tab>
+				</uib-tabset>
+			</div>
+		</div>
 	</div>
-
 	<div>
 		<uib-tabset>
 			<uib-tab ng-click="setSelectedUserNone()" heading="Room">
