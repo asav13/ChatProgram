@@ -152,9 +152,12 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 	width: 80%;
 }
 .chat-display{
-	height: 30%;
+	min-height: 30%;
 }
 
+.chat-display > ul li{
+	list-style-type: none;
+}
 .panel .panel-heading {
 	color: #fff;
 	background-color: #8fc0b4;
