@@ -2,9 +2,10 @@
 Reykjavík University, February 2016<br>
 T-303-WEPO - Web Programming II<br>
 Assignment: Chat program in AngularJS<br>
-Authors: asav13@ru.is, vedise13@ru.is, laurar14@ru.is
+Authors: asav13@ru.is, vedise13@ru.is, laurar14@ru.is<br>
 
-----
+-
+
 A chat client written in AngularJS and using Socket.IO. A chat server was provided but has been modified slightly.<br>
 ## Installation and dependencies
 ### Dependencies
