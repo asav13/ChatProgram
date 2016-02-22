@@ -71,7 +71,8 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 }
 
 .online {
-	color: #00ff00;
+	color:  #ff8800;
+
 }
 .chat_img {
 	border-left: solid #ddd 1px;
@@ -125,4 +126,8 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 	color: #fff;
 	border-color: #6eaf9f;
 
+}
+
+.media .badge {
+	background-color: #ff8800;
 }
