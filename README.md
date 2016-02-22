@@ -15,11 +15,11 @@ You need node.js to run the server. Inside the /server folder run:
 ```
 
 ### Run the client
-You need <a href="https://www.python.org/downloads/">Python</a> to run the client. Inside the /client folder run the following command for Python 2:
+You need <a href="https://www.python.org/downloads/">Python</a> to run the client. Inside the /client folder run the following command for  <b>Python 2</b>:
 ```
 	python -m SimpleHTTPServer 8000
 ```
-or the following command for Python 3
+or the following command for <b>Python 3</b>:
 ```
 	python -m http.server 8000
 ```
