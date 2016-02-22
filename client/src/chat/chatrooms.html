@@ -21,9 +21,8 @@
 			<div class="chat-display">
 				<div name="newMsg" ng-show="newMsg">
 					<p>You've got a message from {{newMsgFrom}}!</p>
-					<img id="newMsg" src="src/img/newMsgIcon.png" alt="new message"></img>
-			        </button>
-				</div name="newMsg">
+					<!--<img id="newMsg" src="src/img/newMsgIcon.png" alt="new message"/>-->
+				</div>
 				<uib-tabset>
 					<uib-tab ng-click="setSelectedUserNone()" heading="Room">						
 						<div class="well" ng-model="chatArea">
@@ -32,7 +31,8 @@
 							</ul>
 						</div>
 					</uib-tab>
-						<uib-tab ng-click="setSelectUser()" ng-repeat="tab in tabs" heading="{{tab.title}}" ng-model="selectedUser">
+					<uib-tab select="setSelectedUser(tab.title)" ng-repeat="tab in tabs" ng-model="selectedUser">
+						<uib-tab-heading><i id="newMsg" class="glyphicon glyphicon-bell"></i> {{tab.title}}</uib-tab-heading>
 							<ul>
 								<li ng-repeat="msg in tab.content">[{{msg.time}}] - {{msg.from}} says: {{msg.message}}</li>
 							</ul>
