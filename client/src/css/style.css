@@ -147,3 +147,9 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 	width: 80%;
 	border: red 1px solid;
 }
+
+.chat-display .well{
+
+	background-color: white;
+	margin-bottom: 0;
+}
