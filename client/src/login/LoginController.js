@@ -5,7 +5,6 @@ function LoginController($scope, $location, ChatResource, UserService){
 
 	$scope.logininfo = "";
 	$scope.online = UserService.getOnlineStatus();
-	console.log("DEB: scope online in login controller is " + $scope.online);
 	$scope.rooms = [];
 
 	$scope.login = function() {
