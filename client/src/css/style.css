@@ -183,3 +183,7 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
     display: block;
     padding: 10px 15px;
 }
+
+.margin-bottom {
+	margin-bottom: 80px
+}
