@@ -2,23 +2,34 @@
 	<div class="row">
 		<div class="user-column pull-left container" name="users">
 			<h2>Users</h2>
+			<button class="btn btn-primary" ng-click="unban()" ng-show="isOp">Unban User</button>
+			<form name="unbanForm" ng-show="isOp && unbanning" ng-model="unbanning">
+				<div class="input-group">
+					<input type="text" 
+						class="form-control"
+						placeholder="Username" 
+						name="unbanuser"
+						ng-model="unbanusername"/>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" 
+								ng-click="confirmUnban()">Unban
+						</button>
+					</span>					
+				</div>
+			</form>
 			<select size="15" 
 					class="form-control userlist" 
 					ng-options="user as user for user in joinedRoom.users" 
 					ng-model="selectedUser" 
 					ng-click="setSelectedUser()">
 			</select>
-			<button ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
-			<button ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
-			<button ng-click="makeOp()" ng-show="selectedUser && isOp">Make OP</button>
-			<button ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
+				<button class="btn btn-danger" ng-click="kick()" ng-show="selectedUser && isOp">Kick</button>
+				<button class="btn btn-danger" ng-click="ban()" ng-show="selectedUser && isOp">Ban</button>
+				<button class="btn btn-success" ng-click="makeOp()" ng-show="selectedUser && isOp">OP</button>
+				<button class="btn btn-danger" ng-click="deOp()" ng-show="selectedUser && isOp">deOP</button>
+			</div>
 			<!--UNBANNING-->
-			<button ng-click="unban()" ng-show="isOp">Unban</button>
-			<form name="unbanForm" ng-show="isOp && unbanning" ng-model="unbanning">
-				<label for="unbanuser">Who do you want to unban?</label>
-				<input type="text" name="unbanuser" ng-model="unbanusername"/>
-				<button ng-click="confirmUnban()">Confirm</button>
-			</form>
 		</div>
 		<!--ALL CHAT STUFF GOES HERE-->
 		<div class="chat-column pull-left container clearfix">			
@@ -26,8 +37,17 @@
 			<button class="pull-right btn btn-default" ng-click="leaveRoom()">Leave room</button>
 			<h2>{{joinedRoom.topic}}</h2>
 			<form name="topicForm" ng-show="isOp">
-				<input type="text" ng-model="changedTopic" placeholder="Change the topic"/>
-				<button ng-click="changeTopic()">Change</button>
+				<div class="input-group">
+					<input type="text" 
+						class="form-control"
+						placeholder="Change the topic" 
+						ng-model="changedTopic" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" 
+								ng-click="changeTopic()">Change
+						</button>
+					</span>					
+				</div>
 			</form>
 			<p ng-repeat="op in joinedRoom.ops" model="joinedRoom.ops">@{{op}}<p>
 			<div class="panel panel-primary">
