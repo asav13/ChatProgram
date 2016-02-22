@@ -132,7 +132,8 @@ function ChatResource($rootScope, $q) {
 
 		/* Called when waiting for an event from the server */
 		on: function (event, callback) {
-			console.log("INFO: Event received: " + event);
+			/* Uncomment for debugging */
+			//console.log("INFO: Event received: " + event);
 			var deferred = $q.defer();
 			socket.on(event, function (data, data1, data2) {
 				$rootScope.$apply(function () {
