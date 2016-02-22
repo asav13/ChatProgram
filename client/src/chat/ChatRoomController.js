@@ -29,7 +29,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	if(room !== null){
 		$rootScope.$on( "$routeChangeSuccess", function(event, next, current) {
-			if($location.hash === "#/chatrooms"){
+			if($location.hash === "/chatrooms"){
 				return;
 			}
 			if(room === null){return;} // could have changed in meantime!!
