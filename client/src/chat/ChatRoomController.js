@@ -260,8 +260,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	ChatResource.on("deopped", function(data){
 		if(data[1] === UserService.getUsername()){
 			$scope.isOp = false;
-			var currRoom = $rootScope.joinedRoom;
-			UserService.addOpRoom(currRoom);
+			UserService.removeOpRoom();
 		}
 	});	
 
