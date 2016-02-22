@@ -11,7 +11,7 @@
 							placeholder="Pick a user name" 
 							autofocus="autofocus" 
 							required="required" 
-							pattern="[a-zA-Z0-9]+"
+							pattern="[a-zA-Z0-9]{1,20}"
 							ng-model="username" />
 						<span class="input-group-btn">
 							<button class="btn btn-default disabled" 
@@ -24,7 +24,7 @@
 						</span>
 					</div>
 					<small class="help-block error">{{logininfo}}</small>
-					<small class="help-block" ng-show="loginForm.$invalid">*A valid username includes only letters and digits.</small>
+					<small class="help-block" ng-show="loginForm.$invalid">*A valid username includes only alphabetic and numberic letters, and can be at most 20 letters.</small>
 				</div>
 				<div ng-show="online">
 					<h3>Hi {{username}}!</h3>
