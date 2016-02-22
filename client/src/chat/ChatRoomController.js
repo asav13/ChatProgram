@@ -8,16 +8,11 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.someOneSelected = false;
 	$scope.isOp = false;
 	$scope.roomMessages = {};
-	$scope.roomPrivateMessages = [];
 	$scope.usersUserIsChattingTo = [];
+	$scope.tabs = [];
+	$scope.privateMessages = [];
 	var room = UserService.getUserRoom();
 	$scope.unbanning = false;
-
-												$scope.usersUserIsChattingTo.push("amma");
-												$scope.tabs = [
-													{ title:'Dynamic Title 1', content:'Hallo hallo' },
-													{ title:'Dynamic Title 2', content:'hey hey'}
-													];
 
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
@@ -66,16 +61,45 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		var msgInput = prompt("Type a private message to " + username, "");
 
 		if(msgInput !== null) {
-			var date = new Date();
-			var message = {
+			var messageToUser = {
 				nick: 		username,
 				message: 	msgInput
 			};
-			console.log(message);
-			ChatResource.sendPrivateMsg(message, function(success) {		//wants a callback
-				console.log("in callback");
-				console.log(success); //boolean variable 
-			} );
+			// This is so the user also sees the private messages he sends
+			var messageFromUser = {
+				nick: 		UserService.getUsername(),
+				message: 	msgInput
+			};
+
+			// To display only conversation between two in a tab
+			var pm = {
+				from: 		UserService.getUsername(),
+				to: 		username,
+				message: 	msgInput,
+			};
+
+			$scope.privateMessages.push(pm);
+			
+			// Add the recieving user to the list of people I'm chatting to If it is first message
+			if($scope.usersUserIsChattingTo.indexOf(messageToUser.nick) < 0) {
+				$scope.usersUserIsChattingTo.push(messageToUser.nick);
+
+				console.log(UserService.getUsername());
+				console.log(messageToUser.nick);
+
+				var tab = {
+					title: 		username,
+					content: 	""
+				};
+
+				// Add a new tab for a new pm
+				$scope.tabs.push(tab);
+			}
+
+			ChatResource.sendPrivateMsg(messageToUser, function(success) {
+			});
+			ChatResource.sendPrivateMsg(messageFromUser, function(success) {
+			});
 		}
 	};
 
@@ -95,12 +119,69 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				msg: 	data[1],
 				time: 	time
 			}
-			var listOfChatters = $scope.usersUserIsChattingTo;
-			if(listOfChatters.indexOf(message.from) < 0) {
-				alert(message.from + " started a conversation with you!");
-				listOfChatters.push(message.from);
+			
+			// Checks if this is the first message from the user. Does not check messages from self
+
+			// Er notandinn í listanum af fólki sem er verið að tala við?
+			// OG er sendandinn nokkuð ég sjálfur?
+			if($scope.usersUserIsChattingTo.indexOf(message.from) < 0 && message.from !== UserService.getUsername()) {
+				//alert(message.from + " started a conversation with you!");
+
+				// Add new user to list of conversations
+				$scope.usersUserIsChattingTo.push(message.from);
+
+				var messagesBetweenUsers = [];
+
+				var message = {
+					from: "Babe",
+					time: new Date(),
+					message: "YOLO"
+				};
+
+				messagesBetweenUsers.push(message);
+
+				var message2 = {
+					from: "Babe",
+					time: new Date(),
+					message: "SWAG"
+				};
+				messagesBetweenUsers.push(message2);
+
+				var tab = {
+				title: 		message.from,
+				content: 	messagesBetweenUsers
+				};
+
+				$scope.tabs.push(tab);
+								console.log(messagesBetweenUsers);
+				console.log($scope.tabs);
+			} else {
+				var messagesBetweenUsers = [];
+
+				for(var i = 0; i < $scope.privateMessages.length; i++) {
+					if($scope.privateMessages[i].from === message.from && $scope.privateMessages[i].to === UserService.getUsername()) {
+						messagesBetweenUsers.push($scope.privateMessages[i]);
+						console.log(privateMessages[i]);
+					}
+				}
+
+				//Núna vil ég finna hvaða tab passar við message.from
+
+				for(var i = 0; i < $scope.tabs.length; i++) {
+					if($scope.tabs[i].title === message.from) {
+						//tékk hvort nýju skilaboðin eru til í tabs[i].content
+						for(var j = 0; j < messagesBetweenUsers.length; j++) {
+							if($scope.tabs[i].content.indexOf(messagesBetweenUsers[j]) < 0) {
+								// Ef skilaboðin eru ekki til í tabinum
+								$scope.tabs[i].content.push(messagesBetweenUsers[j]);
+								console.log(messagesBetweenUsers[i]);
+							}
+						}
+					}
+				}
+				console.log(messagesBetweenUsers);
+				console.log($scope.tabs);
 			}
-			$scope.roomPrivateMessages.push(message);
 		}
 	});
 
