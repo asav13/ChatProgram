@@ -2,7 +2,7 @@
 Reykjavík University, February 2016<br>
 T-303-WEPO - Web Programming II<br>
 Assignment: Chat program in AngularJS<br>
-Authors: asav13@ru.is, vedise13@ru.is, laurar14@ru.is<br>
+Authors: asav13@ru.is, vedise13@ru.is, laurar14@ru.is
 
 -
 
