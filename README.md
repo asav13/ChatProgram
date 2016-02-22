@@ -1,4 +1,7 @@
 # ChatProgram
+A chat client written in AngularJS.
+<br>
+Authors: asav13@ru.is, vedise13@ru.is, laurar14@ru.is
 ## Installation and dependencies
 ### Dependencies
 
