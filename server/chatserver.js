@@ -19,7 +19,9 @@ io.sockets.on('connection', function (socket) {
 
 	//This gets performed when a user joins the server.
 	socket.on('adduser', function(username, fn){
-
+		if(username === null){
+			return;
+		}
 		//Check if username is avaliable.
 		if (users[username] === undefined && username.toLowerCase != "server" && username.length < 21) {
 			socket.username = username;
@@ -136,6 +138,9 @@ io.sockets.on('connection', function (socket) {
 
 	//When a user leaves a room this gets performed.
 	socket.on('partroom', function (room) {
+		if(room === undefined || rooms[room] === undefined){
+			return;
+		}
 		//remove the user from the room roster and room op roster.
 		delete rooms[room].users[socket.username];
 		delete rooms[room].ops[socket.username];
@@ -264,9 +269,12 @@ io.sockets.on('connection', function (socket) {
 
 	//Returns a list of all avaliable rooms.
 	socket.on('roomMessages', function(room) {
+		console.log("ROOM IS");
+		console.log(room);
+		console.log("messages is");
 		var messages = rooms[room].messageHistory;
 		console.log(messages);
-		socket.emit('roomMessages', messages);
+		socket.emit('roommessageslist', [room, messages]);
 	});
 
 

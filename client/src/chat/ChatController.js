@@ -76,6 +76,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 					$scope.joinError = false;
 					$rootScope.joinedRoom = newRoom;
 					$location.path("/chatrooms/" + newRoom.name);
+					ChatResource.getMessages(newRoom.name);
 					UserService.addRoom(newRoom);
 					UserService.addOpRoom(newRoom);
 				} else {
@@ -97,9 +98,10 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				ChatResource.getRoomList();
 				$scope.joinError = false;
 				$rootScope.joinedRoom = room;
-				$location.path("/chatrooms/" + room.name);
+				$location.path("/chatrooms/" + room.room);
 				UserService.addRoom(room);
-				ChatResource.getRoomUsers(room.name);
+				ChatResource.getRoomUsers(room.room);
+				ChatResource.getMessages(room.room);
 
 
 			} else {
@@ -109,6 +111,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		});
 
 	};
+
 	ChatResource.on("roomUserlist", function(data){
 		if($rootScope.joinedRoom.users === undefined){
 			$rootScope.joinedRoom.users = {};
