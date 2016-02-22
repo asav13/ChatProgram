@@ -3,20 +3,19 @@
 angular.module('chatApp').controller('LoginController', 
 function LoginController($scope, $location, ChatResource, UserService){
 
-	$scope.logininfo = "";
-	$scope.online = UserService.getOnlineStatus();
-	$scope.rooms = [];
+	$scope.logininfo 	= "";
+	$scope.online 		= UserService.getOnlineStatus();
+	$scope.rooms 		= [];
 
-	$scope.login = function() {
-		UserService.login($scope.username);
-
+	$scope.login = function () {
 		ChatResource.login($scope.username).then(function (available){
 			if(available) {
-				$scope.logininfo = "Welcome " + $scope.username + "!";
-				$scope.online = true;
-				// And redirect to the chat area
+				UserService.login($scope.username);
+
+				$scope.logininfo 	= "Welcome " + $scope.username + "!";
+				$scope.online 		= true;
 				$location.path('/chatrooms');
-			} else{ 
+			} else{  
 				$scope.logininfo = "Username " + "'" + $scope.username + "' " + "not available.";
 			}
 		});
@@ -24,8 +23,9 @@ function LoginController($scope, $location, ChatResource, UserService){
 
 	$scope.logout = function() {
 		UserService.logout();
-		$scope.online = false;
-		$location.path('/'); // redirect
 		ChatResource.logout();
+
+		$scope.online 	= false;
+		$location.path('/'); // redirect
 	};
 });
