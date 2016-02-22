@@ -51,14 +51,15 @@
 		<div ng-model="chatArea">
 
 		<ul>
-			<li ng-repeat="msg in roomMessages">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
+			<li ng-repeat="msg in roomMessages[joinedRoom]">[{{msg.time}}] - {{msg.nick}} says: {{msg.message}}</li>
 		</ul>
 
 		</div>
-		<form name="sendMsgForm">
+		<!--MOVED TEMPORARILY, see blow-->
+		<!--form name="sendMsgForm">
 		<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"></input>
 		<button ng-click="sendMessage()">Send</button>
-		</form name="sendMsgForm">
+		</form name="sendMsgForm"-->
 
 		</uib-tab>
 		<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}">
@@ -68,5 +69,20 @@
 		</uib-tab>
 	</uib-tabset>
 </div>
+<br>
+<!---Moved here temporarililily-->
+<form name="sendMsgForm">
+	<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"></input>
+	<button ng-click="sendMessage()">Send</button>
+</form name="sendMsgForm">
+
+
+<!--UNBANNING-->
+<button ng-click="unban()" ng-show="isOp">Unban</button>
+<form name="unbanForm" ng-show="isOp && unbanning" ng-model="unbanning">
+	<label for="unbanuser">Who do you want to unban?</label>
+	<input type="text" name="unbanuser" ng-model="unbanusername"></input>
+	<button ng-click="confirmUnban()">Confirm</button>
+</form name="unbanForm">
 <br>
 <button ng-click="leaveRoom()">Leave room</button>

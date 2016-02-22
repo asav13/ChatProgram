@@ -101,3 +101,6 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 	border: solid 1px #ccc;
 	background-color: #8fc0b4;
 }
+.help-block {
+	font-style: italic;
+}

@@ -22,7 +22,7 @@ function HomeController($scope, $location, ChatResource, UserService, $rootScope
 				};
 				//beginning of voodoo for getting a string out of this
 				for(var j in roomlist[i].users) {
-						allUsers.push(roomlist[i].users[j]);
+						allUsers.push(" " + roomlist[i].users[j]);
 				}
 				//if the roomlist[i].users object is not empty, we stringify the array
 				if(!angular.equals({}, roomlist[i].users)) 	{

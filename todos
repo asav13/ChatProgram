@@ -50,5 +50,5 @@ OTHER
 [x] settopic
 	Sets a "topic" for a room. Only an OP can perform this action.
  
-[ ] unban
+[x] unban
 	Reverts the "ban" operation.

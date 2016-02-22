@@ -5,6 +5,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 
 	$scope.online = UserService.getOnlineStatus();
 	$scope.joinError = false;
+	$scope.isCollapsed = true;
 	ChatResource.getRoomList();
 	
 	// When we get an "roomlist" event, we update the roomlist
@@ -75,6 +76,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 					$scope.joinError = false;
 					$rootScope.joinedRoom = newRoom;
 					$location.path("/chatrooms/" + newRoom.name);
+					ChatResource.getMessages(newRoom.name);
 					UserService.addRoom(newRoom);
 					UserService.addOpRoom(newRoom);
 				} else {
@@ -84,7 +86,8 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		}
 	};
 
-	$scope.join = function() {
+	$scope.join = function(chatroom) {
+		$scope.selectedRoom = chatroom;
 		var room = $scope.selectedRoom;
 		var roomObj = {
 			room: $scope.selectedRoom,
@@ -95,9 +98,10 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 				ChatResource.getRoomList();
 				$scope.joinError = false;
 				$rootScope.joinedRoom = room;
-				$location.path("/chatrooms/" + room.name);
+				$location.path("/chatrooms/" + room.room);
 				UserService.addRoom(room);
-				ChatResource.getRoomUsers(room.name);
+				ChatResource.getRoomUsers(room.room);
+				ChatResource.getMessages(room.room);
 
 
 			} else {
@@ -107,6 +111,7 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		});
 
 	};
+
 	ChatResource.on("roomUserlist", function(data){
 		if($rootScope.joinedRoom.users === undefined){
 			$rootScope.joinedRoom.users = {};

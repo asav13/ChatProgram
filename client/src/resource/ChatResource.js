@@ -124,8 +124,15 @@ function ChatResource($rootScope, $q) {
 			});
 		},
 
+		unban: function(unbanObj, callback) {
+			socket.emit("unban", unbanObj, function(data){
+				$rootScope.$apply(function () {
+					callback.apply(socket, [data]);
+				});
+			});
+		},
+
 		makeOp: function(opObj, callback) {
-			console.log("making op");
 			socket.emit("op", opObj, function(data){
 				$rootScope.$apply(function () {
 					callback.apply(socket, [data]);

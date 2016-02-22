@@ -7,10 +7,12 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.selectedUser = "";
 	$scope.someOneSelected = false;
 	$scope.isOp = false;
+	$scope.roomMessages = {};
 	$scope.usersUserIsChattingTo = [];
 	$scope.tabs = [];
 	$scope.privateMessages = [];
 	var room = UserService.getUserRoom();
+	$scope.unbanning = false;
 
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
@@ -38,12 +40,15 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.sendMessage = function () {
 		var msgInput = $scope.chatInput;
 		if(msgInput.length > 0) {
+
 			var roomName = $routeParams.name;
 			var date = new Date();
+
 			var message = {
 				roomName: 	roomName,
 				msg: 		msgInput
 			};
+
 			$scope.chatInput = "";
 			ChatResource.sendMsg(message);
 		}
@@ -180,15 +185,21 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		}
 	});
 
-	ChatResource.on("roomMessages", function(data, err){
-
-		if(data) { 
-			for(var i = 0; i < data.length; i++){
-				data[i].time = (data[i].timestamp).substring(11,19);
+	ChatResource.on("roommessageslist", function(data){
+		if(data && (UserService.getUserRoom !== null)){
+			var m = data[1];
+			if(data[0] === UserService.getUserRoom().room){
+				if(m) { 
+					for(var i = 0; i < m.length; i++){
+						m[i].time = (m[i].timestamp).substring(11,19);
+					}
+					var room = UserService.getUserRoom();
+					$rootScope.joinedRoom = room;
+					$scope.roomMessages[room] = m;
+				} else {
+					console.log("ERROR: Error while loading messages.");
+				}	
 			}
-			$scope.roomMessages = data;
-		} else {
-			console.log("ERROR: " + err);
 		}
 	});
 
@@ -329,7 +340,23 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 				console.log("ERROR: Error while deopping user");
 			}
 		});
-	};	
+	};
 
+	$scope.unban = function () {
+		$scope.unbanning = true;
+		$scope.confirmUnban = function () {
+			var username = $scope.unbanusername;
+			var unbanObj = {
+				user: username,
+				room: $routeParams.name
+			};
+			ChatResource.unban(unbanObj, function (data){
+				if(!data){
+					console.log("ERROR: Error while unbanning user");
+				}
+			});
+			$scope.unbanning = false;
+		};
+	};
 
 });
