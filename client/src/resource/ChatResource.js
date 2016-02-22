@@ -1,60 +1,47 @@
 "use strict";
 
 /**
-* This one takes care of communicating with the server, establishing 
-* a connection with io socket.
-* Maybe we don't need a seperate function for each, maybe just "emit" and "on",
-* and the commands ("adduser","rooms" etc) as paramters
-*
+* This service  takes care of communicating with the server, 
+* establishing a connection with io socket, emitting, and receiving events.
 */
 
 angular.module("chatApp").factory("ChatResource", 
 function ChatResource($rootScope, $q) {
-	// This should only be run once, according to DEB info it seems to work
+	
 	var socket = io.connect('http://localhost:8080');
 
 	return {
 		/* Called by LoginController */
-		login: function (username, callback) {
-			var deferred = $q.defer();
-			// Not 100% sure what rootscope is ...is this bad practice??
-			// needed it to save .username, coouldnt call apply in the controller
+		login: function (username) {
+			var deferred 			= $q.defer();
 			$rootScope.username 	= username;
 			$rootScope.login 		= true;
 			socket.emit("adduser", username, function(available) {
 				deferred.resolve(available);
-				});
-				return deferred.promise;
+			});
+			return deferred.promise;
 		},
 
 		logout: function () {
 			socket.emit("logout");
 		},
 
-		/* Called for example by LoginController when user has loged on */
 		getRoomList: function (callback) {
-			socket.emit("rooms", function(roomlist) {
-			// No need to do anything, will call on
-			});
+			socket.emit("rooms");
 		},
 
-		getRoomUsers: function (room, callback) {
-			socket.emit("roomUsers", room, function(data,err) {
-			// No need to do anything, will call on
-			});
+		getRoomUsers: function (room) {
+			socket.emit("roomUsers", room);
 		},
 
-		getMessages: function (room, callback) {
-			socket.emit("roomMessages", room, function(data,err) {
-			// No need to do anything, will call on
-			});
+		getMessages: function (room) {
+			socket.emit("roomMessages", room);
 		},
 
-		getPrivateMessages: function (message, callback) {							//VÉDÍS
-			socket.emit("roomPrivateMessages", message, function(data, err) {		//VÉDÍS
-																				//VÉDÍS
-			});																	//VÉDÍS
-		},																		//VÉDÍS
+		getPrivateMessages: function (message, callback) {
+			socket.emit("roomPrivateMessages", message, function(data, err) {
+			});
+		},
 
 		getUsers: function(callback) {
 			socket.emit("users", function(data) {
