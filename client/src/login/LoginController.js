@@ -26,12 +26,7 @@ function LoginController($scope, $location, ChatResource, UserService){
 	$scope.logout = function() {
 		UserService.logout();
 		$scope.online = false;
-		$location.path('/#'); // redirect
+		$location.path('/'); // redirect
 		ChatResource.logout();
-		/*{
-			console.log("DEB: After logout in login controller");
-			console.log(data);
-		});*/
-		//TODO logout server side
 	};
 });
