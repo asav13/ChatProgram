@@ -20,25 +20,20 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	$scope.private = false;
 
 	$scope.setSelectedUser = function (x) {
-		console.log("IN SET SELECTED USER");
-		console.log(x);
 		if(x !== undefined){
-			console.log('X ER ');
-			console.log(x);
 			var user = {};
 			user[x] = x;
 			$scope.selectedUser = x;
 			$scope.someOneSelected = true;
 		}
-		console.log("private: " + $scope.private);
-		console.log("public: " + $scope.public);
-		
-		$scope.private = true;
-		$scope.public = false;
 
-		console.log($scope.selectedUser);
-		console.log("private: " + $scope.private);
-		console.log("public: " + $scope.public);
+		if($scope.selectedUser !== ""){
+			$scope.private = true;
+			$scope.public = false;
+		} else {
+			$scope.private = false;
+			$scope.public = true;
+		}
 	};
 
 	$scope.setSelectedUserNone = function () {

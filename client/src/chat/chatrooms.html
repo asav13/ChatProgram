@@ -71,14 +71,14 @@
 	<!---Moved here temporarililily-->
 	<div ng-show="public">
 		<form name="sendMsgForm">
-			<input type="text" ng-model="chatInput" placeholder="Write message here..." maxlength="200"/>
+			<input type="text" ng-model="chatInput" placeholder="Write public message" maxlength="200"/>
 			<button ng-click="sendMessage()">Send</button>
 		</form>
 	</div>
 
 	<div ng-show="private">
 		<form name="sendPmForm">
-			<input type="text" ng-model="pmInput" placeholder="Write message here..." maxlength="200"/>
+			<input type="text" ng-model="pmInput" placeholder="Write private message to {{selectedUser}}" maxlength="200"/>
 			<button ng-click="sendPrivateMessage()">Send PM</button>
 		</form>
 	</div>
