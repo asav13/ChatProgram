@@ -1,5 +1,0 @@
-Go to user preferences and add the following, makes it easier to keep track
-of extra white space, ergo prettier code
-{
-	"draw_white_space": "all"
-}
