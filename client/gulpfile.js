@@ -2,9 +2,13 @@ var gulp 		= require('gulp'),
 	ngAnnotate 	= require('gulp-ng-annotate'),
 	uglify 		= require('gulp-uglify'),
 	concat 		= require('gulp-concat'),
-	jshint 		= require('gulp-jshint');
+	jshint 		= require('gulp-jshint'),
+	htmlhint 	= require("gulp-htmlhint"),
+	unusedCSS 	= require( 'gulp-check-unused-css' ),
+	validateCSS = require('gulp-w3c-css');
 
-gulp.task('all', function () {
+/* gulp build runs jshint and then makes app.min.js for us */
+gulp.task('build', function () {
 	return gulp.src('./src/**/*.js')
 		.pipe(jshint({
 			"curly":  true,
@@ -32,8 +36,8 @@ gulp.task('all', function () {
 		.pipe(gulp.dest('./build'));
 });
 
-
-gulp.task('hint', function () {
+/* gulp jshint only runs jshint */
+gulp.task('jshint', function () {
 	return gulp.src('./src/**/*.js')
 		.pipe(jshint({
 			"curly":  true,
@@ -54,4 +58,25 @@ gulp.task('hint', function () {
 				"io":      false
 			}
 		})).pipe(jshint.reporter('default'));
+});
+
+/* gulp htmlhint only runs htmlhint */
+gulp.task('htmlhint', function () {
+	return gulp.src('./src/**/*.html')
+		.pipe(htmlhint())
+		.pipe(htmlhint.reporter())
+});
+
+/* gulp unusedCSS finds unused css */
+gulp.task('unusedCSS', function () {
+	return gulp.src( './src/**/*.css')
+		.pipe(unusedCSS());
+});
+
+/* gulp css runs validate css and puts the result in ./build/css, 
+if the file generated is empty then there are no validation erros */
+gulp.task('css', function () {
+	return gulp.src('./src/**/*.css')
+	.pipe(validateCSS())
+	.pipe(gulp.dest("./build"));
 });
