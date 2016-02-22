@@ -1,23 +1,32 @@
 # ChatProgram
-
-You need node.js to run the server, and Python to run the client.
+## Installation and dependencies
+### Dependencies
 
 In order for everything to work properly one must first run:
 ```
 	npm install
 ```
-inside /client and /server to install neccessary dependencies.
+inside the /client folder and the /server folder. This takes care of installing neccessary dependencies.
 
-To start the chat program do the following:<br>
--Inside the /server folder run:
+### Run the server
+You need node.js to run the server. Inside the /server folder run:
 ```
 	node chatServer.js
 ```
--Inside the /client folder run:
+
+### Run the client
+You need <a href="https://www.python.org/downloads/">Python</a> to run the client. Inside the /client folder run the following command for Python 2:
 ```
 	python -m SimpleHTTPServer 8000
 ```
-Note that since we're using Python, we must have the index.html file inside the root folder
-.............can we fix this ?!
+or the following command for Python 3
+```
+	python -m http.server 8000
+```
+Note that since we're using Python, we must have the index.html file inside the root folder.
 
-Then open http://localhost:8000 in a browser to start the chat
+### Start the application
+Then open http://localhost:8000 while both server and client are running.
+```
+	explorer http://localhost:8000
+```
