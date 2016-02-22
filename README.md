@@ -7,6 +7,9 @@ Authors: asav13@ru.is, vedise13@ru.is, laurar14@ru.is
 A chat client written in AngularJS and using Socket.IO. A chat server was provided but modified slightly.<br>
 ## Installation and dependencies
 ### Dependencies
+There was one dependency that we could not use npm for, so we reference one CDN.
+The reason is that NPM did not install file versions for angular-bootstrap that we needed for a simple tab system.
+This was discussed with a teacher on the facebook page of the course.
 
 In order for everything to work properly one must first run:
 ```
