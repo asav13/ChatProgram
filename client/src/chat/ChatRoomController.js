@@ -3,21 +3,24 @@
 angular.module('chatApp').controller('ChatRoomController', 
 function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatResource, UserService){
 
-	$scope.online = UserService.getOnlineStatus();
-	$scope.myName = UserService.getUsername();
-	$scope.selectedUser = "";
-	$scope.someOneSelected = false;
-	$scope.isOp = false;
-	$scope.roomMessages = {};
-	$scope.usersUserIsChattingTo = [];
-	$scope.tabs = [];
-	$scope.newMsg = false;
-	$scope.privateMessages = [];
-	var room = UserService.getUserRoom();
-	$scope.unbanning = false;
+	$scope.online 					= UserService.getOnlineStatus();
+	$scope.myName 					= UserService.getUsername();
+	$scope.selectedUser 			= "";
+	$scope.someOneSelected 			= false;
+	$scope.isOp 					= false;
+	$scope.newMsg 					= false;
+	$scope.unbanning 				= false;
+	$scope.public 					= true;
+	$scope.private 					= false;
+	$scope.roomMessages 			= {};
+	$scope.usersUserIsChattingTo 	= [];
+	$scope.tabs 					= [];
+	$scope.privateMessages 			= [];
+	var room 						= UserService.getUserRoom();
+	
 
 	if(!$scope.online){
-		// You shouldn't be here silly.
+		// You shouldn't be here if you're not online, silly.
 		$location.path("/login");
 	} else{ 
 		// Making sure we old see msgs as soon as we enter.
@@ -25,15 +28,12 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		ChatResource.getRoomUsers($scope.joinedRoom.room);
 	}
 
-	$scope.public = true;
-	$scope.private = false;
-
 	$scope.setSelectedUser = function (x) {
 		if(x !== undefined){
-			var user = {};
-			user[x] = x;
-			$scope.selectedUser = x;
-			$scope.someOneSelected = true;
+			var user 				= {};
+			user[x] 				= x;
+			$scope.selectedUser 	= x;
+			$scope.someOneSelected 	= true;
 
 			for(var i = 0; i < $scope.tabs.length; i++) {
 				if($scope.tabs[i].title === $scope.selectedUser) {
@@ -43,28 +43,26 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 		}
 
 		if($scope.selectedUser !== ""){
-			$scope.private = true;
-			$scope.public = false;
+			$scope.private 	= true;
+			$scope.public 	= false;
 		} else {
-			$scope.private = false;
-			$scope.public = true;
+			$scope.private 	= false;
+			$scope.public 	= true;
 		}
 	};
 
 	$scope.setSelectedUserNone = function () {
-		$scope.public = true;
-		$scope.private = false;
-
-		$scope.selectedUser = "";
+		$scope.public 			= true;
+		$scope.private 			= false;
+		$scope.selectedUser 	= "";
 	};
-
 
 	$scope.leaveRoom = function () {
 		var roomName = $routeParams.name;
+		room 		= null;
 		ChatResource.leaveRoom(roomName);
 		$location.path("/chatrooms");
 		UserService.leaveRoom();
-		room = null;
 	};
 
 	if(room !== null){
@@ -72,28 +70,25 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			if($location.hash === "/chatrooms"){
 				return;
 			}
-			if(room === null){return;} // could have changed in meantime!
+			if(room === null){ return;} // could have changed in meantime! dont combine
 			
-			var roomName = room.name;
+			var roomName 	= room.name;
 			ChatResource.leaveRoom(roomName);
 			$location.path("/chatrooms");
 			UserService.leaveRoom();
-			room = null;
+			room 			= null;
 		});
 	}
 
 	$scope.sendMessage = function () {
-		var msgInput = $scope.chatInput;
+		var msgInput 	= $scope.chatInput;
 		if(msgInput.length > 0) {
-
-			var roomName = $routeParams.name;
-			var date = new Date();
-
-			var message = {
+			var roomName 	= $routeParams.name;
+			var date 		= new Date();
+			var message 	= {
 				roomName: 	roomName,
 				msg: 		msgInput
 			};
-
 			$scope.chatInput = "";
 			ChatResource.sendMsg(message);
 		}
@@ -102,13 +97,13 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	// This shit is connected to an unordered list in chatrooms.html
 	$scope.sendPrivateMessage = function () {
 		//var username = $scope.getUsername;
-		var username = $scope.selectedUser;
-		var msgInput = $scope.pmInput;
-		var time 	= new Date();
 		var messageToUser;
 		var messageFromUser;
-		time 		= time.toString();
-		time 		= time.substring(16, 24);
+		var username 	= $scope.selectedUser;
+		var msgInput 	= $scope.pmInput;
+		var time 		= new Date();
+		time 			= time.toString();
+		time 			= time.substring(16, 24);
 
 		if(msgInput !== null) {
 			messageToUser = {
@@ -319,25 +314,24 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	$scope.$watch("selectedUser", function () {
 
-		var currUser = UserService.getUsername();
-
-		$scope.someOneSelected = true;
+		var currUser 			= UserService.getUsername();
+		$scope.someOneSelected 	= true;
 		
 		if(UserService.getOpRoom() !== null){
-			$scope.isOp = true;
+			$scope.isOp 			= true;
 		}
 
 		if($scope.selectedUser === currUser){
 			$scope.someOneSelected = false;
-			$scope.isOp = false;
-			$scope.selectedUser = "";
+			$scope.isOp 			= false;
+			$scope.selectedUser 	= "";
 		}
 	});
 
 	$scope.kick = function () {
 		var kickObj = {
-			user: $scope.selectedUser,
-			room: $routeParams.name
+			user: 	$scope.selectedUser,
+			room: 	$routeParams.name
 		};
 		ChatResource.kick(kickObj, function (data){
 			if(!data){
@@ -349,8 +343,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	$scope.ban = function () {
 		var banObj = {
-			user: $scope.selectedUser,
-			room: $routeParams.name
+			user: 	$scope.selectedUser,
+			room: 	$routeParams.name
 		};
 		ChatResource.ban(banObj, function (data){
 			if(!data){
@@ -361,9 +355,9 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};
 
 	$scope.makeOp = function () {
-		var opObj = {
-			user: $scope.selectedUser,
-			room: $routeParams.name
+		var opObj 	= {
+			user: 	$scope.selectedUser,
+			room: 	$routeParams.name
 		};
 		ChatResource.makeOp(opObj, function (data){
 			ChatResource.getRoomUsers(opObj.room);
@@ -375,8 +369,8 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};
 	$scope.deOp = function () {
 		var deopObj = {
-			user: $scope.selectedUser,
-			room: $routeParams.name
+			user: 	$scope.selectedUser,
+			room: 	$routeParams.name
 		};
 		ChatResource.deOp(deopObj, function (data){
 			ChatResource.getRoomUsers(deopObj.room);
@@ -388,7 +382,7 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	};
 
 	$scope.unban = function () {
-		$scope.unbanning = true;
+		$scope.unbanning 	= true;
 		$scope.confirmUnban = function () {
 			var username = $scope.unbanusername;
 			var unbanObj = {
@@ -404,5 +398,4 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 			$scope.unbanning = false;
 		};
 	};
-
 });
