@@ -70,6 +70,9 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 	color: red;
 }
 
+.online {
+	color: #00ff00;
+}
 .chat_img {
 	border-left: solid #ddd 1px;
 	font-size: 9pt;
@@ -103,4 +106,23 @@ footer a:hover, footer a:active, footer a:hover, footer a:focus {
 }
 .help-block {
 	font-style: italic;
+}
+
+/*CHAT STARTUP*/
+
+.chatlist .well {
+	margin-bottom: 0;
+}
+.chatlist .form-control{
+	background-color: #6eaf9f;
+	color: #fff;
+	border-color: #55887C;
+
+}
+
+.chatlist .form-control:active, .chatlist .form-control:focus, .chatlist .form-control:hover {
+	background-color: #8fc0b4;
+	color: #fff;
+	border-color: #6eaf9f;
+
 }
