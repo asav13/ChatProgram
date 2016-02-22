@@ -8,6 +8,10 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 	$scope.isCollapsed = true;
 	ChatResource.getRoomList();
 	
+
+	if(!$scope.online){
+		$location.path("/login");
+	}
 	// When we get an "roomlist" event, we update the roomlist
 	ChatResource.on("roomlist", function (roomlist) {
 		if(roomlist){
