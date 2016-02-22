@@ -4,7 +4,7 @@
 			<img height="100" src="src/img/profile-user.png">
 			<form class="form-group margin-top" name="loginForm">
 				<div ng-hide="online">
-						<h3>Join Us</h3>
+					<h3>Join Us</h3>
 					<div class="input-group">
 						<input type="text" 
 							class="form-control"
@@ -21,19 +21,19 @@
 									ng-click="login()" 
 									ng-show="loginForm.$valid">Create
 							</button>
-						</span>					
+						</span>
 					</div>
 					<small class="help-block error">{{logininfo}}</small>
 					<small class="help-block" ng-show="loginForm.$invalid">*A valid username includes only letters and digits.</small>
-				</div>			
+				</div>
 				<div ng-show="online">
 					<h3>Hi {{username}}!</h3>
 					<button class="btn btn-default" ng-click="go('/chatrooms/')">Chatrooms</button>
 					<button class="btn btn-default" ng-click="logout()">Log out</button>
 				</div>
-			</form>		
+			</form>
 		</div>
-		<div class="text-center bottom-well"></div>		
+		<div class="text-center bottom-well"></div>
 		<br>
 	</div>
 </div>
