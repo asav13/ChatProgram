@@ -2,8 +2,8 @@ var myApp = angular.module("chatApp", ["ngRoute", "ui.bootstrap"]);
 
 //controller for the template layout
 myApp.controller('LayoutController', 
-function($scope, $location, $rootScope,	ChatResource, UserService) {
-	
+function LayoutController($scope, $location, $rootScope) {
+
 	$scope.navbarCollapsed = true;
 	$rootScope.go = function ( path ) {
   	 	$location.path( path );
