@@ -15,6 +15,9 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	var room = UserService.getUserRoom();
 	$scope.unbanning = false;
 
+	if(!$scope.online){
+		$location.path("/login");
+	}
 
 
 	$scope.public = true;
@@ -226,7 +229,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	ChatResource.on("kicked", function(data,err){
 		// second parameter is username
 		if(data[1] === UserService.getUsername()){
-			alert("You've been kicked out of the room by " + data[2] +". Behave!");
 			$location.path("/chatrooms");
 		}
 	});
@@ -234,7 +236,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 	ChatResource.on("banned", function(data){
 		// second parameter is username
 		if(data[1] === UserService.getUsername()){
-			alert("You've been banned from the room by " + data[2] +". Behave!");
 			$location.path("/chatrooms");
 		}
 	});
@@ -242,7 +243,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	ChatResource.on("opped", function(data){
 		if(data[1] === UserService.getUsername()){
-			alert("You've been opped by " + data[2] +"!");
 			$scope.isOp = true;
 			var currRoom = $rootScope.joinedRoom;
 			UserService.addOpRoom(currRoom);
@@ -251,7 +251,6 @@ function ChatRoomController($scope, $rootScope, $routeParams, $location, ChatRes
 
 	ChatResource.on("deopped", function(data){
 		if(data[1] === UserService.getUsername()){
-			alert("You've been deopped by " + data[2] +". Sorry!");
 			$scope.isOp = false;
 			var currRoom = $rootScope.joinedRoom;
 			UserService.addOpRoom(currRoom);

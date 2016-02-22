@@ -3,9 +3,9 @@
 angular.module('chatApp').controller('ChatController', 
 function ChatController($scope, $rootScope, $routeParams, $location, ChatResource, UserService){
 
-	$scope.online = UserService.getOnlineStatus();
-	$scope.joinError = false;
-	$scope.isCollapsed = true;
+	$scope.online 		= UserService.getOnlineStatus();
+	$scope.joinError 	= false;
+	$scope.isCollapsed 	= true;
 	ChatResource.getRoomList();
 	
 
@@ -136,6 +136,6 @@ function ChatController($scope, $rootScope, $routeParams, $location, ChatResourc
 		for(var u in data){
 			$rootScope.joinedRoom.users[u]=u;
 		}
-	});	
+	});
 
 });
